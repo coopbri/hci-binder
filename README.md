@@ -5,7 +5,3 @@
 ### Usage
 
 Launch an instance here: https://mybinder.org/v2/gh/coopbri/hci-binder/master
-
-### Notes
-
-- Binder is agnostic to various configuration file formats; YAML is one of many format options.
