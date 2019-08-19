@@ -352,7 +352,7 @@
 
       function newBoulder() {
         initialpos = true;
-        var b = svg.append("circle")
+        var b = svg.insert("circle", ":first-child")
           .attr("fill", "darkgray")
           .attr("stroke", "black")
           .attr("r", bouldersize)
