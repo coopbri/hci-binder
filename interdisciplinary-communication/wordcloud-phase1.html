@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <title>D3 Word Cloud</title>
+
+    <!-- load D3 -->
+    <script src="../lib/d3.min.js"></script>
+
+    <!-- Script below courtesy of Jason Davies: -->
+    <!-- Copyright (c) 2013, Jason Davies. All rights reserved. -->
+    <script src="../lib/d3.layout.cloud.js"></script>
+
+    <!-- uncomment below to load D3 from internet -->
+    <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
+
+    <!-- global styles -->
+    <style>
+      body { font-family: Helvetica; }
+      svg  { font-family: Impact;
+             -moz-user-select: none;
+             -webkit-user-select: none;
+             -ms-user-select: none;
+             user-select: none;
+           }
+      p, a {
+        font-family: helvetica, sans-serif;
+        padding: 0 2px;
+      }
+      #copyright p,a {
+        display: inline;
+        font-size: 12px;
+        color: gray;
+      }
+    </style>
+  </head>
+
+  <body>
+    <svg width="960" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(480,300)"><text text-anchor="middle" transform="translate(330,15)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 90px; font-family: Impact; fill: rgb(206, 219, 156);">Data</text><text text-anchor="middle" transform="translate(191,22)" style="font-size: 100px; font-family: Impact; fill: rgb(82, 84, 163);"></text><text text-anchor="middle" transform="translate(237,-144)rotate(10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 80px; font-family: Impact; fill: rgb(107, 110, 207);">Spatial</text><text text-anchor="middle" transform="translate(-19,-200)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 72px; font-family: Impact; fill: rgb(156, 158, 222);">Geospatial</text><text text-anchor="middle" transform="translate(-35,4)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 71px; font-family: Impact; fill: rgb(99, 121, 57);">Computational</text><text text-anchor="middle" transform="translate(161,-92)rotate(20)scale(1,1)" style="font-size: 71px; font-family: Impact; fill: rgb(140, 162, 82);">literacy</text><text text-anchor="middle" transform="translate(215,109)rotate(-20)" style="font-size: 67px; font-family: Impact; fill: rgb(181, 207, 107);">Information</text><text text-anchor="middle" transform="translate(-220,-112)rotate(0)" style="font-size: 66px; font-family: Impact; fill: rgb(206, 219, 156);">Big</text><text text-anchor="middle" transform="translate(-37,178)rotate(20)" style="font-size: 66px; font-family: Impact; fill: rgb(140, 109, 49);">Computing</text><text text-anchor="middle" transform="translate(-273,-14)rotate(-20)scale(1,1)" style="font-size: 66px; font-family: Impact; fill: rgb(189, 158, 57);">Parallel</text><text text-anchor="middle" transform="translate(-26,-60)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 63px; font-family: Impact; fill: rgb(231, 203, 148);">learning</text><text text-anchor="middle" transform="translate(-242,148)rotate(-20)" style="font-size: 62px; font-family: Impact; fill: rgb(206, 109, 189);">areas</text><text text-anchor="middle" transform="translate(264,200)rotate(20)" style="font-size: 61px; font-family: Impact; fill: rgb(214, 97, 107);">Science</text><text text-anchor="middle" transform="translate(-110,84)rotate(10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 60px; font-family: Impact; fill: rgb(123, 65, 115);">may</text><text text-anchor="middle" transform="translate(-324,-56)rotate(-20)" style="font-size: 58px; font-family: Impact; fill: rgb(206, 109, 189);">cyber</text><text text-anchor="middle" transform="translate(-6,71)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 58px; font-family: Impact; fill: rgb(222, 158, 214);">GIS</text><text text-anchor="middle" transform="translate(174,212)rotate(20)" style="font-size: 57px; font-family: Impact; fill: rgb(82, 84, 163);">new</text><text text-anchor="middle" transform="translate(-300,-164)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 55px; font-family: Impact; fill: rgb(107, 110, 207);">core</text><text text-anchor="middle" transform="translate(-3,241)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 39px; font-family: Impact; fill: rgb(214, 97, 107);">well</text><text text-anchor="middle" transform="translate(128,250)rotate(20)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 150, 156);">key</text><text text-anchor="middle" transform="translate(-37,-257)rotate(0)scale(1,1)" style="font-size: 49px; font-family: Impact; fill: rgb(99, 121, 57);">used</text><text text-anchor="middle" transform="translate(177,1)rotate(-20)" style="font-size: 44px; font-family: Impact; fill: rgb(107, 110, 207);">way</text><text text-anchor="middle" transform="translate(-269,-238)rotate(0)scale(1,1)" style="font-size: 64px; font-family: Impact; fill: rgb(231, 186, 82);">technologies</text><text text-anchor="middle" transform="translate(357,175)rotate(10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 54px; font-family: Impact; fill: rgb(165, 81, 148);">many</text><text text-anchor="middle" transform="translate(93,25)rotate(-20)" style="font-size: 51px; font-family: Impact; fill: rgb(181, 207, 107);">area</text><text text-anchor="middle" transform="translate(-135,205)rotate(20)" style="font-size: 59px; font-family: Impact; fill: rgb(165, 81, 148);">models</text><text text-anchor="middle" transform="translate(289,-229)rotate(0)scale(1,1)" style="font-size: 62px; font-family: Impact; fill: rgb(132, 60, 57);">Geographic</text><text text-anchor="middle" transform="translate(404,219)rotate(10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 39px; font-family: Impact; fill: rgb(123, 65, 115);">task</text><text text-anchor="middle" transform="translate(-404,-152)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 39px; font-family: Impact; fill: rgb(123, 65, 115);">time</text><text text-anchor="middle" transform="translate(-410,9)rotate(-20)" style="font-size: 32px; font-family: Impact; fill: rgb(173, 73, 74);">rich</text><text text-anchor="middle" transform="translate(349,120)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 57px; font-family: Impact; fill: rgb(57, 59, 121);">process</text><text text-anchor="middle" transform="translate(400,-131)rotate(20)" style="font-size: 44px; font-family: Impact; fill: rgb(132, 60, 57);">need</text><text text-anchor="middle" transform="translate(348,-64)rotate(-20)scale(1,1)" style="font-size: 49px; font-family: Impact; fill: rgb(231, 186, 82);">ability</text><text text-anchor="middle" transform="translate(-395,-189)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 46px; font-family: Impact; fill: rgb(206, 219, 156);">focus</text><text text-anchor="middle" transform="translate(-319,256)rotate(0)scale(1,1)" style="font-size: 36px; font-family: Impact; fill: rgb(140, 162, 82);">tool</text><text text-anchor="middle" transform="translate(-322,73)rotate(10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 60px; font-family: Impact; fill: rgb(231, 150, 156);">problem</text><text text-anchor="middle" transform="translate(-363,111)rotate(10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 48px; font-family: Impact; fill: rgb(222, 158, 214);">matrix</text><text text-anchor="middle" transform="translate(-369,-108)rotate(10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 48px; font-family: Impact; fill: rgb(181, 207, 107);">skills</text><text text-anchor="middle" transform="translate(-384,171)rotate(0)" style="font-size: 48px; font-family: Impact; fill: rgb(107, 110, 207);">using</text><text text-anchor="middle" transform="translate(415,251)rotate(0)scale(1,1)" style="font-size: 36px; font-family: Impact; fill: rgb(206, 109, 189);">space</text><text text-anchor="middle" transform="translate(-61,-110)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 57px; font-family: Impact; fill: rgb(206, 109, 189);">Thinking</text><text text-anchor="middle" transform="translate(-318,219)rotate(-10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 57px; font-family: Impact; fill: rgb(140, 109, 49);">different</text><text text-anchor="middle" transform="translate(415,41)rotate(0)scale(1,1)" style="font-size: 39px; font-family: Impact; fill: rgb(107, 110, 207);">types</text><text text-anchor="middle" transform="translate(-234,-200)rotate(20)scale(1,1)" style="font-size: 36px; font-family: Impact; fill: rgb(57, 59, 121);">units</text><text text-anchor="middle" transform="translate(283,-106)rotate(10)scale(0.9999999999999999,0.9999999999999999)" style="font-size: 32px; font-family: Impact; fill: rgb(156, 158, 222);">serve</text><text text-anchor="middle" transform="translate(114,81)rotate(-20)" style="font-size: 62px; font-family: Impact; fill: rgb(173, 73, 74);">knowledge</text><text text-anchor="middle" transform="translate(-199,249)rotate(0)" style="font-size: 51px; font-family: Impact; fill: rgb(206, 109, 189);">systems</text><text text-anchor="middle" transform="translate(368,-192)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 186, 82);">within</text><text text-anchor="middle" transform="translate(273,244)rotate(10)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 203, 148);">make</text><text text-anchor="middle" transform="translate(42,-180)rotate(-10)" style="font-size: 39px; font-family: Impact; fill: rgb(132, 60, 57);">range</text><text text-anchor="middle" transform="translate(-99,-154)rotate(-10)" style="font-size: 39px; font-family: Impact; fill: rgb(82, 84, 163);">access</text><text text-anchor="middle" transform="translate(-401,-75)rotate(-20)" style="font-size: 32px; font-family: Impact; fill: rgb(206, 219, 156);">place</text>
+      </g>
+    </svg>
+
+    <script>
+      var body = d3.select("body");
+      var activep1 = true;
+
+      // first phase of activity
+      function phaseOne() {
+        var unknown = [];
+        var u_count = unknown.length;
+
+        var list = body.append("p").attr("id", "list1");
+
+        d3.selectAll("text").on("click", function() {
+          var cur = this.innerHTML;
+
+          if (activep1) {
+            // deselect word if already selected
+            if (unknown.includes(cur)) {
+              d3.select(this).style("stroke", "none").style("opacity", 1);
+              // remove word from array
+              unknown = unknown.filter(function(item) { return item !== cur; });
+              list.text("Selected: " + unknown.join(', '));
+              u_count--;
+              // else, select and store word
+            } else {
+              if (u_count < 3) {
+                unknown.push(cur);
+                list.text("Selected: " + unknown.join(', '));
+                d3.select(this).style("stroke", "red").style("opacity", 0.4);
+                u_count++;
+              }
+            }
+
+            // display message after three words selected
+            if (u_count >= 3) {
+              activep1 = false;
+
+              // send data to parent (notebook)
+              parent.postMessage(unknown, "*");
+
+              body.append("p").style("color", "white")
+                .text("It can be difficult to have conversations, discussions, and dialogue with people from academic domains we don’t understand.")
+                .transition().style("color", "green").duration(2000);
+            }
+          }
+        });
+      }
+
+      // display copyright notice
+      body.append("br");
+      var copyright = body.append("div").attr("id", "copyright");
+      copyright.append("p").text("Uses Jason Davies' D3 Cloud library: ");
+      copyright.append("a").attr("href", "https://github.com/jasondavies/d3-cloud")
+        .text("https://github.com/jasondavies/d3-cloud");
+      copyright.append("br");
+      copyright.append("p").text("Copyright (c) 2013, Jason Davies. All rights reserved.");
+
+      // initiate phase one
+      phaseOne();
+    </script>
+  </body>
+</html>
