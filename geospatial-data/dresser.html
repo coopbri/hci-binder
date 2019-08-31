@@ -20,7 +20,12 @@
 
   <body>
     <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 280" width="600" height="600">
-      <defs><style>.cls-1{fill:#eef0d9;}.cls-2{fill:#fcffe7;}</style></defs>
+      <defs>
+        <style>
+          .cls-1{ fill:#eef0d9; }
+          .cls-2{ fill:#fcffe7; }
+        </style>
+      </defs>
       <rect class="cls-1" x="12.34" y="15.9" width="355.33" height="237.28"/>
       <path d="M367.16,16.4V252.67H12.84V16.4H367.16m1-1H11.84V253.67H368.16V15.4Z"/>
       <polygon class="cls-1" points="12.34 275.04 12.34 253.08 34.03 253.08 24.62 275.04 12.34 275.04"/>
@@ -89,10 +94,19 @@
 
     <script>
       var body = d3.select("body");
+      var svg = d3.select("svg");
 
-      d3.selectAll(".correct").on("click", function() {
-        console.log("Success!");
-      })
+      var correct = d3.selectAll(".correct").on("click", function() {
+        // draw side of drawer
+        svg.append("rect")
+          .attr("width", 12).attr("height", 50)
+          .attr("x", 191).attr("y", 120)
+          .attr("fill", " #4d2600").attr("stroke", "black")
+          .attr("transform", "skewY(20)");
+
+        // "pull"
+        correct.attr("transform", "translate(10,10)");
+      });
 
       body.append("p")
         .style("color", "red")
