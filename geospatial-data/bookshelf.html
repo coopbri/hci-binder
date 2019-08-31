@@ -35,13 +35,13 @@
         if (x > 352) {
           if (y > 0 && y < 138) {
             console.log("Nice!");
-            success(x, y);
+            success();
           }
         }
       });
 
       // success animation
-      function success(x, y) {
+      function success() {
         svg.append("text").text("Nice!")
           .classed("success", true)
           .attr("x", 400)
