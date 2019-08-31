@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 280" width="600" height="600">
+    <svg id="dresser" data-name="dresser" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 280" width="600" height="600">
       <defs>
         <style>
           .cls-1{ fill:#eef0d9; }
@@ -94,18 +94,41 @@
 
     <script>
       var body = d3.select("body");
-      var svg = d3.select("svg");
+      var svg = d3.select("#dresser");
+      var open = false;
+
+      // draw side of drawer
+      var side = svg.append("rect")
+        .attr("width", 12).attr("height", 50)
+        .attr("x", 191).attr("y", 120)
+        .attr("fill", " #4d2600").attr("stroke", "black")
+        .attr("transform", "skewY(20)")
+        .style("display", "none");
+
+      // draw hippo
+      var hippo = svg.append("image").attr("xlink:href", "hippo.svg")
+        .attr("width", 90).attr("height", 80)
+        .attr("x", 270).attr("y", 105)
+        .style("display", "none");
 
       var correct = d3.selectAll(".correct").on("click", function() {
-        // draw side of drawer
-        svg.append("rect")
-          .attr("width", 12).attr("height", 50)
-          .attr("x", 191).attr("y", 120)
-          .attr("fill", " #4d2600").attr("stroke", "black")
-          .attr("transform", "skewY(20)");
+        if (!open) {
+          side.style("display", null);
+          hippo.style("display", null);
 
-        // "pull"
-        correct.attr("transform", "translate(10,10)");
+          // "pull" drawer
+          correct.attr("transform", "translate(10,10)");
+
+          open = true;
+        } else {
+          side.style("display", "none");
+          hippo.style("display", "none");
+
+          // "push" drawer
+          correct.attr("transform", "translate(0,0)");
+
+          open = false;
+        }
       });
 
       body.append("p")
