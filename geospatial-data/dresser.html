@@ -96,6 +96,7 @@
       var body = d3.select("body");
       var svg = d3.select("#dresser");
       var open = false;
+      var done = false;
 
       // draw side of drawer
       var side = svg.append("rect")
@@ -113,23 +114,53 @@
 
       var correct = d3.selectAll(".correct").on("click", function() {
         if (!open) {
+          // show side and hippo
           side.style("display", null);
           hippo.style("display", null);
 
           // "pull" drawer
           correct.attr("transform", "translate(10,10)");
 
+          // display message if first completion
+          if (!done) {
+            success();
+            done = true;
+          }
+
+          // open drawer
           open = true;
         } else {
+          // hide side and hippo
           side.style("display", "none");
           hippo.style("display", "none");
 
           // "push" drawer
           correct.attr("transform", "translate(0,0)");
 
+          // close drawer
           open = false;
         }
       });
+
+      // success animation
+      function success() {
+        svg.append("text").text("Nice!")
+          .classed("success", true)
+          .attr("x", 180)
+          .attr("y", 175)
+          .attr("fill", "lime")
+          .attr("fill-opacity", 0)
+          .attr("stroke", "black")
+          .attr("stroke-width", 1.2)
+          .attr("stroke-opacity", 0)
+          .attr("font-size", 40)
+          .transition().duration(800)
+            .attr("fill-opacity", 1)
+            .attr("stroke-opacity", 1)
+          .transition().duration(1500)
+            .attr("fill-opacity", 0)
+            .attr("stroke-opacity", 0);
+      }
     </script>
   </body>
 </html>
