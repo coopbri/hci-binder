@@ -131,10 +131,10 @@
 
           // prevent out of bounds
           if (d3.event.x < 0) {
-            d3.select(this).select("rect").attr("x", 5);
+            cur.select("rect").attr("x", 5);
 
             var xval = 0;
-            switch(d3.select(this).select("rect").attr("id")) {
+            switch(cur.select("rect").attr("id")) {
               case "ans1box":
                 xval = 19;
                 break;
@@ -147,13 +147,13 @@
               default:
                 break;
             }
-            d3.select(this).select("text").attr("x", xval);
+            cur.select("text").attr("x", xval);
           }
           if (d3.event.x > 1000) {
-            d3.select(this).select("rect").attr("x", 800);
+            cur.select("rect").attr("x", 800);
 
             var xval = 0;
-            switch(d3.select(this).select("rect").attr("id")) {
+            switch(cur.select("rect").attr("id")) {
               case "ans1box":
                 xval = 814;
                 break;
@@ -166,15 +166,94 @@
               default:
                 break;
             }
-            d3.select(this).select("text").attr("x", xval);
+            cur.select("text").attr("x", xval);
           }
           if (d3.event.y < 0) {
-            d3.select(this).select("rect").attr("y", 5);
-            d3.select(this).select("text").attr("y", 39);
+            cur.select("rect").attr("y", 5);
+            cur.select("text").attr("y", 39);
           }
           if (d3.event.y > 300) {
-            d3.select(this).select("rect").attr("y", 240);
-            d3.select(this).select("text").attr("y", 274);
+            cur.select("rect").attr("y", 240);
+            cur.select("text").attr("y", 274);
+          }
+
+          // check if near slot 1
+          if (cur.select("rect").attr("x") > 5 && cur.select("rect").attr("x") < 45) {
+            if (cur.select("rect").attr("y") > 180 && cur.select("rect").attr("y") <  220) {
+              // snap rectangle to slot 1
+              cur.select("rect").attr("x", 25);
+              cur.select("rect").attr("y", 200);
+
+              // snap text to slot 1
+              var xval = 0;
+              switch(cur.select("rect").attr("id")) {
+                case "ans1box":
+                  xval = 39;
+                  break;
+                case "ans2box":
+                  xval = 48;
+                  break;
+                case "ans3box":
+                  xval = 52;
+                  break;
+                default:
+                  break;
+              }
+              cur.select("text").attr("x", xval);
+              cur.select("text").attr("y", 234);
+            }
+          }
+          // check if near slot 2
+          if (cur.select("rect").attr("x") > 277 && cur.select("rect").attr("x") < 317) {
+            if (cur.select("rect").attr("y") > 180 && cur.select("rect").attr("y") <  220) {
+              // snap rectangle to slot 2
+              cur.select("rect").attr("x", 297);
+              cur.select("rect").attr("y", 200);
+
+              // snap text to slot 2
+              var xval = 0;
+              switch(cur.select("rect").attr("id")) {
+                case "ans1box":
+                  xval = 311;
+                  break;
+                case "ans2box":
+                  xval = 320;
+                  break;
+                case "ans3box":
+                  xval = 324;
+                  break;
+                default:
+                  break;
+              }
+              cur.select("text").attr("x", xval);
+              cur.select("text").attr("y", 234);
+            }
+          }
+          // check if near slot 3
+          if (cur.select("rect").attr("x") > 550 && cur.select("rect").attr("x") < 590) {
+            if (cur.select("rect").attr("y") > 180 && cur.select("rect").attr("y") <  220) {
+              // snap rectangle to slot 3
+              cur.select("rect").attr("x", 570);
+              cur.select("rect").attr("y", 200);
+
+              // snap text to slot 3
+              var xval = 0;
+              switch(cur.select("rect").attr("id")) {
+                case "ans1box":
+                  xval = 584;
+                  break;
+                case "ans2box":
+                  xval = 593;
+                  break;
+                case "ans3box":
+                  xval = 597;
+                  break;
+                default:
+                  break;
+              }
+              cur.select("text").attr("x", xval);
+              cur.select("text").attr("y", 234);
+            }
           }
         });
       drag(d3.selectAll(".ans"));
