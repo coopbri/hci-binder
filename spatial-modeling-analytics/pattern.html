@@ -297,6 +297,9 @@
       body.append("button").text("Reset")
         .style("margin-right", "20px")
         .on("click", function() {
+          // clear message
+          d3.select("#message").text("");
+
           // reset positions
           d3.select("#ans1").select("rect")
             .attr("x", 800).attr("y", 20);
