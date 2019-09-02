@@ -127,6 +127,26 @@
             .attr("y", d3.event.y + tdy);
         });
       drag(d3.selectAll(".ans"));
+
+      body.append("br");
+      body.append("button").text("Reset")
+        .on("click", function() {
+          // reset positions
+          d3.select("#ans1").select("rect")
+            .attr("x", 800).attr("y", 20);
+          d3.select("#ans1").select("text")
+            .attr("x", 814).attr("y", 54);
+
+          d3.select("#ans2").select("rect")
+            .attr("x", 800).attr("y", 80);
+          d3.select("#ans2").select("text")
+            .attr("x", 823).attr("y", 114);
+
+          d3.select("#ans3").select("rect")
+            .attr("x", 800).attr("y", 140);
+          d3.select("#ans3").select("text")
+            .attr("x", 827).attr("y", 174);
+        });
     </script>
   </body>
 </html>
