@@ -60,9 +60,9 @@
 
 
       // boxes to drag
-      var g1 = svg.append("g").attr("id", "ans1");
-      var g2 = svg.append("g").attr("id", "ans2");
-      var g3 = svg.append("g").attr("id", "ans3");
+      var g1 = svg.append("g").attr("id", "ans1").attr("class", "ans");
+      var g2 = svg.append("g").attr("id", "ans2").attr("class", "ans");
+      var g3 = svg.append("g").attr("id", "ans3").attr("class", "ans");
 
       // answer 1
       g1.append("rect")
@@ -105,6 +105,28 @@
         .style("font-size", 28)
         .attr("x", +d3.select("#ans3box").attr("x") + 27)
         .attr("y", +d3.select("#ans3box").attr("y") + 34);
+
+
+      // shape drag functionality
+      var drag = d3.drag()
+        .on("start", function (d) {
+          var r = d3.select(this).select("rect");
+          rdx = r.attr("x") - d3.event.x;
+          rdy = r.attr("y") - d3.event.y;
+
+          var t = d3.select(this).select("text");
+          tdx = t.attr("x") - d3.event.x;
+          tdy = t.attr('y') - d3.event.y;
+        })
+        .on("drag", function() {
+          d3.select(this).select("rect")
+            .attr("x", d3.event.x + rdx)
+            .attr("y", d3.event.y + rdy);
+          d3.select(this).select("text")
+            .attr("x", d3.event.x + tdx)
+            .attr("y", d3.event.y + tdy);
+        });
+      drag(d3.selectAll(".ans"));
     </script>
   </body>
 </html>
