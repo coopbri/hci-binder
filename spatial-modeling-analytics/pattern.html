@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <title>D3 Neighborhood Proximity</title>
+
+    <!-- load D3 -->
+    <script src="https://rawcdn.githack.com/coopbri/hci-binder/362464110b5273593e9fdd1dc1c0ae3e4f1da224/lib/d3.min.js"></script>
+
+    <!-- global styles -->
+    <style>
+      body   { font-family: helvetica, sans-serif;
+               -moz-user-select: none;
+               -webkit-user-select: none;
+               -ms-user-select: none;
+               user-select: none; }
+      line   { stroke: greenyellow;
+               stroke-linecap: round;
+               stroke-width: 4px;
+             }
+      button { padding: 5px; }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      var body = d3.select("body");
+      var svg = body.append("svg")
+        .attr("width", 1000)
+        .attr("height", 300);
+
+      svg.append("image").attr("href", "https://rawcdn.githack.com/coopbri/hci-binder/3b7ee5de5e8456d1d6ac8c249fd8705c91506411/spatial-modeling-analytics/sma-image-9.png");
+
+      // slots to fill
+      svg.append("rect")
+        .attr("id", "box1")
+        .style("fill", "white")
+        .style("stroke", "black")
+        .style("stroke-width", "3.5px")
+        .attr("width", 150).attr("height", 50)
+        .attr("x", 25).attr("y", 200)
+        .attr("rx", 8).attr("ry", 8);
+      svg.append("rect")
+        .attr("id", "box2")
+        .style("fill", "white")
+        .style("stroke", "black")
+        .style("stroke-width", "3.5px")
+        .attr("width", 150).attr("height", 50)
+        .attr("x", 297).attr("y", 200)
+        .attr("rx", 8).attr("ry", 8);
+      svg.append("rect")
+        .attr("id", "box3")
+        .style("fill", "white")
+        .style("stroke", "black")
+        .style("stroke-width", "3.5px")
+        .attr("width", 150).attr("height", 50)
+        .attr("x", 570).attr("y", 200)
+        .attr("rx", 8).attr("ry", 8);
+
+
+      // boxes to drag
+      var g1 = svg.append("g").attr("id", "ans1");
+      var g2 = svg.append("g").attr("id", "ans2");
+      var g3 = svg.append("g").attr("id", "ans3");
+
+      // answer 1
+      g1.append("rect")
+        .attr("id", "ans1box")
+        .style("fill", "white")
+        .style("stroke", "black")
+        .style("stroke-width", "3.5px")
+        .attr("width", 150).attr("height", 50)
+        .attr("x", 800).attr("y", 20)
+        .attr("rx", 8).attr("ry", 8);
+      g1.append("text").text("Clustered")
+        .style("font-size", 28)
+        .attr("x", +d3.select("#ans1box").attr("x") + 14)
+        .attr("y", +d3.select("#ans1box").attr("y") + 34);
+
+      // answer 2
+      g2.append("rect")
+        .attr("id", "ans2box")
+        .style("fill", "white")
+        .style("stroke", "black")
+        .style("stroke-width", "3.5px")
+        .attr("width", 150).attr("height", 50)
+        .attr("x", 800).attr("y", 80)
+        .attr("rx", 8).attr("ry", 8);
+      g2.append("text").text("Random")
+        .style("font-size", 28)
+        .attr("x", +d3.select("#ans2box").attr("x") + 23)
+        .attr("y", +d3.select("#ans2box").attr("y") + 34);
+
+      // answer 3
+      g3.append("rect")
+        .attr("id", "ans3box")
+        .style("fill", "white")
+        .style("stroke", "black")
+        .style("stroke-width", "3.5px")
+        .attr("width", 150).attr("height", 50)
+        .attr("x", 800).attr("y", 140)
+        .attr("rx", 8).attr("ry", 8);
+      g3.append("text").text("Regular")
+        .style("font-size", 28)
+        .attr("x", +d3.select("#ans3box").attr("x") + 27)
+        .attr("y", +d3.select("#ans3box").attr("y") + 34);
+    </script>
+  </body>
+</html>
