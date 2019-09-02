@@ -244,59 +244,59 @@
 
       // reset activity
       function reset() {
-          // reset shape positions
-          d3.select("#circle")
-            .attr("x", 435)
-            .attr("y", 0);
-          d3.select("#star")
-            .attr("x", 485)
-            .attr("y", 0);
-          d3.select("#square")
-            .attr("x", 535)
-            .attr("y", 0);
-          d3.select("#hexagon")
-            .attr("x", 435)
-            .attr("y", 50);
-          d3.select("#diamond")
-            .attr("x", 485)
-            .attr("y", 50);
-          d3.select("#ellipse")
-            .attr("x", 535)
-            .attr("y", 50);
-          d3.select("#triangle")
-            .attr("x", 435)
-            .attr("y", 100);
-          d3.select("#pentagon")
-            .attr("x", 485)
-            .attr("y", 100);
-          d3.select("#decagon")
-            .attr("x", 535)
-            .attr("y", 100);
+        // reset shape positions
+        d3.select("#circle")
+          .attr("x", 435)
+          .attr("y", 0);
+        d3.select("#star")
+          .attr("x", 485)
+          .attr("y", 0);
+        d3.select("#square")
+          .attr("x", 535)
+          .attr("y", 0);
+        d3.select("#hexagon")
+          .attr("x", 435)
+          .attr("y", 50);
+        d3.select("#diamond")
+          .attr("x", 485)
+          .attr("y", 50);
+        d3.select("#ellipse")
+          .attr("x", 535)
+          .attr("y", 50);
+        d3.select("#triangle")
+          .attr("x", 435)
+          .attr("y", 100);
+        d3.select("#pentagon")
+          .attr("x", 485)
+          .attr("y", 100);
+        d3.select("#decagon")
+          .attr("x", 535)
+          .attr("y", 100);
 
-          // clear success messages
-          d3.selectAll(".success").style("fill-opacity", 0);
+        // clear success messages
+        d3.selectAll(".success").style("fill-opacity", 0);
 
-          // enable dragging
-          d3.selectAll(".shape").call(drag);
-        }
+        // enable dragging
+        d3.selectAll(".shape").call(drag);
+      }
 
-        // reset button
-        svg.append("rect")
-          .style("fill", "skyblue")
-          .style("stroke", "black")
-          .style("stroke-width", "1.5px")
-          .attr("rx", 8)
-          .attr("ry", 8)
-          .attr("width", 60)
-          .attr("height", 25)
-          .attr("x", 520)
-          .attr("y", 385)
-          .on("click", function() { reset(); });
-        svg.append("text").text("Reset")
-          .style("font-size", 16)
-          .attr("x", 529)
-          .attr("y", 403)
-          .on("click", function() { reset(); });
+      // reset button
+      svg.append("rect")
+        .style("fill", "skyblue")
+        .style("stroke", "black")
+        .style("stroke-width", "1.5px")
+        .attr("rx", 8)
+        .attr("ry", 8)
+        .attr("width", 60)
+        .attr("height", 25)
+        .attr("x", 520)
+        .attr("y", 385)
+        .on("click", function() { reset(); });
+      svg.append("text").text("Reset")
+        .style("font-size", 16)
+        .attr("x", 529)
+        .attr("y", 403)
+        .on("click", function() { reset(); });
     </script>
   </body>
 </html>
