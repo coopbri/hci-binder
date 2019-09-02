@@ -125,10 +125,68 @@
           d3.select(this).select("text")
             .attr("x", d3.event.x + tdx)
             .attr("y", d3.event.y + tdy);
+        })
+        .on("end", function() {
+          var cur = d3.select(this);
+
+          // prevent out of bounds
+          if (d3.event.x < 0) {
+            d3.select(this).select("rect").attr("x", 5);
+
+            var xval = 0;
+            switch(d3.select(this).select("rect").attr("id")) {
+              case "ans1box":
+                xval = 19;
+                break;
+              case "ans2box":
+                xval = 28;
+                break;
+              case "ans3box":
+                xval = 32;
+                break;
+              default:
+                break;
+            }
+            d3.select(this).select("text").attr("x", xval);
+          }
+          if (d3.event.x > 1000) {
+            d3.select(this).select("rect").attr("x", 800);
+
+            var xval = 0;
+            switch(d3.select(this).select("rect").attr("id")) {
+              case "ans1box":
+                xval = 814;
+                break;
+              case "ans2box":
+                xval = 823;
+                break;
+              case "ans3box":
+                xval = 827;
+                break;
+              default:
+                break;
+            }
+            d3.select(this).select("text").attr("x", xval);
+          }
+          if (d3.event.y < 0) {
+            d3.select(this).select("rect").attr("y", 5);
+            d3.select(this).select("text").attr("y", 39);
+          }
+          if (d3.event.y > 300) {
+            d3.select(this).select("rect").attr("y", 240);
+            d3.select(this).select("text").attr("y", 274);
+          }
         });
       drag(d3.selectAll(".ans"));
 
       body.append("br");
+
+      // check button
+      body.append("button").text("Check")
+        .style("margin-right", "10px")
+        // .on("click", function() { check(); });
+
+      // reset button
       body.append("button").text("Reset")
         .on("click", function() {
           // reset positions
@@ -147,6 +205,8 @@
           d3.select("#ans3").select("text")
             .attr("x", 827).attr("y", 174);
         });
+
+      body.append("p").attr("id", "message").text("Not quite!");
     </script>
   </body>
 </html>
