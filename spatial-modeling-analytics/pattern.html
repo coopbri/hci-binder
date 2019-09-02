@@ -20,6 +20,7 @@
                stroke-width: 4px;
              }
       button { padding: 5px; }
+      p      { display: inline; }
     </style>
   </head>
 
@@ -259,17 +260,29 @@
       drag(d3.selectAll(".ans"));
 
       function check() {
+        var correct = 0;
         if (+d3.select("#ans1").select("rect").attr("x") === 570 &&
             +d3.select("#ans1").select("rect").attr("y") === 200) {
               console.log("Cluster correct");
+              correct++;
         }
         if (+d3.select("#ans2").select("rect").attr("x") === 297 &&
             +d3.select("#ans2").select("rect").attr("y") === 200) {
               console.log("Random correct");
+              correct++;
         }
         if (+d3.select("#ans3").select("rect").attr("x") ===  25 &&
             +d3.select("#ans3").select("rect").attr("y") === 200) {
               console.log("Regular correct");
+              correct++;
+        }
+
+        if (correct >= 3) {
+          d3.select("#message").text("Well done! That is correct.")
+            .style("color", "#32C90F");
+        } else {
+          d3.select("#message").text("Not quite!")
+            .style("color", "#C9520F");
         }
       }
 
@@ -282,6 +295,7 @@
 
       // reset button
       body.append("button").text("Reset")
+        .style("margin-right", "20px")
         .on("click", function() {
           // reset positions
           d3.select("#ans1").select("rect")
@@ -300,7 +314,7 @@
             .attr("x", 827).attr("y", 174);
         });
 
-      body.append("p").attr("id", "message").text("Not quite!");
+      body.append("p").attr("id", "message");
     </script>
   </body>
 </html>
