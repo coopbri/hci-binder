@@ -258,12 +258,27 @@
         });
       drag(d3.selectAll(".ans"));
 
+      function check() {
+        if (+d3.select("#ans1").select("rect").attr("x") === 570 &&
+            +d3.select("#ans1").select("rect").attr("y") === 200) {
+              console.log("Cluster correct");
+        }
+        if (+d3.select("#ans2").select("rect").attr("x") === 297 &&
+            +d3.select("#ans2").select("rect").attr("y") === 200) {
+              console.log("Random correct");
+        }
+        if (+d3.select("#ans3").select("rect").attr("x") ===  25 &&
+            +d3.select("#ans3").select("rect").attr("y") === 200) {
+              console.log("Regular correct");
+        }
+      }
+
       body.append("br");
 
       // check button
       body.append("button").text("Check")
         .style("margin-right", "10px")
-        // .on("click", function() { check(); });
+        .on("click", function() { check(); });
 
       // reset button
       body.append("button").text("Reset")
