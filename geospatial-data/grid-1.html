@@ -140,27 +140,9 @@
 
         // bound checking
         switch(type) {
-          case "circle":
+          case "square":
             // top left cell
             if (x > 0 && x < 140 && y > 0 && y < 140) {
-              // prevent dragging
-              d3.select("#circle").on(".drag", null);
-              // initiate success animation
-              success(x, y);
-            }
-            break;
-          case "star":
-            // top middle cell
-            if (x > 140 && x < 280 && y > 0 && y < 140) {
-              // prevent dragging
-              d3.select("#star").on(".drag", null);
-              // initiate success animation
-              success(x, y);
-            }
-            break;
-          case "square":
-            // top right cell
-            if (x > 280 && x < 420 && y > 0 && y < 140) {
               // prevent dragging
               d3.select("#square").on(".drag", null);
               // initiate success animation
@@ -168,55 +150,73 @@
             }
             break;
           case "hexagon":
-            // middle left cell
-            if (x > 0 && x < 140 && y > 140 && y < 280) {
+            // top middle cell
+            if (x > 140 && x < 280 && y > 0 && y < 140) {
               // prevent dragging
               d3.select("#hexagon").on(".drag", null);
               // initiate success animation
               success(x, y);
             }
             break;
-          case "diamond":
-            // middle middle cell
-            if (x > 140 && x < 280 && y > 140 && y < 280) {
+          case "decagon":
+            // top right cell
+            if (x > 280 && x < 420 && y > 0 && y < 140) {
               // prevent dragging
-              d3.select("#diamond").on(".drag", null);
-              // initiate success animation
-              success(x, y);
-            }
-            break;
-          case "ellipse":
-            // middle right cell
-            if (x > 280 && x < 420 && y > 140 && y < 280) {
-              // prevent dragging
-              d3.select("#ellipse").on(".drag", null);
-              // initiate success animation
-              success(x, y);
-            }
-            break;
-          case "triangle":
-            // bottom left cell
-            if (x > 0 && x < 140 && y > 280 && y < 420) {
-              // prevent dragging
-              d3.select("#triangle").on(".drag", null);
+              d3.select("#decagon").on(".drag", null);
               // initiate success animation
               success(x, y);
             }
             break;
           case "pentagon":
-            // bottom middle cell
-            if (x > 140 && x < 280 && y > 280 && y < 420) {
+            // middle left cell
+            if (x > 0 && x < 140 && y > 140 && y < 280) {
               // prevent dragging
               d3.select("#pentagon").on(".drag", null);
               // initiate success animation
               success(x, y);
             }
             break;
-          case "decagon":
+          case "circle":
+            // middle middle cell
+            if (x > 140 && x < 280 && y > 140 && y < 280) {
+              // prevent dragging
+              d3.select("#circle").on(".drag", null);
+              // initiate success animation
+              success(x, y);
+            }
+            break;
+          case "star":
+            // middle right cell
+            if (x > 280 && x < 420 && y > 140 && y < 280) {
+              // prevent dragging
+              d3.select("#star").on(".drag", null);
+              // initiate success animation
+              success(x, y);
+            }
+            break;
+          case "ellipse":
+            // bottom left cell
+            if (x > 0 && x < 140 && y > 280 && y < 420) {
+              // prevent dragging
+              d3.select("#ellipse").on(".drag", null);
+              // initiate success animation
+              success(x, y);
+            }
+            break;
+          case "diamond":
+            // bottom middle cell
+            if (x > 140 && x < 280 && y > 280 && y < 420) {
+              // prevent dragging
+              d3.select("#diamond").on(".drag", null);
+              // initiate success animation
+              success(x, y);
+            }
+            break;
+          case "triangle":
             // bottom right cell
             if (x > 280 && x < 420 && y > 280 && y < 420) {
               // prevent dragging
-              d3.select("#decagon").on(".drag", null);
+              d3.select("#triangle").on(".drag", null);
               // initiate success animation
               success(x, y);
             }
