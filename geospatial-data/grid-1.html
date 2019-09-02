@@ -112,9 +112,6 @@
             .attr("y", d3.event.y + dy);
         }).on("end", function() {
           var cur = d3.select(this);
-          check(cur);
-        }).on("end", function() {
-          var cur = d3.select(this);
 
           // prevent out of bounds
           if (d3.event.x < 0) {
