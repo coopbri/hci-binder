@@ -30,6 +30,10 @@
 
     <script>
       var body = d3.select("body");
+
+      d3.selectAll("text").on("click", function() {
+        d3.select(this).style("stroke", "red").style("opacity", 0.4);
+      });
     </script>
   </body>
 </html>
