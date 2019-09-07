@@ -27,30 +27,41 @@
 
       var img = svg.append("image").attr("href", "https://rawcdn.githack.com/coopbri/hci-binder/3bcd481dec0affa32bca150638f761018a6dc74c/spatial-modeling-analytics/sma-image-4.png");
 
+      // highlighted box
+      var highlight = svg.append("rect")
+        .style("fill", "yellow")
+        .style("stroke", "black")
+        .style("stroke-width", 4)
+        .style("opacity", 0.4);
+
       img.on("click", function() {
         var x = d3.event.x;
         var y = d3.event.y;
-        // console.log("x: " + x);
-        // console.log("y: " + y);
 
         // top (0.5m)
         if (x > 370 && x < 497) {
           if (y > 50 && y < 130) {
-            console.log("0.5m");
+            highlight
+              .attr("x", 363).attr("y", 42)
+              .attr("width", 126).attr("height", 80);
           }
         }
 
         // bottom left (1.5m)
         if (x > 66 && x < 190) {
           if (y > 333 && y < 414) {
-            console.log("1.5m");
+            highlight
+              .attr("x", 59).attr("y", 326)
+              .attr("width", 126).attr("height", 79);
           }
         }
 
         // bottom right (2.5m)
         if (x > 496 && x < 631) {
           if (y > 348 && y < 432) {
-            console.log("2.5m");
+            highlight
+              .attr("x", 489).attr("y", 340)
+              .attr("width", 136).attr("height", 86);
           }
         }
       });
