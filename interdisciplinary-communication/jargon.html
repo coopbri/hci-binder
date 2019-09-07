@@ -16,23 +16,33 @@
              -ms-user-select: none;
              user-select: none;
            }
+      p    {
+        font-family: helvetica, sans-serif;
+        padding: 0 2px;
+      }
     </style>
   </head>
 
   <body>
-    <svg width="960" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg">
-      <g transform="translate(480,300)">
-        <text text-anchor="middle" transform="translate(50,15)rotate(-10)" style="font-size: 180px; font-family: Impact; fill: rgb(206, 109, 189);">
+    <svg width="600" height="300" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(300,200)">
+        <text text-anchor="middle" transform="rotate(-10)" style="font-size: 180px; font-family: Impact; fill: rgb(206, 109, 189);">
           Jargon
         </text>
       </g>
     </svg>
 
+    <p style="color: white">
+      <b>Jargon (noun):</b> language and terminology related to a specialized discipline or a group.
+    </p>
+
     <script>
       var body = d3.select("body");
 
-      d3.selectAll("text").on("click", function() {
+      d3.select("text").on("click", function() {
         d3.select(this).style("stroke", "red").style("opacity", 0.4);
+
+        d3.select("p").transition().style("color", "black").duration(2000);
       });
     </script>
   </body>
