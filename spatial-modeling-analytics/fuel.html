@@ -22,10 +22,38 @@
     <script>
       var body = d3.select("body");
       var svg = body.append("svg")
-        .attr("width", 1022)
-        .attr("height", 602);
+        .attr("width", 660)
+        .attr("height", 450);
 
-      svg.append("image").attr("href", "https://rawcdn.githack.com/coopbri/hci-binder/3bcd481dec0affa32bca150638f761018a6dc74c/spatial-modeling-analytics/sma-image-4.png");
+      var img = svg.append("image").attr("href", "https://rawcdn.githack.com/coopbri/hci-binder/3bcd481dec0affa32bca150638f761018a6dc74c/spatial-modeling-analytics/sma-image-4.png");
+
+      img.on("click", function() {
+        var x = d3.event.x;
+        var y = d3.event.y;
+        // console.log("x: " + x);
+        // console.log("y: " + y);
+
+        // top (0.5m)
+        if (x > 370 && x < 497) {
+          if (y > 50 && y < 130) {
+            console.log("0.5m");
+          }
+        }
+
+        // bottom left (1.5m)
+        if (x > 66 && x < 190) {
+          if (y > 333 && y < 414) {
+            console.log("1.5m");
+          }
+        }
+
+        // bottom right (2.5m)
+        if (x > 496 && x < 631) {
+          if (y > 348 && y < 432) {
+            console.log("2.5m");
+          }
+        }
+      });
     </script>
   </body>
 </html>
