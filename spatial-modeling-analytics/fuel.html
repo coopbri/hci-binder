@@ -76,16 +76,16 @@
       body.append("br");
       body.append("button").text("Check").on("click", function() {
         if (selected === null) {
-          d3.select("#message").text("Please click on a gas station first.");
+          d3.select("#message").style("color", "#C9520F").text("Please click on a gas station first.");
         } else {
           if (selected === 0) {
             d3.select("#message").style("color", "#32C90F").text("Nice job! That is correct.")
           } else {
-            d3.select("#message").text("Not quite!");
+            d3.select("#message").style("color", "#C9520F").text("Not quite!");
           }
         }
       });
-      body.append("p").attr("id", "message").style("color", "#C9520F");
+      body.append("p").attr("id", "message");
     </script>
   </body>
 </html>
