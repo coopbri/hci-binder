@@ -17,6 +17,7 @@
                user-select: none; }
       svg    { border: 2px solid gray; }
       button { padding: 5px; }
+      text   { pointer-events: none; }
     </style>
   </head>
 
@@ -28,6 +29,8 @@
       var svg = body.append("svg")
         .attr("width", grid_dim+170)
         .attr("height", grid_dim);
+      // number of correct shapes
+      correct = 0;
 
       // draw spatial grid
       svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/b045cd8dfd297b342e3290addad4b54462fce9fb/geospatial-data/grid-1.svg")
@@ -255,6 +258,28 @@
 
       // success animation
       function success(x, y) {
+        // check if all shapes are correct
+        if (correct >= 8) {
+          svg.append("text").text("Well done! You figured")
+            .classed("complete", true)
+            .attr("x", 425)
+            .attr("y", 190)
+            .attr("fill", "lime")
+            .attr("font-size", 16);
+          svg.append("text").text("out all of the shape")
+            .classed("complete", true)
+            .attr("x", 435)
+            .attr("y", 215)
+            .attr("fill", "lime")
+            .attr("font-size", 16);
+          svg.append("text").text("locations.")
+            .classed("complete", true)
+            .attr("x", 470)
+            .attr("y", 240)
+            .attr("fill", "lime")
+            .attr("font-size", 16);
+        }
+
         svg.append("text").text("Nice!")
           .classed("success", true)
           .attr("x", x-10)
@@ -267,11 +292,14 @@
             .attr("fill-opacity", 1)
           .transition().duration(1500)
             .attr("fill-opacity", 0);
+
+        correct++;
       }
 
       // retry animation
       function retry(x, y) {
         svg.append("text").text("Try again")
+          .classed("failure", true)
           .attr("x", x-42)
           .attr("y", y-10)
           .attr("fill", "tomato")
@@ -315,8 +343,10 @@
           .attr("x", 535)
           .attr("y", 100);
 
-        // clear success messages
+        // clear success and failure messages
         d3.selectAll(".success").style("fill-opacity", 0);
+        d3.selectAll(".failure").style("fill-opacity", 0);
+        d3.selectAll(".complete").text("");
 
         // enable dragging
         d3.selectAll(".shape").call(drag);
