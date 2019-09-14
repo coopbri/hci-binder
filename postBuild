@@ -1,2 +1,21 @@
 jupyter contrib nbextension install --user
 jupyter nbextension enable init_cell/main
+
+# Trust notebooks that auto-run code (init cells, etc.)
+jupyter trust big-data/bd-1.ipynb
+jupyter trust big-data/bd-2.ipynb
+jupyter trust computational-thinking/ct-1.ipynb
+jupyter trust computational-thinking/ct-2.ipynb
+jupyter trust cyberinfrastructure/cyberinfrastructure-1.ipynb
+jupyter trust cyberinfrastructure/cyberinfrastructure-2.ipynb
+jupyter trust geospatial-data/gd-1.ipynb
+jupyter trust geospatial-data/gd-2.ipynb
+jupyter trust interdisciplinary-communication/ic-1.ipynb
+jupyter trust interdisciplinary-communication/ic-2.ipynb
+jupyter trust spatial-modeling-analytics/sma-1.ipynb
+jupyter trust spatial-modeling-analytics/sma-2.ipynb
+jupyter trust spatial-modeling-analytics/sma-3.ipynb
+jupyter trust spatial-modeling-analytics/sma-4.ipynb
+jupyter trust spatial-modeling-analytics/sma-5.ipynb
+jupyter trust spatial-thinking/st-1.ipynb
+jupyter trust spatial-thinking/st-2.ipynb
