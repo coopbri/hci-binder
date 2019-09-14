@@ -78,10 +78,32 @@
       });
 
       function check() {
-        console.log(point);
-
         if (point >= 3) {
-          console.log("Nice!");
+          // draw line segments between points
+          svg.append("line")
+            .attr("x1", 145)
+            .attr("y1", 69)
+            .attr("x2", 270)
+            .attr("y2", 102)
+            .attr("stroke", "yellow")
+            .attr("stroke-width", 4);
+          svg.append("line")
+            .attr("x1", 270)
+            .attr("y1", 102)
+            .attr("x2", 365)
+            .attr("y2", 320)
+            .attr("stroke", "yellow")
+            .attr("stroke-width", 4);
+
+          // display success message
+          svg.append("text").text("Nice job! You found the hippo trajectory.")
+            .attr("x", 22)
+            .attr("y", 475)
+            .attr("fill", "yellow")
+            .attr("font-size", 28)
+            .transition().duration(600)
+              .attr("stroke-opacity", 1)
+              .attr("fill-opacity", 1);
         }
       }
     </script>
