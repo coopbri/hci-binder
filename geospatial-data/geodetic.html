@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <title>D3 Geodetic</title>
+
+    <!-- load D3 -->
+    <script src="https://rawcdn.githack.com/coopbri/hci-binder/362464110b5273593e9fdd1dc1c0ae3e4f1da224/lib/d3.min.js"></script>
+
+    <!-- global styles -->
+    <style>
+      body   { font-family: helvetica, sans-serif;
+               -moz-user-select: none;
+               -webkit-user-select: none;
+               -ms-user-select: none;
+               user-select: none; }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      var body = d3.select("body");
+      var svg = body.append("svg")
+        .attr("width", 600).attr("height", 400);
+      var img = svg.append("image")
+        .attr("href", "https://rawcdn.githack.com/coopbri/hci-binder/98bd90d69e4ca99e4ced078126a0a346da479683/geospatial-data/gd-image-6.png");
+    </script>
+  </body>
+</html>
