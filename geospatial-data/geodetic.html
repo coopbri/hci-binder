@@ -22,9 +22,39 @@
     <script>
       var body = d3.select("body");
       var svg = body.append("svg")
-        .attr("width", 600).attr("height", 400);
+        .attr("width", 600).attr("height", 500);
       var img = svg.append("image")
         .attr("href", "https://rawcdn.githack.com/coopbri/hci-binder/98bd90d69e4ca99e4ced078126a0a346da479683/geospatial-data/gd-image-6.png");
+
+      svg.on("click", function() {
+        var x = d3.event.x;
+        var y = d3.event.y;
+
+        if (x > 405 && x < 425) {
+          if (y > 219 && y < 239) {
+            svg.append("ellipse")
+              .attr("cx", 408)
+              .attr("cy", 223)
+              .attr("rx", 15)
+              .attr("ry", 15)
+              .attr("fill", "none")
+              .attr("stroke", "red")
+              .attr("stroke-width", "4px")
+
+            svg.append("text").text("Nice job! You found the hippos.")
+              .attr("x", 80)
+              .attr("y", 475)
+              .attr("fill", "lawngreen")
+              .attr("stroke", "black")
+              .attr("stroke-weight", 0.75)
+              .attr("font-size", 34)
+              .transition().duration(800)
+                .attr("stroke-opacity", 1)
+                .attr("fill-opacity", 1);
+          }
+        }
+
+      });
     </script>
   </body>
 </html>
