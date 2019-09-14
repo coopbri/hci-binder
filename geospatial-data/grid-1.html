@@ -147,6 +147,9 @@
               d3.select("#square").on(".drag", null);
               // initiate success animation
               success(x, y);
+            } else {
+              // initiate retry animation
+              retry(x, y);
             }
             break;
           case "hexagon":
@@ -156,6 +159,9 @@
               d3.select("#hexagon").on(".drag", null);
               // initiate success animation
               success(x, y);
+            } else {
+              // initiate retry animation
+              retry(x, y);
             }
             break;
           case "decagon":
@@ -165,6 +171,9 @@
               d3.select("#decagon").on(".drag", null);
               // initiate success animation
               success(x, y);
+            } else {
+              // initiate retry animation
+              retry(x, y);
             }
             break;
           case "pentagon":
@@ -174,6 +183,9 @@
               d3.select("#pentagon").on(".drag", null);
               // initiate success animation
               success(x, y);
+            } else {
+              // initiate retry animation
+              retry(x, y);
             }
             break;
           case "circle":
@@ -183,6 +195,9 @@
               d3.select("#circle").on(".drag", null);
               // initiate success animation
               success(x, y);
+            } else {
+              // initiate retry animation
+              retry(x, y);
             }
             break;
           case "star":
@@ -192,6 +207,9 @@
               d3.select("#star").on(".drag", null);
               // initiate success animation
               success(x, y);
+            } else {
+              // initiate retry animation
+              retry(x, y);
             }
             break;
           case "ellipse":
@@ -201,6 +219,9 @@
               d3.select("#ellipse").on(".drag", null);
               // initiate success animation
               success(x, y);
+            } else {
+              // initiate retry animation
+              retry(x, y);
             }
             break;
           case "diamond":
@@ -210,6 +231,9 @@
               d3.select("#diamond").on(".drag", null);
               // initiate success animation
               success(x, y);
+            } else {
+              // initiate retry animation
+              retry(x, y);
             }
             break;
           case "triangle":
@@ -219,6 +243,9 @@
               d3.select("#triangle").on(".drag", null);
               // initiate success animation
               success(x, y);
+            } else {
+              // initiate retry animation
+              retry(x, y);
             }
             break;
           default:
@@ -233,6 +260,21 @@
           .attr("x", x-10)
           .attr("y", y-10)
           .attr("fill", "lime")
+          .attr("fill-opacity", 0)
+          .attr("stroke", "none")
+          .attr("font-size", 30)
+          .transition().duration(800)
+            .attr("fill-opacity", 1)
+          .transition().duration(1500)
+            .attr("fill-opacity", 0);
+      }
+
+      // retry animation
+      function retry(x, y) {
+        svg.append("text").text("Try again")
+          .attr("x", x-42)
+          .attr("y", y-10)
+          .attr("fill", "tomato")
           .attr("fill-opacity", 0)
           .attr("stroke", "none")
           .attr("font-size", 30)
