@@ -265,19 +265,25 @@
             .attr("x", 425)
             .attr("y", 190)
             .attr("fill", "lime")
-            .attr("font-size", 16);
+            .attr("font-size", 16)
+            .transition().duration(800)
+              .attr("fill-opacity", 1);
           svg.append("text").text("out all of the shape")
             .classed("complete", true)
             .attr("x", 435)
             .attr("y", 215)
             .attr("fill", "lime")
-            .attr("font-size", 16);
+            .attr("font-size", 16)
+            .transition().duration(800)
+              .attr("fill-opacity", 1);
           svg.append("text").text("locations.")
             .classed("complete", true)
             .attr("x", 470)
             .attr("y", 240)
             .attr("fill", "lime")
-            .attr("font-size", 16);
+            .attr("font-size", 16)
+            .transition().duration(800)
+              .attr("fill-opacity", 1);
         }
 
         svg.append("text").text("Nice!")
