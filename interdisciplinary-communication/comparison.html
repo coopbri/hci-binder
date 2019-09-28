@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <title>D3 Jargon Comparison</title>
+
+    <!-- load D3 -->
+    <script src="https://rawcdn.githack.com/coopbri/hci-binder/362464110b5273593e9fdd1dc1c0ae3e4f1da224/lib/d3.min.js"></script>
+
+    <!-- global styles -->
+    <style>
+      body { font-family: Helvetica; }
+      svg  { font-family: Impact;
+             -moz-user-select: none;
+             -webkit-user-select: none;
+             -ms-user-select: none;
+             user-select: none;
+           }
+      p, a {
+        font-family: helvetica, sans-serif;
+        padding: 0 2px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      var body = d3.select("body");
+      var svg = body.append("svg")
+        .attr("width", 500)
+        .attr("height", 500);
+
+      // previous y-value for object swapping
+      var yPrev = 0;
+
+      // check if dragged object's y-value (yPrev) is stored
+      var yStored = false;
+
+      svg.append("rect")
+        .attr("width", 50)
+        .attr("height", 50)
+        .attr("y", 0)
+        .attr("fill", "red");
+      svg.append("rect")
+        .attr("width", 50)
+        .attr("height", 50)
+        .attr("y", 60)
+        .attr("fill", "blue");
+      svg.append("rect")
+        .attr("width", 50)
+        .attr("height", 50)
+        .attr("y", 120)
+        .attr("fill", "yellow");
+      svg.append("rect")
+        .attr("width", 50)
+        .attr("height", 50)
+        .attr("y", 180)
+        .attr("fill", "green");
+
+      var drag = d3.drag()
+        .on("drag", function() {
+
+          // if y-val not stored yet, store it
+          if (!yStored) {
+            yPrev = d3.select(this).attr("y");
+            yStored = true;
+          }
+
+          d3.select(this)
+            .attr("y", d3.event.y);
+        })
+        .on("end", function() {
+          // reset y-value storage bool
+          yStored = false;
+          d3.select(this)
+            .attr("y", snap(d3.event.y));
+        });
+
+      drag(d3.selectAll("rect"));
+
+      // snap dragged position
+      function snap(y) {
+        // top slot
+        if (y < 0) { y = 0; }
+        // second slot
+        else if (y > 180) { y = 180; }
+        // third slot
+        else if (y > 50 && y < 130) { y = 60; }
+        // bottom slot
+        else if (y > 130 && y < 190) { y = 120; }
+
+        // check if shape already in position, swap if so
+        var swap = d3.selectAll("rect").filter(function() {
+          return d3.select(this).attr("y") >= y-10
+              && d3.select(this).attr("y") <= y+10;
+        }).attr("y", yPrev);
+
+        return y;
+      }
+    </script>
+  </body>
+</html>
