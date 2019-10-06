@@ -124,8 +124,8 @@
         })
         .on("end", function() {
           d3.select(this)
-          .attr("y1", snap(d3.event.y))
-          .attr("y2", snap(d3.event.y));
+            .attr("y1", snap(d3.event.y))
+            .attr("y2", snap(d3.event.y));
 
           var s = d3.select("#slider").attr("y1");
 
