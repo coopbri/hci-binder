@@ -19,13 +19,13 @@
              user-select: none;
            }
       p    {
-        font-family: helvetica, sans-serif;
-        font-size: 12px;
-      }
-      div {
-        padding-top: 3px;
-        width: 950px;
-      }
+             font-family: helvetica, sans-serif;
+             font-size: 12px;
+           }
+      div  {
+             padding-top: 3px;
+             width: 950px;
+           }
     </style>
   </head>
 
@@ -42,24 +42,28 @@
       // check if dragged object's y-value (yPrev) is stored
       var yStored = false;
 
+      // presentation text type array (for random slot assignment)
+      var descriptors = ["j1-rich-precise.png", "j2-rich-detailed.png",
+                         "j3-light-long.png", "j4-none-direct.png"];
+
       // append sliding cards
       svg.append("image")
-        .attr("xlink:href", "j1-rich-precise.png")
+        .attr("xlink:href", rand())
         .attr("width", 150)
         .attr("height", 50)
         .attr("y", 0);
       svg.append("image")
-        .attr("xlink:href", "j2-rich-detailed.png")
+        .attr("xlink:href", rand())
         .attr("width", 150)
         .attr("height", 50)
         .attr("y", 60);
       svg.append("image")
-        .attr("xlink:href", "j3-light-long.png")
+        .attr("xlink:href", rand())
         .attr("width", 150)
         .attr("height", 50)
         .attr("y", 120);
       svg.append("image")
-        .attr("xlink:href", "j4-none-direct.png")
+        .attr("xlink:href", rand())
         .attr("width", 150)
         .attr("height", 50)
         .attr("y", 180);
@@ -103,14 +107,17 @@
               && d3.select(this).attr("y") <= y+10;
         }).attr("y", yPrev);
 
-        // d3.selectAll("image").filter(function() {
-        //   return d3.select(this).attr("y") != 0
-        //       && d3.select(this).attr("y") != 60
-        //       && d3.select(this).attr("y") != 120
-        //       && d3.select(this).attr("y") != 180;
-        // }).attr("y", 0);
-
         return y;
+      }
+
+      // select random image for jargon descriptor cards
+      function rand() {
+        // select random element
+        var r = descriptors[Math.floor(Math.random() * descriptors.length)];
+
+        // remove selected element from array
+        descriptors = descriptors.filter(function(item) { return item !== r; });
+        return r;
       }
     </script>
     <div>
