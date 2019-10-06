@@ -37,30 +37,29 @@
       // check if dragged object's y-value (yPrev) is stored
       var yStored = false;
 
-      svg.append("rect")
-        .attr("width", 50)
+      svg.append("image")
+        .attr("xlink:href", "j1-rich-precise.png")
+        .attr("width", 150)
         .attr("height", 50)
-        .attr("y", 0)
-        .attr("fill", "red");
-      svg.append("rect")
-        .attr("width", 50)
+        .attr("y", 0);
+      svg.append("image")
+        .attr("xlink:href", "j2-rich-detailed.png")
+        .attr("width", 150)
         .attr("height", 50)
-        .attr("y", 60)
-        .attr("fill", "blue");
-      svg.append("rect")
-        .attr("width", 50)
+        .attr("y", 60);
+      svg.append("image")
+        .attr("xlink:href", "j3-light-long.png")
+        .attr("width", 150)
         .attr("height", 50)
-        .attr("y", 120)
-        .attr("fill", "yellow");
-      svg.append("rect")
-        .attr("width", 50)
+        .attr("y", 120);
+      svg.append("image")
+        .attr("xlink:href", "j4-none-direct.png")
+        .attr("width", 150)
         .attr("height", 50)
-        .attr("y", 180)
-        .attr("fill", "green");
+        .attr("y", 180);
 
       var drag = d3.drag()
         .on("drag", function() {
-
           // if y-val not stored yet, store it
           if (!yStored) {
             yPrev = d3.select(this).attr("y");
@@ -77,7 +76,7 @@
             .attr("y", snap(d3.event.y));
         });
 
-      drag(d3.selectAll("rect"));
+      drag(d3.selectAll("image"));
 
       // snap dragged position
       function snap(y) {
@@ -91,7 +90,7 @@
         else if (y > 130 && y < 190) { y = 120; }
 
         // check if shape already in position, swap if so
-        var swap = d3.selectAll("rect").filter(function() {
+        var swap = d3.selectAll("image").filter(function() {
           return d3.select(this).attr("y") >= y-10
               && d3.select(this).attr("y") <= y+10;
         }).attr("y", yPrev);
