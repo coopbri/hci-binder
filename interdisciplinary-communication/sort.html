@@ -33,6 +33,21 @@
         .attr("y", 90)
         .attr("font-size", 26);
 
+      var drag = d3.drag()
+        .on("drag", function() {
+          d3.select(this)
+            .attr("x", d3.event.x)
+            .attr("y", d3.event.y);
+        })
+        .on("end", function() {
+          // reset y-value storage bool
+          d3.select(this)
+            .attr("x", d3.event.x)
+            .attr("y", d3.event.y);
+        });
+
+      drag(d3.selectAll("text"));
+
       // left bin: benefits/assets
       svg.append("rect")
         .attr("width", 250)
