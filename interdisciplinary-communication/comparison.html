@@ -86,20 +86,29 @@
 
       // snap dragged position
       function snap(y) {
-        // top slot
+        // above top slot
         if (y < 0) { y = 0; }
+        // top slot
+        else if (y > 0 && y < 50) { y = 0; }
         // second slot
-        else if (y > 180) { y = 180; }
-        // third slot
         else if (y > 50 && y < 130) { y = 60; }
-        // bottom slot
+        // third slot
         else if (y > 130 && y < 190) { y = 120; }
+        // below bottom slot
+        else if (y > 180) { y = 180; }
 
         // check if shape already in position, swap if so
         var swap = d3.selectAll("image").filter(function() {
           return d3.select(this).attr("y") >= y-10
               && d3.select(this).attr("y") <= y+10;
         }).attr("y", yPrev);
+
+        // d3.selectAll("image").filter(function() {
+        //   return d3.select(this).attr("y") != 0
+        //       && d3.select(this).attr("y") != 60
+        //       && d3.select(this).attr("y") != 120
+        //       && d3.select(this).attr("y") != 180;
+        // }).attr("y", 0);
 
         return y;
       }
