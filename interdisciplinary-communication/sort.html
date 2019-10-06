@@ -40,10 +40,18 @@
             .attr("y", d3.event.y);
         })
         .on("end", function() {
-          // reset y-value storage bool
-          d3.select(this)
-            .attr("x", d3.event.x)
-            .attr("y", d3.event.y);
+          // check solution for current word
+          var x = d3.select(this).attr("x");
+          var y = d3.select(this).attr("y");
+
+          // check solution: left bin
+          if (x >= 5 && x <= 255 && y <= 420 && y >= 170) {
+            checkLeft(this.innerHTML);
+          }
+          // check solution: right bin
+          if (x >= 270 && x <= 520 && y <= 420 && y >= 170) {
+            checkRight(this.innerHTML);
+          }
         });
 
       drag(d3.selectAll("text"));
@@ -67,6 +75,16 @@
         .attr("fill", "none")
         .attr("stroke", "red")
         .attr("stroke-width", "4px");
+
+      // left bin solution checking
+      function checkLeft(e) {
+        console.log("Left");
+      }
+
+      // right bin solution checking
+      function checkRight(e) {
+        console.log("Right");
+      }
     </script>
   </body>
 </html>
