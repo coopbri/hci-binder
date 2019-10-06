@@ -11,15 +11,20 @@
     <!-- global styles -->
     <style>
       body { font-family: Helvetica; }
-      svg  { font-family: Impact;
+      svg  { padding-top: 8px;
+             float: left;
              -moz-user-select: none;
              -webkit-user-select: none;
              -ms-user-select: none;
              user-select: none;
            }
-      p, a {
+      p    {
         font-family: helvetica, sans-serif;
-        padding: 0 2px;
+        font-size: 12px;
+      }
+      div {
+        padding-top: 3px;
+        width: 950px;
       }
     </style>
   </head>
@@ -28,8 +33,8 @@
     <script>
       var body = d3.select("body");
       var svg = body.append("svg")
-        .attr("width", 500)
-        .attr("height", 500);
+        .attr("width", 170)
+        .attr("height", 230);
 
       // previous y-value for object swapping
       var yPrev = 0;
@@ -37,6 +42,7 @@
       // check if dragged object's y-value (yPrev) is stored
       var yStored = false;
 
+      // append sliding cards
       svg.append("image")
         .attr("xlink:href", "j1-rich-precise.png")
         .attr("width", 150)
@@ -98,5 +104,19 @@
         return y;
       }
     </script>
+    <div>
+      <p style="padding-top:4px;">
+        Geographic information science (GIS) is the scientific discipline that studies data structures and computational techniques to capture, represent, process, and analyze geographic information.
+      </p>
+      <p style="padding-top:14px;">
+        Geographic information science (GIS) intersects with computer science, analytical cartography, remote sensing, and imagery science. Some of the most important work is in developing and documenting useful datasets for science, and interoperating between these datasets and various approaches. Paramount here are effective and open analysis, modeling, and replicability and reproducibility of approaches.
+      </p>
+      <p style="padding-top:14px;">
+        Geographic information science (GIS) consists of many different forms of knowledge and understanding. It considers fundamental questions raised by the use of systems and technologies, and is the science needed to keep technology progressing.
+      </p>
+      <p style="padding-top:26px;">
+        Geographic information science includes many fields of knowledge that help to understand spatial information.
+      </p>
+    </div>
   </body>
 </html>
