@@ -23,8 +23,35 @@
     <script>
       var body = d3.select("body");
       var svg = body.append("svg")
-        .attr("width", 500)
+        .attr("width", 550)
         .attr("height", 500);
+
+      // draggable word
+      svg.append("text")
+        .text("Sample")
+        .attr("x", 220)
+        .attr("y", 90)
+        .attr("font-size", 26);
+
+      // left bin: benefits/assets
+      svg.append("rect")
+        .attr("width", 250)
+        .attr("height", 250)
+        .attr("x", 5)
+        .attr("y", 170)
+        .attr("fill", "none")
+        .attr("stroke", "blue")
+        .attr("stroke-width", "4px");
+
+      // right bin: drawbacks/barriers
+      svg.append("rect")
+        .attr("width", 250)
+        .attr("height", 250)
+        .attr("x", 270)
+        .attr("y", 170)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", "4px");
     </script>
   </body>
 </html>
