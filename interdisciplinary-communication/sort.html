@@ -67,8 +67,6 @@
           }
         });
 
-      drag(d3.selectAll("text"));
-
       // left bin: benefits/assets
       svg.append("rect")
         .attr("width", 250)
@@ -91,19 +89,22 @@
 
       // draw term from "deck" for placement
       function drawCard() {
-        var card = svg.append("g");
+        // nested SVG for drag translation
+        var card = svg.append("svg").classed("card", true);
         card.append("rect")
           .attr("width", 200)
           .attr("height", 50)
           .attr("x", 160)
           .attr("y", 70)
-          .attr("fill", "none")
+          .attr("fill", "white")
           .attr("stroke", "black")
           .attr("stroke-width", "4px");
         card.append("text")
           .text("Isolating Non-Experts")
           .attr("x", 185)
           .attr("y", 100);
+
+        drag(d3.selectAll(".card"));
       }
 
       // left bin solution checking
