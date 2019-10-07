@@ -43,7 +43,8 @@
                    "Signaling Topic Familiarity"];
 
       // response message
-      var msg = body.append("p").text("Not quite!");
+      var msg = body.append("p").text("This is a work in progress! It does not work yet.")
+        .style("color", "red");
 
       var drag = d3.drag()
         .on("drag", function() {
