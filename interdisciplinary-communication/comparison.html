@@ -71,6 +71,10 @@
         .attr("y", 180);
 
       var drag = d3.drag()
+        .on("start", function () {
+          var cur = d3.select(this);
+          dy = cur.attr("y") - d3.event.y;
+        })
         .on("drag", function() {
           // if y-val not stored yet, store it
           if (!yStored) {
@@ -79,7 +83,7 @@
           }
 
           d3.select(this)
-            .attr("y", d3.event.y);
+            .attr("y", d3.event.y + dy);
         })
         .on("end", function() {
           // reset y-value storage bool
