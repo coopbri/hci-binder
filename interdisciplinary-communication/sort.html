@@ -47,23 +47,33 @@
         .style("color", "red");
 
       var drag = d3.drag()
+        .on("start", function () {
+          var cur = d3.select(this);
+          dx = cur.attr("x") - d3.event.x;
+          dy = cur.attr("y") - d3.event.y;
+        })
         .on("drag", function() {
           d3.select(this)
-            .attr("x", d3.event.x)
-            .attr("y", d3.event.y);
+            .attr("x", d3.event.x + dx)
+            .attr("y", d3.event.y + dy);
         })
+        // check solution for current word
         .on("end", function() {
-          // check solution for current word
+          d3.select(this)
+            .attr("x", d3.event.x + dx)
+            .attr("y", d3.event.y + dy);
+
           var x = d3.select(this).attr("x");
           var y = d3.select(this).attr("y");
+          var text = d3.select(this).select("text")._groups[0][0].innerHTML;
 
           // check solution: left bin
-          if (x >= 5 && x <= 255 && y <= 420 && y >= 170) {
-            checkLeft(this.innerHTML);
+          if (x >= -235 && x <= -20 && y <= 300 && y >= 50) {
+            checkLeft(text);
           }
           // check solution: right bin
-          if (x >= 270 && x <= 520 && y <= 420 && y >= 170) {
-            checkRight(this.innerHTML);
+          if (x >= 30 && x <= 230 && y <= 300 && y >= 50) {
+            checkRight(text);
           }
         });
 
@@ -104,6 +114,7 @@
           .attr("x", 185)
           .attr("y", 100);
 
+        // enable dragging of the card
         drag(d3.selectAll(".card"));
       }
 
