@@ -26,12 +26,24 @@
         .attr("width", 550)
         .attr("height", 500);
 
-      // draggable word
-      svg.append("text")
-        .text("Sample")
-        .attr("x", 220)
-        .attr("y", 90)
-        .attr("font-size", 26);
+      // possible terms to be sorted
+      var terms = ["Isolating Non-Experts",
+                   "Othering",
+                   "Confusion",
+                   "Excluding People Without Topic Knowledge",
+                   "Boredom",
+                   "Frustration",
+                   "Shutting Down Conversation",
+                   "Connection to Broader Literature",
+                   "Expressing Complexity Directly",
+                   "Connecting to Existing Conversations",
+                   "Shortening Extensive Background",
+                   "Indicating Subject Knowledge",
+                   "Simplifying Complex Ideas",
+                   "Signaling Topic Familiarity"];
+
+      // response message
+      var msg = body.append("p").text("Not quite!");
 
       var drag = d3.drag()
         .on("drag", function() {
@@ -76,45 +88,91 @@
         .attr("stroke", "red")
         .attr("stroke-width", "4px");
 
+      // draw term from "deck" for placement
+      function drawCard() {
+        var card = svg.append("g");
+        card.append("rect")
+          .attr("width", 200)
+          .attr("height", 50)
+          .attr("x", 160)
+          .attr("y", 70)
+          .attr("fill", "none")
+          .attr("stroke", "black")
+          .attr("stroke-width", "4px");
+        card.append("text")
+          .text("Isolating Non-Experts")
+          .attr("x", 180)
+          .attr("y", 50);
+      }
+
       // left bin solution checking
       function checkLeft(e) {
         if (e === "Isolating Non-Experts") {
-
+          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+        } else if (e === "Othering") {
+          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+        } else if (e === "Confusion") {
+          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+        } else if (e === "Excluding People Without Topic Knowledge") {
+          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+        } else if (e === "Boredom") {
+          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+        } else if (e === "Frustration") {
+          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+        } else if (e === "Shutting Down Conversation") {
+          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+        } else if (e === "Connection to Broader Literature") {
+          msg.text("Correct! Jargon allows us to connect to broader and bigger ideas in a domain.");
+        } else if (e === "Expressing Complexity Directly") {
+          msg.text("Correct! Jargon helps us to represent complex ideas with direct terminology and naming.");
+        } else if (e === "Connecting to Existing Conversations") {
+          msg.text("Correct! Jargon can connect us to existing conversations by using similar ideas, thoeries, or concepts across ideas.");
+        } else if (e === "Shortening Extensive Background") {
+          msg.text("Correct! Jargon can shorten the background information we need for a given conversation by quickly stating relevant ideas.");
+        } else if (e === "Indicating Subject Knowledge") {
+          msg.text("Correct! Jargon can be an indication of knowledge, allowing for representation of domain concepts and ideas.");
+        } else if (e === "Simplifying Complex Ideas") {
+          msg.text("Correct! Jargon can simplify complex ideas by summarizing conversations, theories, or domains in more direct terms.");
+        } else if (e === "Signaling Topic Familiarity") {
+          msg.text("Correct! Jargon provides a signal of familiarity for a topic, which could allow a conversation or collaboration to reach more advanced levels.");
         }
       }
 
       // right bin solution checking
       function checkRight(e) {
         if (e === "Isolating Non-Experts") {
-
+          msg.text("Correct! Isolation can occur often when jargon is used in the wrong context.");
         } else if (e === "Othering") {
-
+          msg.text("Correct! Othering, or making people feel like they don't belong, can occur when jargon is used in the wrong context.");
         } else if (e === "Confusion") {
-
+          msg.text("Correct! Confusion is certainly a possible outcome of using jargon.");
         } else if (e === "Excluding People Without Topic Knowledge") {
-
+          msg.text("Correct! People without expert topic knowledge are certainly excluded from conversations where jargon is used.");
         } else if (e === "Boredom") {
-
+          msg.text("Correct! Boredom can certainly occurr when jargon is overused.");
         } else if (e === "Frustration") {
-
+          msg.text("Correct! Frustration is a natural feeling when jargon is used and someone can't understand the topic at hand.");
         } else if (e === "Shutting Down Conversation") {
-
+          msg.text("Correct! Jargon can shut down a conversation by making participants feel unable to keep up with the terminology.");
         } else if (e === "Connection to Broader Literature") {
-
+          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
         } else if (e === "Expressing Complexity Directly") {
-
-        } else if (e === "") {
-
-        } else if (e === "") {
-
-        } else if (e === "") {
-
-        } else if (e === "") {
-
-        } else if (e === "") {
-
+          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+        } else if (e === "Connecting to Existing Conversations") {
+          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+        } else if (e === "Shortening Extensive Background") {
+          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+        } else if (e === "Indicating Subject Knowledge") {
+          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+        } else if (e === "Simplifying Complex Ideas") {
+          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+        } else if (e === "Signaling Topic Familiarity") {
+          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
         }
       }
+
+      // draw first card
+      drawCard();
     </script>
   </body>
 </html>
