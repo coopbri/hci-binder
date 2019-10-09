@@ -86,6 +86,12 @@
         .attr("fill", "none")
         .attr("stroke", "blue")
         .attr("stroke-width", "4px");
+      svg.append("text")
+        .text("Benefits/Assets")
+        .attr("x", 80)
+        .attr("y", 205)
+        .attr("fill", "blue")
+        .attr("font-size", 26);
 
       // right bin: drawbacks/barriers
       svg.append("rect")
@@ -96,6 +102,12 @@
         .attr("fill", "none")
         .attr("stroke", "red")
         .attr("stroke-width", "4px");
+      svg.append("text")
+        .text("Drawbacks/Barriers")
+        .attr("x", 395)
+        .attr("y", 205)
+        .attr("fill", "red")
+        .attr("font-size", 26);
 
       // draw term from "deck" for placement
       function drawCard() {
