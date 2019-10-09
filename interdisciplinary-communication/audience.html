@@ -10,12 +10,16 @@
 
     <!-- global styles -->
     <style>
-      body { font-family: Helvetica; }
-      svg  { -moz-user-select: none;
-             -webkit-user-select: none;
-             -ms-user-select: none;
-             user-select: none;
-           }
+      body  { font-family: Helvetica; }
+      svg   { -moz-user-select: none;
+              -webkit-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+              position: absolute;
+              z-index: -1;
+            }
+      .card { top: 30; }
+      p     { text-align: center; }
     </style>
   </head>
 
@@ -98,32 +102,36 @@
           var s = statements[Math.floor(Math.random() * statements.length)];
 
           // nested SVG for drag translation
-          var card = svg.append("svg").classed("card", true);
+          // var card = svg.append("svg").classed("card", true);
+          var card = body.append("div").classed("card", true);
 
           // while terms are still left in array, draw card
           if (statements && statements.length) {
-            // card frame
-            card.append("rect")
-              .classed("drawn", true)
-              .attr("width", 320)
-              .attr("height", 50)
-              .attr("x", 180)
-              .attr("y", 70)
-              .attr("fill", "white")
-              .attr("stroke", "black")
-              .attr("fill-opacity", 1)
-              .attr("stroke-opacity", 1)
-              .attr("stroke-width", "4px");
+            // // card frame
+            // card.append("rect")
+            //   .classed("drawn", true)
+            //   .attr("width", 320)
+            //   .attr("height", 50)
+            //   .attr("x", 180)
+            //   .attr("y", 70)
+            //   .attr("fill", "white")
+            //   .attr("stroke", "black")
+            //   .attr("fill-opacity", 1)
+            //   .attr("stroke-opacity", 1)
+            //   .attr("stroke-width", "4px");
+            //
+            // // card text
+            // card.append("text")
+            //   .classed("drawn", true)
+            //   .text(s)
+            //   .attr("text-anchor", "middle")
+            //   .attr("fill-opacity", 1)
+            //   .attr("stroke-opacity", 1)
+            //   .attr("x", 340)
+            //   .attr("y", 100);
 
-            // card text
-            card.append("text")
-              .classed("drawn", true)
-              .text(s)
-              .attr("text-anchor", "middle")
-              .attr("fill-opacity", 1)
-              .attr("stroke-opacity", 1)
-              .attr("x", 340)
-              .attr("y", 100);
+            card.append("p")
+              .text(s);
           } else {
             finish.transition().duration(800)
               .text("Your choice of words matters in this communication. Context is incredibly important for understanding the best way to communicate, and there are impacts of those choices in communicating with different audiences.")
