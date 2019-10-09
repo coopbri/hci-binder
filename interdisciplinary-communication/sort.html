@@ -99,19 +99,26 @@
 
       // draw term from "deck" for placement
       function drawCard() {
+        // draw random term from selection
+        var t = terms[Math.floor(Math.random() * terms.length)];
+
+        // remove selected element from array
+        terms = terms.filter(function(item) { return item !== t; });
+
         // nested SVG for drag translation
         var card = svg.append("svg").classed("card", true);
         card.append("rect")
-          .attr("width", 200)
+          .attr("width", 270)
           .attr("height", 50)
-          .attr("x", 160)
+          .attr("x", 120)
           .attr("y", 70)
           .attr("fill", "white")
           .attr("stroke", "black")
           .attr("stroke-width", "4px");
         card.append("text")
-          .text("Isolating Non-Experts")
-          .attr("x", 185)
+          .text(t)
+          .attr("text-anchor", "middle")
+          .attr("x", 260)
           .attr("y", 100);
 
         // enable dragging of the card
