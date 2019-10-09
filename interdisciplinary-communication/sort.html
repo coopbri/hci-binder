@@ -99,6 +99,12 @@
 
       // draw term from "deck" for placement
       function drawCard() {
+        d3.selectAll(".drawn")
+          .transition().duration(800)
+            .attr("fill-opacity", 0)
+            .attr("stroke-opacity", 0)
+          .remove();
+
         // draw random term from selection
         var t = terms[Math.floor(Math.random() * terms.length)];
 
@@ -107,19 +113,38 @@
 
         // nested SVG for drag translation
         var card = svg.append("svg").classed("card", true);
-        card.append("rect")
-          .attr("width", 270)
-          .attr("height", 50)
-          .attr("x", 120)
-          .attr("y", 70)
-          .attr("fill", "white")
-          .attr("stroke", "black")
-          .attr("stroke-width", "4px");
-        card.append("text")
-          .text(t)
-          .attr("text-anchor", "middle")
-          .attr("x", 260)
-          .attr("y", 100);
+
+        // if terms are still left in array
+        if (terms && terms.length) {
+          // card frame
+          card.append("rect")
+            .classed("drawn", true)
+            .attr("width", 270)
+            .attr("height", 50)
+            .attr("x", 120)
+            .attr("y", 70)
+            .attr("fill", "white")
+            .attr("stroke", "black")
+            .attr("fill-opacity", 1)
+            .attr("stroke-opacity", 1)
+            .attr("stroke-width", "4px");
+
+          // card text
+          card.append("text")
+            .classed("drawn", true)
+            .text(t)
+            .attr("text-anchor", "middle")
+            .attr("fill-opacity", 1)
+            .attr("stroke-opacity", 1)
+            .attr("x", 260)
+            .attr("y", 100);
+        } else {
+          // display congratulations message if everything has been sorted
+          setTimeout(function() {
+            msg.transition().duration(800).text("Congratulations! You've properly sorted each jargon outcome.")
+              .style("color", "#32C90F");
+          }, 1200);
+        }
 
         // enable dragging of the card
         drag(d3.selectAll(".card"));
@@ -128,66 +153,108 @@
       // left bin solution checking
       function checkLeft(e) {
         if (e === "Isolating Non-Experts") {
-          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a benefit or asset of using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Othering") {
-          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a benefit or asset of using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Confusion") {
-          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a benefit or asset of using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Excluding People Without Topic Knowledge") {
-          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a benefit or asset of using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Boredom") {
-          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a benefit or asset of using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Frustration") {
-          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a benefit or asset of using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Shutting Down Conversation") {
-          msg.text("No, this isn't a benefit or asset of using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a benefit or asset of using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Connection to Broader Literature") {
-          msg.text("Correct! Jargon allows us to connect to broader and bigger ideas in a domain.");
+          msg.transition().duration(800).text("Correct! Jargon allows us to connect to broader and bigger ideas in a domain.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Expressing Complexity Directly") {
-          msg.text("Correct! Jargon helps us to represent complex ideas with direct terminology and naming.");
+          msg.transition().duration(800).text("Correct! Jargon helps us to represent complex ideas with direct terminology and naming.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Connecting to Existing Conversations") {
-          msg.text("Correct! Jargon can connect us to existing conversations by using similar ideas, thoeries, or concepts across ideas.");
+          msg.transition().duration(800).text("Correct! Jargon can connect us to existing conversations by using similar ideas, thoeries, or concepts across ideas.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Shortening Extensive Background") {
-          msg.text("Correct! Jargon can shorten the background information we need for a given conversation by quickly stating relevant ideas.");
+          msg.transition().duration(800).text("Correct! Jargon can shorten the background information we need for a given conversation by quickly stating relevant ideas.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Indicating Subject Knowledge") {
-          msg.text("Correct! Jargon can be an indication of knowledge, allowing for representation of domain concepts and ideas.");
+          msg.transition().duration(800).text("Correct! Jargon can be an indication of knowledge, allowing for representation of domain concepts and ideas.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Simplifying Complex Ideas") {
-          msg.text("Correct! Jargon can simplify complex ideas by summarizing conversations, theories, or domains in more direct terms.");
+          msg.transition().duration(800).text("Correct! Jargon can simplify complex ideas by summarizing conversations, theories, or domains in more direct terms.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Signaling Topic Familiarity") {
-          msg.text("Correct! Jargon provides a signal of familiarity for a topic, which could allow a conversation or collaboration to reach more advanced levels.");
+          msg.transition().duration(800).text("Correct! Jargon provides a signal of familiarity for a topic, which could allow a conversation or collaboration to reach more advanced levels.")
+            .style("color", "#32C90F");
+          drawCard();
         }
       }
 
       // right bin solution checking
       function checkRight(e) {
         if (e === "Isolating Non-Experts") {
-          msg.text("Correct! Isolation can occur often when jargon is used in the wrong context.");
+          msg.transition().duration(800).text("Correct! Isolation can occur often when jargon is used in the wrong context.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Othering") {
-          msg.text("Correct! Othering, or making people feel like they don't belong, can occur when jargon is used in the wrong context.");
+          msg.transition().duration(800).text("Correct! Othering, or making people feel like they don't belong, can occur when jargon is used in the wrong context.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Confusion") {
-          msg.text("Correct! Confusion is certainly a possible outcome of using jargon.");
+          msg.transition().duration(800).text("Correct! Confusion is certainly a possible outcome of using jargon.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Excluding People Without Topic Knowledge") {
-          msg.text("Correct! People without expert topic knowledge are certainly excluded from conversations where jargon is used.");
+          msg.transition().duration(800).text("Correct! People without expert topic knowledge are certainly excluded from conversations where jargon is used.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Boredom") {
-          msg.text("Correct! Boredom can certainly occurr when jargon is overused.");
+          msg.transition().duration(800).text("Correct! Boredom can certainly occurr when jargon is overused.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Frustration") {
-          msg.text("Correct! Frustration is a natural feeling when jargon is used and someone can't understand the topic at hand.");
+          msg.transition().duration(800).text("Correct! Frustration is a natural feeling when jargon is used and someone can't understand the topic at hand.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Shutting Down Conversation") {
-          msg.text("Correct! Jargon can shut down a conversation by making participants feel unable to keep up with the terminology.");
+          msg.transition().duration(800).text("Correct! Jargon can shut down a conversation by making participants feel unable to keep up with the terminology.")
+            .style("color", "#32C90F");
+          drawCard();
         } else if (e === "Connection to Broader Literature") {
-          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a drawback or a barrier in using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Expressing Complexity Directly") {
-          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a drawback or a barrier in using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Connecting to Existing Conversations") {
-          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a drawback or a barrier in using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Shortening Extensive Background") {
-          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a drawback or a barrier in using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Indicating Subject Knowledge") {
-          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a drawback or a barrier in using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Simplifying Complex Ideas") {
-          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a drawback or a barrier in using jargon. Try again!")
+            .style("color", "red");
         } else if (e === "Signaling Topic Familiarity") {
-          msg.text("No, this isn't a drawback or a barrier in using jargon. Try again!");
+          msg.transition().duration(800).text("No, this isn't a drawback or a barrier in using jargon. Try again!")
+            .style("color", "red");
         }
       }
 
