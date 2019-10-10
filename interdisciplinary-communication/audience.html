@@ -64,24 +64,25 @@
             .attr("x", d3.event.x + dx)
             .attr("y", d3.event.y + dy);
 
-          var x = d3.select(this).attr("x");
-          var y = d3.select(this).attr("y");
+          var x = d3.select(".card").attr("x");
+          var y = d3.select(".card").attr("y");
+          console.log(x); console.log(y);
           var text = d3.select(this).select("text")._groups[0][0].innerHTML;
 
           // check solution: experts in the field
-          if (x >= 000 && x <= 000 && y <= 000 && y >= 000) {
+          if (x >= -590 && x <= -130 && y <= 350 && y >= 40) {
             checkEF(text);
           }
           // check solution: introductory class
-          if (x >= 000 && x <= 000 && y <= 000 && y >= 000) {
+          if (x >= 140 && x <= 580 && y <= 350 && y >= 40) {
             checkIC(text);
           }
           // check solution: casual conversation
-          if (x >= 000 && x <= 000 && y <= 000 && y >= 000) {
+          if (x >= -590 && x <= -130 && y <= 600 && y >= 300) {
             checkCC(text);
           }
           // check solution: experts in a different field
-          if (x >= 000 && x <= 000 && y <= 000 && y >= 000) {
+          if (x >= 140 && x <= 580 && y <= 600 && y >= 300) {
             checkEDF(text);
           }
         });
@@ -173,9 +174,9 @@
             // card frame
             card.append("rect")
               .classed("drawn", true)
-              .attr("width", 520)
-              .attr("height", 70)
-              .attr("x", 80)
+              .attr("width", 420)
+              .attr("height", 90)
+              .attr("x", 130)
               .attr("y", 60)
               .attr("fill", "white")
               .attr("stroke", "black")
@@ -197,14 +198,24 @@
             var s1 = " ";
             var s2 = " ";
             var s3 = " ";
-            for (i = 0; i < 8; i++) s1 += " " + s[i];
-            for (i = 8; i < 16; i++) {
+            var s4 = " ";
+            for (i = 0; i < 6; i++) {
+              s1 += " " + s[i];
+            }
+            for (i = 6; i < 12; i++) {
               if (s[i]) {
                 s2 += " " + s[i];
               }
             }
-            if (s.length >= 16) {
-              for (i = 16; i < s.length; i++) s3 += " " + s[i];
+            for (i = 12; i < 17; i++) {
+              if (s[i]) {
+                s3 += " " + s[i];
+              }
+            }
+            for (i = 17; i < s.length; i++) {
+              if (s[i]) {
+                s4 += " " + s[i];
+              }
             }
 
             // substring 1
@@ -222,6 +233,11 @@
               .text(s3)
               .attr("x", 340)
               .attr("dy", "20px");
+            // substring 4
+            text.append("tspan")
+              .text(s4)
+              .attr("x", 340)
+              .attr("dy", "20px");
           } else {
             finish.transition().duration(800)
               .text("Your choice of words matters in this communication. Context is incredibly important for understanding the best way to communicate, and there are impacts of those choices in communicating with different audiences.")
@@ -235,6 +251,27 @@
           drag(d3.selectAll(".card"));
         }
 
+        // top left bin solution checking
+        function checkEF(e) {
+          console.log("top left");
+        }
+
+        // top right bin solution checking
+        function checkIC(e) {
+          console.log("top right");
+        }
+
+        // bottom left bin solution checking
+        function checkCC(e) {
+          console.log("bottom left");
+        }
+
+        // bottom right bin solution checking
+        function checkEDF(e) {
+          console.log("bottom right");
+        }
+
+        // draw first card
         drawCard();
     </script>
   </body>
