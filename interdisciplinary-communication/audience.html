@@ -24,7 +24,7 @@
       var body = d3.select("body");
       var svg = body.append("svg")
         .attr("width", 700)
-        .attr("height", 500);
+        .attr("height", 700);
 
       // possible statements to be sorted
       var statements = ["We built this decision-tree method based on the stochastic nature of the underlying fundamentals of known spatio-temporal interactions between objects of this type and character.",
@@ -85,6 +85,74 @@
             checkEDF(text);
           }
         });
+
+        // top left bin: experts in the field
+        svg.append("rect")
+          .attr("width", 330)
+          .attr("height", 240)
+          .attr("x", 5)
+          .attr("y", 170)
+          .attr("fill", "none")
+          .attr("stroke", "blue")
+          .attr("stroke-width", "4px");
+        // bin title
+        svg.append("text")
+          .text("Experts in the Field")
+          .attr("x", 60)
+          .attr("y", 295)
+          .attr("fill", "blue")
+          .attr("font-size", 26);
+
+        // top right bin: Introductory Class
+        svg.append("rect")
+          .attr("width", 330)
+          .attr("height", 240)
+          .attr("x", 345)
+          .attr("y", 170)
+          .attr("fill", "none")
+          .attr("stroke", "red")
+          .attr("stroke-width", "4px");
+        // bin title
+        svg.append("text")
+          .text("Introductory Class")
+          .attr("x", 410)
+          .attr("y", 295)
+          .attr("fill", "red")
+          .attr("font-size", 26);
+
+        // bottom left bin: Casual Conversation
+        svg.append("rect")
+          .attr("width", 330)
+          .attr("height", 240)
+          .attr("x", 5)
+          .attr("y", 420)
+          .attr("fill", "none")
+          .attr("stroke", "yellow")
+          .attr("stroke-width", "4px");
+        // bin title
+        svg.append("text")
+          .text("Casual Conversation")
+          .attr("x", 50)
+          .attr("y", 540)
+          .attr("fill", "yellow")
+          .attr("font-size", 26);
+
+        // bottom right bin: Experts in a Different Field
+        svg.append("rect")
+          .attr("width", 330)
+          .attr("height", 240)
+          .attr("x", 345)
+          .attr("y", 420)
+          .attr("fill", "none")
+          .attr("stroke", "green")
+          .attr("stroke-width", "4px");
+        // bin title
+        svg.append("text")
+          .text("Experts in a Different Field")
+          .attr("x", 360)
+          .attr("y", 540)
+          .attr("fill", "green")
+          .attr("font-size", 26);
 
         // draw statement from "deck" for placement
         function drawCard() {
