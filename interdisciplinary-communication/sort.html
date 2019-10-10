@@ -80,6 +80,22 @@
           var y = d3.select(this).attr("y");
           var text = d3.select(this).select("text")._groups[0][0].innerHTML;
 
+          // prevent out of bounds
+          if (x < -175) {
+            d3.select(this).attr("x", -175);
+            checkLeft(text);
+          }
+          if (x > 175) {
+            d3.select(this).attr("x", 175);
+            checkRight(text);
+          }
+          if (y < -60) {
+            d3.select(this).attr("y", -60);
+          }
+          if (y > 370) {
+            d3.select(this).attr("y", 370);
+          }
+
           // check solution: left bin
           if (x >= -310 && x <= 10 && y <= 350 && y >= 100) {
             checkLeft(text);

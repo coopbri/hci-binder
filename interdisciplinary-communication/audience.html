@@ -88,6 +88,20 @@
           var text = d3.select(this).select("text").select("tspan")._groups[0][0].innerHTML;
           var first = text.split(" ")[2];
 
+          // prevent out of bounds
+          if (x < -125) {
+            d3.select(this).attr("x", -125);
+          }
+          if (x > 125) {
+            d3.select(this).attr("x", 125);
+          }
+          if (y < -50) {
+            d3.select(this).attr("y", -50);
+          }
+          if (y > 540) {
+            d3.select(this).attr("y", 540);
+          }
+
           // check solution: experts in the field
           if (x >= -590 && x <= -130 && y <= 320 && y >= 40) {
             checkEF(first);
