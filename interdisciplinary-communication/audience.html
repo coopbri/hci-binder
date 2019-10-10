@@ -36,12 +36,31 @@
 
       // final message (hidden until complete)
       var finish = svg.append("text")
-        .text("")
-        .attr("x", 80)
         .attr("y", 100)
-        .attr("font-size", 20)
+        .attr("font-size", 16)
         .attr("fill-opacity", 0)
         .style("fill", "#32C90F");
+      finish.append("tspan")
+        .text("Nice job! You properly sorted each of the statements.")
+        .attr("text-anchor", "middle")
+        .attr("font-size", 20)
+        .attr("x", 340)
+        .attr("dy", "-60px");
+      finish.append("tspan")
+        .text("Your choice of words matters in this communication.")
+        .attr("text-anchor", "middle")
+        .attr("x", 340)
+        .attr("dy", "40px");
+      finish.append("tspan")
+        .text("Context is incredibly important for understanding the best way to communicate,")
+        .attr("text-anchor", "middle")
+        .attr("x", 340)
+        .attr("dy", "22px");
+      finish.append("tspan")
+        .text("and there are impacts of those choices in communicating with different audiences.")
+        .attr("text-anchor", "middle")
+        .attr("x", 340)
+        .attr("dy", "22px");
 
       // response message
       var msg = body.append("p").text("This is a work in progress! There are still a handful of bugs.")
@@ -64,25 +83,25 @@
             .attr("x", d3.event.x + dx)
             .attr("y", d3.event.y + dy);
 
-          var x = d3.select(".card").attr("x");
-          var y = d3.select(".card").attr("y");
+          var x = d3.select(this).attr("x");
+          var y = d3.select(this).attr("y");
           var text = d3.select(this).select("text").select("tspan")._groups[0][0].innerHTML;
           var first = text.split(" ")[2];
 
           // check solution: experts in the field
-          if (x >= -590 && x <= -130 && y <= 350 && y >= 40) {
+          if (x >= -590 && x <= -130 && y <= 320 && y >= 40) {
             checkEF(first);
           }
           // check solution: introductory class
-          if (x >= 140 && x <= 580 && y <= 350 && y >= 40) {
+          if (x >= 140 && x <= 580 && y <= 320 && y >= 40) {
             checkIC(first);
           }
           // check solution: casual conversation
-          if (x >= -590 && x <= -130 && y <= 600 && y >= 300) {
+          if (x >= -590 && x <= -130 && y <= 600 && y >= 340) {
             checkCC(first);
           }
           // check solution: experts in a different field
-          if (x >= 140 && x <= 580 && y <= 600 && y >= 300) {
+          if (x >= 140 && x <= 580 && y <= 600 && y >= 340) {
             checkEDF(first);
           }
         });
@@ -194,27 +213,27 @@
               .attr("y", 100);
 
             // split statement into multiple lines
-            s = s.split(" ");
+            var split = s.split(" ");
             var s1 = " ";
             var s2 = " ";
             var s3 = " ";
             var s4 = " ";
             for (i = 0; i < 6; i++) {
-              s1 += " " + s[i];
+              s1 += " " + split[i];
             }
             for (i = 6; i < 12; i++) {
-              if (s[i]) {
-                s2 += " " + s[i];
+              if (split[i]) {
+                s2 += " " + split[i];
               }
             }
             for (i = 12; i < 17; i++) {
-              if (s[i]) {
-                s3 += " " + s[i];
+              if (split[i]) {
+                s3 += " " + split[i];
               }
             }
             for (i = 17; i < s.length; i++) {
-              if (s[i]) {
-                s4 += " " + s[i];
+              if (split[i]) {
+                s4 += " " + split[i];
               }
             }
 
@@ -240,7 +259,6 @@
               .attr("dy", "20px");
           } else {
             finish.transition().duration(800)
-              .text("Your choice of words matters in this communication. Context is incredibly important for understanding the best way to communicate, and there are impacts of those choices in communicating with different audiences.")
               .attr("fill-opacity", 1);
           }
 
@@ -256,6 +274,7 @@
           if (e === "We") {
             msg.transition().duration(800).text("Very good! Experts in the field should be best equipped to parse this statement.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "Let's") {
             msg.transition().duration(800).text("Try again! This statement might be too simplified for this group.")
               .style("color", "red");
@@ -265,12 +284,15 @@
           } else if (e === "The") {
             msg.transition().duration(800).text("Very good! Connecting a piece of jargon to another domain's jargon can easily bridge gaps between different bases of expertise.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "As") {
             msg.transition().duration(800).text("Very good! Use of names of theorists, researchers, or authors are often pointers for expertise.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "Now,") {
             msg.transition().duration(800).text("Very good! An invitation to conversation on a particularly troublesome term can lead to a better understanding of what the background of your audience might be.")
               .style("color", "#32C90F");
+            drawCard();
           }
         }
 
@@ -282,9 +304,11 @@
           } else if (e === "Let's") {
             msg.transition().duration(800).text("Very good! Defining the term broadly helps non-experts in a given domain.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "I'm") {
             msg.transition().duration(800).text("Very good! Defining the term broadly and giving examples helps non-experts in a given domain.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "The") {
             msg.transition().duration(800).text("Try Again! This statement probably wouldn't be understandable to this group.")
               .style("color", "red");
@@ -294,6 +318,7 @@
           } else if (e === "Now,") {
             msg.transition().duration(800).text("Very good! An invitation to conversation on a particularly troublesome term can lead to a better understanding of what the background of your audience might be.")
               .style("color", "#32C90F");
+            drawCard();
           }
         }
 
@@ -305,9 +330,11 @@
           } else if (e === "Let's") {
             msg.transition().duration(800).text("Very good! Defining the term broadly helps non-experts in a given domain.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "I'm") {
             msg.transition().duration(800).text("Very good! Defining the term broadly and giving examples helps non-experts in a given domain.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "The") {
             msg.transition().duration(800).text("Try Again! This statement probably wouldn't be understandable to this group.")
               .style("color", "red");
@@ -317,6 +344,7 @@
           } else if (e === "Now,") {
             msg.transition().duration(800).text("Very good! An invitation to conversation on a particularly troublesome term can lead to a better understanding of what the background of your audience might be.")
               .style("color", "#32C90F");
+            drawCard();
           }
         }
 
@@ -328,18 +356,22 @@
           } else if (e === "Let's") {
             msg.transition().duration(800).text("Very good! Defining the term broadly helps non-experts in a given domain.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "I'm") {
             msg.transition().duration(800).text("Very good! Defining the term broadly and giving examples helps non-experts in a given domain.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "The") {
             msg.transition().duration(800).text("Very good! Connecting a piece of jargon to another domain's jargon can easily bridge gaps between different bases of expertise.")
               .style("color", "#32C90F");
+            drawCard();
           } else if (e === "As") {
             msg.transition().duration(800).text("Try Again! This statement probably wouldn't be understandable to this group.")
               .style("color", "red");
           } else if (e === "Now,") {
             msg.transition().duration(800).text("Very good! An invitation to conversation on a particularly troublesome term can lead to a better understanding of what the background of your audience might be.")
               .style("color", "#32C90F");
+            drawCard();
           }
         }
 
