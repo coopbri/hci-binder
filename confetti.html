@@ -25,10 +25,7 @@
       var svg = body.append("svg")
         .attr("width", 600)
         .attr("height", 400);
-      var timer = d3.timer(function() {
-        descend();
-      }, 500);
-      var y = -50;
+      var timer = d3.timer(function() { timer.stop(); });
       var max = 600;
 
       // congratulations text
@@ -41,27 +38,28 @@
 
       // draw confetti piece (rectangle primitive)
       function draw() {
-        svg.append("rect")
+        var r = svg.append("rect")
         .attr("width", 50)
         .attr("height", 50)
         .attr("x", Math.floor(Math.random() * (max + 1)))
         .attr("y", -50);
+
+        descend(r);
       }
 
       // descend confetti piece
       function descend(r) {
-        d3.select("rect")
-          .attr("y", y += 5);
+        var y = +r.attr("y");
 
-        // remove rectangles past viewport
-        //  spawn new rectangle after removal
-        d3.selectAll("rect").filter(function() {
-          return d3.select(this).attr("y") >= 400;
-        }).each(function() {
-          y = -50;
-          console.log(y);
-          this.remove();
-          draw();
+        timer.restart(function() {
+          if (y <= 400) {
+            r.attr("y", y += 5);
+          } else {
+            // remove rectangles past viewport
+            //  spawn new rectangle after removal
+            r.remove();
+            draw();
+          }
         });
       }
 
