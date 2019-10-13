@@ -39,12 +39,16 @@
 
       // draw confetti piece (rectangle primitive)
       function draw() {
+        // random rotation for confetti pieces
+        var rotate = Math.floor(Math.random() * (15 + 15 + 1)) - 15
+
         var r = svg.append("rect")
         .attr("width", 10)
         .attr("height", 10)
         .attr("x", Math.floor(Math.random() * (max + 1)))
         .attr("y", Math.floor(Math.random() * (-max - min + 1)) + min)
-        .attr("fill", function() { return color((Math.random() - 0.5) * 1000); });
+        .attr("fill", function() { return color((Math.random() - 0.5) * 1000); })
+        .attr("transform", "rotate(" + rotate + ")");
         descend(r);
       }
 
