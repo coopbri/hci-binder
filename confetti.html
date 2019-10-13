@@ -25,12 +25,31 @@
       var svg = body.append("svg")
         .attr("width", 600)
         .attr("height", 400);
+      var timer = d3.timer(function() {
+        descend();
+      }, 500);
+      var y = -50;
+
+      // congratulations text
       svg.append("text")
         .attr("x", 300)
         .attr("y", 200)
         .attr("text-anchor", "middle")
         .attr("font-size", 70)
         .text("Congratulations!");
+
+      // draw confetti piece
+      svg.append("rect")
+        .attr("width", 50)
+        .attr("height", 50)
+        .attr("x", 50)
+        .attr("y", y);
+
+      // descend confetti piece (rectangle primitive)
+      function descend(r) {
+        d3.selectAll("rect")
+          .attr("y", y += 5);
+      }
     </script>
   </body>
 </html>
