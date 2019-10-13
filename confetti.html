@@ -29,6 +29,7 @@
         descend();
       }, 500);
       var y = -50;
+      var max = 600;
 
       // congratulations text
       svg.append("text")
@@ -38,18 +39,33 @@
         .attr("font-size", 70)
         .text("Congratulations!");
 
-      // draw confetti piece
-      svg.append("rect")
+      // draw confetti piece (rectangle primitive)
+      function draw() {
+        svg.append("rect")
         .attr("width", 50)
         .attr("height", 50)
-        .attr("x", 50)
-        .attr("y", y);
-
-      // descend confetti piece (rectangle primitive)
-      function descend(r) {
-        d3.selectAll("rect")
-          .attr("y", y += 5);
+        .attr("x", Math.floor(Math.random() * (max + 1)))
+        .attr("y", -50);
       }
+
+      // descend confetti piece
+      function descend(r) {
+        d3.select("rect")
+          .attr("y", y += 5);
+
+        // remove rectangles past viewport
+        //  spawn new rectangle after removal
+        d3.selectAll("rect").filter(function() {
+          return d3.select(this).attr("y") >= 400;
+        }).each(function() {
+          y = -50;
+          console.log(y);
+          this.remove();
+          draw();
+        });
+      }
+
+      draw();
     </script>
   </body>
 </html>
