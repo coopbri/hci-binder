@@ -25,8 +25,8 @@
       var svg = body.append("svg")
         .attr("width", 600)
         .attr("height", 400);
-      var timer = d3.timer(function() { timer.stop(); });
       var max = 600;
+      var min = -50;
 
       // congratulations text
       svg.append("text")
@@ -42,8 +42,7 @@
         .attr("width", 50)
         .attr("height", 50)
         .attr("x", Math.floor(Math.random() * (max + 1)))
-        .attr("y", -50);
-
+        .attr("y", Math.floor(Math.random() * (-max - min + 1)) + min);
         descend(r);
       }
 
@@ -51,19 +50,25 @@
       function descend(r) {
         var y = +r.attr("y");
 
-        timer.restart(function() {
+        setInterval(function() {
           if (y <= 400) {
             r.attr("y", y += 5);
           } else {
             // remove rectangles past viewport
             //  spawn new rectangle after removal
             r.remove();
-            draw();
+            var rCount = d3.selectAll("rect").size();
+            if (rCount < 50) {
+              draw();
+            }
           }
-        });
+        }, 20);
       }
 
-      draw();
+      // draw 50 rectangles at onset
+      for (var i = 0; i < 50; i++) {
+        draw();
+      }
     </script>
   </body>
 </html>
