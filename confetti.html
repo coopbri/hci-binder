@@ -25,9 +25,9 @@
       var svg = body.append("svg")
         .attr("width", 600)
         .attr("height", 400);
+      var color = d3.scaleSequential(d3.interpolateRainbow).domain([0, 1000]);
       var max = 600;
       var min = -50;
-      var color = d3.scaleSequential(d3.interpolateRainbow).domain([0, 1000]);
 
       // congratulations text
       svg.append("text")
@@ -35,6 +35,7 @@
         .attr("y", 200)
         .attr("text-anchor", "middle")
         .attr("font-size", 70)
+        .attr("font-weight", "bold")
         .text("Congratulations!");
 
       // draw confetti piece (rectangle primitive)
@@ -57,12 +58,15 @@
         var y = +r.attr("y");
 
         setInterval(function() {
+          // increase y-value over time
           if (y <= 400) {
             r.attr("y", y += 3);
           } else {
             // remove rectangles past viewport
             //  spawn new rectangle after removal
             r.remove();
+
+            // always keep 50 rectangles in motion
             var rCount = d3.selectAll("rect").size();
             if (rCount < 50) {
               draw();
