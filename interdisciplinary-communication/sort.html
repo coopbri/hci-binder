@@ -46,6 +46,8 @@
       iLeft = 1;
       iRight = 1;
 
+      var checked = false;
+
       // final message (hidden until complete)
       var finish = svg.append("text")
         .text("")
@@ -83,10 +85,12 @@
           // prevent out of bounds
           if (x < -175) {
             d3.select(this).attr("x", -175);
+            checked = true;
             checkLeft(text);
           }
           if (x > 175) {
             d3.select(this).attr("x", 175);
+            checked = true;
             checkRight(text);
           }
           if (y < -60) {
@@ -96,13 +100,18 @@
             d3.select(this).attr("y", 370);
           }
 
-          // check solution: left bin
-          if (x >= -310 && x <= 10 && y <= 350 && y >= 100) {
-            checkLeft(text);
-          }
-          // check solution: right bin
-          if (x >= -30 && x <= 380 && y <= 350 && y >= 100) {
-            checkRight(text);
+          console.log(x); console.log(y);
+
+          if (!checked) {
+            // check solution: left bin
+            if (x >= -310 && x <= -60 && y <= 350 && y >= 100) {
+              checkLeft(text);
+            }
+            // check solution: right bin
+            if (x >= 60 && x <= 380 && y <= 350 && y >= 100) {
+              checkRight(text);
+            }
+            checked = false;
           }
         });
 
