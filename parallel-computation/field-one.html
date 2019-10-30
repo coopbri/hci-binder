@@ -41,7 +41,7 @@
         .attr("width", 100).attr("height", 100)
 
       patterns.append("image")
-        .attr("xlink:href", "seedling.svg")
+        .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling.svg")
         .attr("x", 0).attr("y", 0)
         .attr("width", 100).attr("height", 100)
 
@@ -82,7 +82,7 @@
       var column = row.selectAll(".square")
         .data(function (d) { return d; })
         .enter().append("image")
-        .attr("xlink:href", "empty.svg")
+        .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty.svg")
         .attr("x", function (d) { return d.x; })
         .attr("y", function (d) { return d.y; })
         .attr("width", function (d) { return d.width; })
@@ -99,7 +99,7 @@
         extra.remove();
 
       // draw farmer
-      svg.append("image").attr("xlink:href", "farmer.svg")
+      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/farmer.svg")
         .attr("id", "farmer")
         .attr("width", 40)
         .attr("x", 0);
@@ -162,7 +162,7 @@
         interval = setInterval(function() {
           var farmer = d3.select("#farmer");
           var col = d3.select("#col" + i);
-          col.select("#cell" + j).attr("xlink:href", "seedling.svg");
+          col.select("#cell" + j).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling.svg");
 
           // check if row is even or odd
           if (j % 2 === 0) {
@@ -201,7 +201,7 @@
 
           // check if final cell is planted
           var finalrow = d3.select("#col0");
-          if (finalrow.select("#cell5").attr("xlink:href") === "seedling.svg") {
+          if (finalrow.select("#cell5").attr("xlink:href") === "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling.svg") {
             clearInterval(interval);
           }
         }, speed);
@@ -224,7 +224,7 @@
           // reset tiles and tile counters
           i = 0;
           j = 0;
-          d3.selectAll("image.plot").attr("xlink:href", "empty.svg");
+          d3.selectAll("image.plot").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty.svg");
           d3.select("#farmer").attr("x", 0).attr("y", 0);
           d3.select(this).attr("disabled", true);
       });
