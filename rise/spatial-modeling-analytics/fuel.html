@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <title>D3 Proximity</title>
+
+    <!-- load D3 -->
+    <script src="https://rawcdn.githack.com/coopbri/hci-binder/362464110b5273593e9fdd1dc1c0ae3e4f1da224/lib/d3.min.js"></script>
+
+    <!-- global styles -->
+    <style>
+      body   { font-family: helvetica, sans-serif;
+               -moz-user-select: none;
+               -webkit-user-select: none;
+               -ms-user-select: none;
+               user-select: none; }
+      button { padding: 5px;
+               margin-right: 15px; }
+      p      { display: inline; }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      var body = d3.select("body");
+      var svg = body.append("svg")
+        .attr("width", 660)
+        .attr("height", 450);
+      var img = svg.append("image")
+        .attr("href", "https://rawcdn.githack.com/coopbri/hci-binder/3bcd481dec0affa32bca150638f761018a6dc74c/spatial-modeling-analytics/sma-image-4.png");
+      var selected = null;
+
+      // highlighted box
+      var highlight = svg.append("rect")
+        .style("fill", "yellow")
+        .style("stroke", "black")
+        .style("stroke-width", 4)
+        .style("opacity", 0.4);
+
+      img.on("click", function() {
+        var x = d3.event.x;
+        var y = d3.event.y;
+
+        // top (0.5m)
+        if (x > 370 && x < 497) {
+          if (y > 50 && y < 130) {
+            selected = 0;
+            highlight
+              .attr("x", 363).attr("y", 42)
+              .attr("width", 126).attr("height", 80);
+          }
+        }
+
+        // bottom left (1.5m)
+        if (x > 66 && x < 190) {
+          if (y > 333 && y < 414) {
+            selected = 1;
+            highlight
+              .attr("x", 59).attr("y", 326)
+              .attr("width", 126).attr("height", 79);
+          }
+        }
+
+        // bottom right (2.5m)
+        if (x > 496 && x < 631) {
+          if (y > 348 && y < 432) {
+            selected = 2;
+            highlight
+              .attr("x", 489).attr("y", 340)
+              .attr("width", 136).attr("height", 86);
+          }
+        }
+      });
+
+      body.append("br");
+      body.append("button").text("Check").on("click", function() {
+        if (selected === null) {
+          d3.select("#message").style("color", "#C9520F").text("Please click on a gas station first.");
+        } else {
+          if (selected === 0) {
+            d3.select("#message").style("color", "#32C90F").text("Nice job! That is correct.")
+          } else {
+            d3.select("#message").style("color", "#C9520F").text("Not quite!");
+          }
+        }
+      });
+      body.append("p").attr("id", "message");
+    </script>
+  </body>
+</html>
