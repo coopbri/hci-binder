@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <title>D3 Big Data Click</title>
+
+    <!-- load D3 -->
+    <script src="https://rawcdn.githack.com/coopbri/hci-binder/362464110b5273593e9fdd1dc1c0ae3e4f1da224/lib/d3.min.js"></script>
+
+    <!-- global styles -->
+    <style>
+      body  { font-family: Helvetica; }
+      svg   { -moz-user-select: none;
+              -webkit-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+            }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      var body = d3.select("body");
+      var svg = body.append("svg")
+        .attr("width", 700)
+        .attr("height", 600);
+
+      svg.append("rect")
+        .attr("x", 5)
+        .attr("fill", "blue")
+        .attr("width", 150)
+        .attr("height", 150)
+        .on("click", function() { console.log("blue"); });
+      svg.append("rect")
+        .attr("x", 165)
+        .attr("fill", "green")
+        .attr("width", 150)
+        .attr("height", 150)
+        .on("click", function() { console.log("green"); });
+      svg.append("rect")
+        .attr("x", 325)
+        .attr("fill", "red")
+        .attr("width", 150)
+        .attr("height", 150)
+        .on("click", function() { console.log("red"); });
+      svg.append("rect")
+        .attr("x", 485)
+        .attr("fill", "purple")
+        .attr("width", 150)
+        .attr("height", 150)
+        .on("click", function() { console.log("purple"); });
+    </script>
+  </body>
+</html>
