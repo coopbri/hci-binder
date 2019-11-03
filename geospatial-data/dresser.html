@@ -72,10 +72,6 @@
       <path d="M186.27,173.79v65.77H19.94V173.79H186.27m1-1H18.94v67.77H187.27V172.79Z"/>
       <rect class="cls-2" x="35.6" y="184.58" width="135.02" height="44.18"/>
       <path d="M170.11,185.09v43.17H36.1V185.09h134m1-1H35.1v45.17h136V184.09Z"/>
-      <rect class="correct cls-2" x="193.23" y="173.29" width="167.33" height="66.77"/>
-      <path class="correct" d="M360.06,173.79v65.77H193.73V173.79H360.06m1-1H192.73v67.77H361.06V172.79Z"/>
-      <rect class="correct cls-2" x="209.39" y="184.58" width="135.02" height="44.18"/>
-      <path class="correct" d="M343.9,185.09v43.17h-134V185.09h134m1-1h-136v45.17h136V184.09Z"/>
       <circle cx="54.47" cy="145.47" r="4.37"/>
       <circle cx="151.74" cy="145.47" r="4.37"/>
       <circle cx="54.47" cy="206.67" r="4.37"/>
@@ -88,6 +84,11 @@
       <circle cx="326.63" cy="95.19" r="4.37"/>
       <circle cx="229.35" cy="145.47" r="4.37"/>
       <circle cx="326.63" cy="145.47" r="4.37"/>
+      <image id="hippo" xlink:href="https://rawcdn.githack.com/coopbri/hci-binder/976966ff287ca4bf5c369ba353a924a99db6c4f1/geospatial-data/hippo.svg" x="270" y="125" width="90" height="80" transform="translate(270, 125) rotate(-15) translate(-280, -115)"/>
+""      <rect class="correct cls-2" x="193.23" y="173.29" width="167.33" height="66.77"/>
+      <path class="correct" d="M360.06,173.79v65.77H193.73V173.79H360.06m1-1H192.73v67.77H361.06V172.79Z"/>
+      <rect class="correct cls-2" x="209.39" y="184.58" width="135.02" height="44.18"/>
+      <path class="correct" d="M343.9,185.09v43.17h-134V185.09h134m1-1h-136v45.17h136V184.09Z"/>
       <circle class="correct" cx="229.35" cy="206.67" r="4.37"/>
       <circle class="correct" cx="326.63" cy="206.67" r="4.37"/>
     </svg>
@@ -106,17 +107,14 @@
         .attr("transform", "skewY(20)")
         .style("display", "none");
 
-      // draw hippo
-      var hippo = svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/15a5a44923168f3f2f91cf65271e3e6e5c6bc351/geospatial-data/hippo.svg")
-        .attr("width", 90).attr("height", 80)
-        .attr("x", 270).attr("y", 105)
-        .style("display", "none");
+      // hide hippo
+      d3.select("#hippo").style("display", "none");
 
       var correct = d3.selectAll(".correct").on("click", function() {
         if (!open) {
           // show side and hippo
           side.style("display", null);
-          hippo.style("display", null);
+          d3.select("#hippo").style("display", null);
 
           // "pull" drawer
           correct.attr("transform", "translate(10,10)");
@@ -132,7 +130,7 @@
         } else {
           // hide side and hippo
           side.style("display", "none");
-          hippo.style("display", "none");
+          d3.select("#hippo").style("display", "none");
 
           // "push" drawer
           correct.attr("transform", "translate(0,0)");
