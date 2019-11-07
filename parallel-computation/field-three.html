@@ -34,6 +34,7 @@
   <body>
     <script>
       var btimer = d3.timer(function() { btimer.stop(); });
+      var ptimer = d3.timer(function() { ptimer.stop(); });
       var rtimer = d3.timer(function() { rtimer.stop(); });
       var body = d3.select("body");
       var svg = body.append("svg")
@@ -260,6 +261,12 @@
         .attr("width", 40)
         .attr("x", 0);
 
+      // draw purple farmer
+      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/purplefarmer.svg")
+        .attr("id", "purplefarmer")
+        .attr("width", 40)
+        .attr("x", 175);
+
       // draw red farmer
       svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/farmer.svg")
         .attr("id", "redfarmer")
@@ -303,6 +310,39 @@
 
       control.append("br");
 
+      var pstats = control.append("div")
+        .style("border", "solid 3px #cc33cc")
+        .style("color", "#cc33cc");
+
+      pstats.append("p").text("Purple Farmer")
+        .style("text-decoration", "underline")
+        .style("font-weight", 600);
+
+      // purple farmer speed control buttons
+      pstats.append("p").attr("id", "purplespeed").text("Speed: fast");
+      var purplespeed = 100;
+      pstats.append("button").text("Slow")
+        .on("click", function() {
+          purplespeed = 750;
+          d3.select("#purplespeed").text("Speed: slow");
+        });
+      pstats.append("button").text("Medium")
+        .on("click", function() {
+          purplespeed = 500;
+          d3.select("#purplespeed").text("Speed: medium");
+        });
+      pstats.append("button").text("Fast")
+        .on("click", function() {
+          purplespeed = 100;
+          d3.select("#purplespeed").text("Speed: fast");
+        });
+
+      // purple counter value display
+      pstats.append("p").attr("id", "pcounter")
+        .text("Duration: " + 0 + " seconds");
+
+      control.append("br");
+
       var rstats = control.append("div")
         .style("border", "solid 3px #c1272d")
         .style("color", "#c1272d");
@@ -331,7 +371,7 @@
         });
 
       // red counter value display
-      rstats.append("p").attr("id", "pcounter")
+      rstats.append("p").attr("id", "rcounter")
         .text("Duration: " + 0 + " seconds");
 
       body.append("br");
