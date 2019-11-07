@@ -25,6 +25,8 @@
       button   { margin: 0 5px;
                  padding: 3px; }
       #start   { margin-top: 20px; }
+      #bluefarmer { pointer-events: none; }
+      #purplefarmer { pointer-events: none; }
     </style>
   </head>
 
@@ -133,22 +135,8 @@
           // resize parallel divider depending on slider position
           d3.select("#divider").attr("y2", d3.select("#slider").attr("y1"));
 
-          var s = d3.select("#slider").attr("y1");
-
-          // select cells above slider bar
-          var above = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-              return (+y < +s);
-          });
-          // select cells below slider bar
-          var below = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-            return (+y >= +s);
-          });
-
-          // color cells according to portions
-          above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
-          below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-purple.svg");
+          // redraw field portions
+          updateField();
         });
 
       // enable slider dragging
@@ -173,29 +161,14 @@
 
           // resize parallel divider depending on slider position
           d3.select("#divider").attr("y2", d3.select("#slider").attr("y1"));
-
         })
         .on("end", function() {
           d3.select(this)
             .attr("x1", snapX(d3.event.x))
             .attr("x2", snapX(d3.event.x));
 
-          var s = d3.select("#divider").attr("x1");
-
-          // select cells above slider bar
-          // var above = d3.selectAll("image.plot").filter(function() {
-          //   var x = d3.select(this).attr("x");
-          //     return (+x < +s);
-          // });
-          // select cells below slider bar
-          // var below = d3.selectAll("image.plot").filter(function() {
-          //   var x = d3.select(this).attr("x");
-          //   return (+x >= +s);
-          // });
-
-          // color cells according to portions
-          // above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
-          // below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-purple.svg");
+          // redraw field portions
+          updateField();
         });
 
         // enable divider dragging
@@ -239,6 +212,40 @@
         } else {
           return Math.round(x/36.3) * 36.3;
         }
+      }
+
+      function updateField() {
+        var s = d3.select("#slider").attr("y1");
+        var d = d3.select("#divider").attr("x1");
+
+        // select cells above slider bar
+        var above = d3.selectAll("image.plot").filter(function() {
+          var y = d3.select(this).attr("y");
+            return (+y < +s);
+        });
+        // select cells below slider bar
+        var below = d3.selectAll("image.plot").filter(function() {
+          var y = d3.select(this).attr("y");
+          return (+y >= +s);
+        });
+        // select cells to left of divider bar
+        var left = d3.selectAll("image.plot").filter(function() {
+          var x = d3.select(this).attr("x");
+          var y = d3.select(this).attr("y");
+          return (+x < +d && +y < +s);
+        });
+        // select cells to right of divider bar
+        var right = d3.selectAll("image.plot").filter(function() {
+          var x = d3.select(this).attr("x");
+          var y = d3.select(this).attr("y");
+          return (+x >= +d && +y < +s);
+        });
+
+        // color cells according to portions
+        above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
+        below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-purple.svg");
+        left.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling-blue.svg");
+        right.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling-purple.svg");
       }
 
       // draw blue farmer
