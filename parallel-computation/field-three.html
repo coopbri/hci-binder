@@ -87,10 +87,15 @@
         .data(function (d) { return d; })
         .enter().append("image")
         .attr("xlink:href", function(d) {
-           if (d.y < 148) {
-            return "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg";
+          // initial field coloring
+          if (d.y < 148) {
+            if (d.x < 100) {
+              return "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg";
+            } else {
+              return "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-purple.svg";
+            }
           } else {
-            return "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-red.svg";
+            return "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-red.svg";
           }
         })
         .attr("x", function (d) { return d.x; })
@@ -244,9 +249,9 @@
 
         // color cells according to portions
         above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
-        below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-red.svg");
-        left.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling-blue.svg");
-        right.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling-red.svg");
+        below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-red.svg");
+        left.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
+        right.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-purple.svg");
       }
 
       // draw blue farmer
@@ -420,7 +425,7 @@
           redinterval = setInterval(function() {
             if (+redfarmer.attr("y") > +d3.select("#slider").attr("y1")-50) {
               var col = d3.select("#col" + k);
-              col.select("#cell" + l).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling-red.svg");
+              col.select("#cell" + l).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/seedling-red.svg");
 
               // check if row is even or odd
               if (l % 2 === 0) {
@@ -504,7 +509,7 @@
 
           // color cells according to portions
           above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
-          below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-red.svg");
+          below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-red.svg");
 
           d3.select("#bluefarmer").attr("x", 0).attr("y", 0);
           d3.select("#redfarmer").attr("x", 0).attr("y", 175);
