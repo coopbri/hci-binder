@@ -386,6 +386,7 @@
         // start timers
         var bstop = false;
         var pstop = false;
+        var rstop = false;
         btimer.restart(function(dur) {
           d3.select("#bcounter").text(function() {
             var time = Math.floor(dur / 1000);
@@ -396,13 +397,23 @@
             btimer.stop();
           }
         });
-        rtimer.restart(function(dur) {
+        ptimer.restart(function(dur) {
           d3.select("#pcounter").text(function() {
             var time = Math.floor(dur / 1000);
             if (time === 1) { return "Duration: " + time + " second" }
             else { return "Duration: " + time + " seconds" }
           });
           if (pstop) {
+            ptimer.stop();
+          }
+        });
+        rtimer.restart(function(dur) {
+          d3.select("#rcounter").text(function() {
+            var time = Math.floor(dur / 1000);
+            if (time === 1) { return "Duration: " + time + " second" }
+            else { return "Duration: " + time + " seconds" }
+          });
+          if (rstop) {
             rtimer.stop();
           }
         });
@@ -502,7 +513,7 @@
                   });
               }
             } else {
-              pstop = true;
+              rstop = true;
               clearInterval(redinterval);
             }
           }, redspeed);
