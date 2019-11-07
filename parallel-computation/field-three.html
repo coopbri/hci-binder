@@ -121,11 +121,17 @@
           d3.select(this)
             .attr("y1", d3.event.y)
             .attr("y2", d3.event.y);
+
+          // resize parallel divider depending on slider position
+          d3.select("#divider").attr("y2", d3.select("#slider").attr("y1"));
         })
         .on("end", function() {
           d3.select(this)
             .attr("y1", snapY(d3.event.y))
             .attr("y2", snapY(d3.event.y));
+
+          // resize parallel divider depending on slider position
+          d3.select("#divider").attr("y2", d3.select("#slider").attr("y1"));
 
           var s = d3.select("#slider").attr("y1");
 
@@ -155,7 +161,7 @@
         .attr("x1", xval)
         .attr("y1", 45)
         .attr("x2", xval)
-        .attr("y2", 250)
+        .attr("y2", d3.select("#slider").attr("y1"))
         .style("stroke", "black")
         .style("stroke-width", 10);
 
@@ -165,14 +171,16 @@
             .attr("x1", d3.event.x)
             .attr("x2", d3.event.x);
 
-          console.log(d3.event.x);
+          // resize parallel divider depending on slider position
+          d3.select("#divider").attr("y2", d3.select("#slider").attr("y1"));
+
         })
         .on("end", function() {
           d3.select(this)
             .attr("x1", snapX(d3.event.x))
             .attr("x2", snapX(d3.event.x));
 
-          var s = d3.select("#slider").attr("x1");
+          var s = d3.select("#divider").attr("x1");
 
           // select cells above slider bar
           // var above = d3.selectAll("image.plot").filter(function() {
