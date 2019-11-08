@@ -43,7 +43,11 @@
       var patterns = svg.append("defs").append("pattern")
         .attr("id", "seedling")
         .attr("patternUnits", "userSpaceOnUse")
-        .attr("width", 100).attr("height", 100)
+        .attr("width", 100).attr("height", 100);
+
+      // extent (left/right) of squares divided among parallel farmers
+      var divLeft = 3;
+      var divRight = 3;
 
       patterns.append("image")
         .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling.svg")
@@ -248,6 +252,17 @@
           return (+x >= +d && +y < +s);
         });
 
+        // set number of squares to left and right for farmers
+        divLeft = left.size() / factor;
+        divRight = right.size() / factor;
+
+        // divLeft = (1/) * left.size();
+
+        // console.log(divLeft);
+        // console.log(divRight);
+        console.log("Left: " + left.size());
+        console.log("Above: " + above.size());
+
         // color cells according to portions
         above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
         below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-red.svg");
@@ -422,7 +437,7 @@
         d3.select("#reset").attr("disabled", null);
 
         // disable dragging
-        d3.select("line").on(".drag", null);
+        d3.selectAll("line").on(".drag", null);
 
         var bluefarmer = d3.select("#bluefarmer");
           blueinterval = setInterval(function() {
@@ -433,7 +448,7 @@
               // check if row is even or odd
               if (j % 2 === 0) {
                 i++;
-                if (i !== 6) {
+                if (i !== divLeft) {
                   bluefarmer.attr("x", function() {
                     return +d3.select(this).attr("x") + dist;
                   });
@@ -448,8 +463,8 @@
               }
 
               // jump to next row upon reaching right end
-              if (i === 6) {
-                  i = 5;
+              if (i === divLeft) {
+                  i = divLeft-1;
                   j++;
                   bluefarmer.attr("y", function() {
                     return +d3.select(this).attr("y") + dist;
@@ -525,12 +540,15 @@
         .on("click", function() {
           // stop timers and reset duration
           btimer.stop();
+          ptimer.stop();
           rtimer.stop();
           d3.select("#bcounter").text("Duration: " + 0 + " seconds");
           d3.select("#pcounter").text("Duration: " + 0 + " seconds");
+          d3.select("#rcounter").text("Duration: " + 0 + " seconds");
 
           // clear farmer runtime code
           clearInterval(blueinterval);
+          clearInterval(purpleinterval);
           clearInterval(redinterval);
 
           // enable start button
@@ -545,24 +563,26 @@
           k = 0;
           l = 0;
 
-          var s = d3.select("#slider").attr("y1");
-
-          // select cells above slider bar
-          var above = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-              return (+y < +s);
-          });
-          // select cells below slider bar
-          var below = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-            return (+y >= +s);
-          });
+          updateField();
+          // var s = d3.select("#slider").attr("y1");
+          //
+          // // select cells above slider bar
+          // var above = d3.selectAll("image.plot").filter(function() {
+          //   var y = d3.select(this).attr("y");
+          //     return (+y < +s);
+          // });
+          // // select cells below slider bar
+          // var below = d3.selectAll("image.plot").filter(function() {
+          //   var y = d3.select(this).attr("y");
+          //   return (+y >= +s);
+          // });
 
           // color cells according to portions
-          above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
-          below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-red.svg");
+          // above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
+          // below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-red.svg");
 
           d3.select("#bluefarmer").attr("x", 0).attr("y", 0);
+          d3.select("#purplefarmer").attr("x", 175).attr("y", 0);
           d3.select("#redfarmer").attr("x", 0).attr("y", 175);
           d3.select(this).attr("disabled", true);
       });
