@@ -497,7 +497,7 @@
             }
           }, bluespeed);
 
-        var m = 5;
+        var m = 6;
         var n = 0;
         var purplefarmer = d3.select("#purplefarmer");
           purpleinterval = setInterval(function() {
@@ -508,14 +508,14 @@
               // check if row is even or odd
               if (n % 2 === 0) {
                 m--;
-                if (m !== divRight-1) {
+                if (m !== divLeft) {
                   purplefarmer.attr("x", function() {
                     return +d3.select(this).attr("x") - dist;
                   });
                 }
               } else {
                 m++;
-                if (m !== 6) {
+                if (m !== 7) {
                   purplefarmer.attr("x", function() {
                     return +d3.select(this).attr("x") + dist;
                   });
@@ -523,8 +523,8 @@
               }
 
               // jump to next row upon reaching left end
-              if (m === divRight-1) {
-                m = divRight;
+              if (m === divLeft) {
+                m = divLeft+1;
                 n++;
                 purplefarmer.attr("y", function() {
                   return +d3.select(this).attr("y") + dist;
@@ -532,8 +532,8 @@
               }
 
               // jump to next row upon reaching right end
-              if (m === 6) {
-                m = 5;
+              if (m === 7) {
+                m = 6;
                 n++;
                 purplefarmer.attr("y", function() {
                   return +d3.select(this).attr("y") + dist;
