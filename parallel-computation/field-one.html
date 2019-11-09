@@ -112,7 +112,7 @@
         .style("border", "solid 3px #c1272d")
         .style("color", "#c1272d");
 
-      stats.append("p").text("Farmer")
+      stats.append("p").text("Sam")
         .style("text-decoration", "underline")
         .style("font-weight", 600);
 
@@ -228,10 +228,6 @@
           d3.select("#farmer").attr("x", 0).attr("y", 0);
           d3.select(this).attr("disabled", true);
       });
-
-      control.append("div").append("p")
-        .style("color", "red")
-        .text("This is still a work in progress, some functionality may not work.")
     </script>
   </body>
 </html>
