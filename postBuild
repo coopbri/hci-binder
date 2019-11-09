@@ -12,6 +12,8 @@ jupyter trust geospatial-data/gd-1.ipynb
 jupyter trust geospatial-data/gd-2.ipynb
 jupyter trust interdisciplinary-communication/ic-1.ipynb
 jupyter trust interdisciplinary-communication/ic-2.ipynb
+jupyter trust parallel-computation/pc-1.ipynb
+jupyter trust parallel-computation/pc-2.ipynb
 jupyter trust spatial-modeling-analytics/sma-1.ipynb
 jupyter trust spatial-modeling-analytics/sma-2.ipynb
 jupyter trust spatial-modeling-analytics/sma-3.ipynb
@@ -31,6 +33,8 @@ jupyter trust rise/geospatial-data/gd-1.ipynb
 jupyter trust rise/geospatial-data/gd-2.ipynb
 jupyter trust rise/interdisciplinary-communication/ic-1.ipynb
 jupyter trust rise/interdisciplinary-communication/ic-2.ipynb
+jupyter trust rise/parallel-computation/pc-1.ipynb
+jupyter trust rise/parallel-computation/pc-2.ipynb
 jupyter trust rise/spatial-modeling-analytics/sma-1.ipynb
 jupyter trust rise/spatial-modeling-analytics/sma-2.ipynb
 jupyter trust rise/spatial-modeling-analytics/sma-3.ipynb
