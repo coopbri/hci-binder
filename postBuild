@@ -1,5 +1,7 @@
+# Install and enable notebook extensions
 jupyter contrib nbextension install --user
 jupyter nbextension enable init_cell/main
+jupyter nbextension enable python-markdown/main
 
 # Trust regular notebooks that auto-run code (init cells, etc.)
 jupyter trust big-data/bd-1.ipynb
