@@ -6,3 +6,5 @@
 
 - Launch Binder here: https://mybinder.org/v2/gh/coopbri/hci-binder/master
 - Launch nbviewer here: https://nbviewer.jupyter.org/github/coopbri/hci-binder/tree/master/
+
+The lesson notebooks are contained within the `notebooks` directory.
