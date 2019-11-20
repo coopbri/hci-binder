@@ -3,44 +3,23 @@ jupyter contrib nbextension install --user
 jupyter nbextension enable init_cell/main
 jupyter nbextension enable python-markdown/main
 
-# Trust regular notebooks that auto-run code (init cells, etc.)
-jupyter trust big-data/bd-1.ipynb
-jupyter trust big-data/bd-2.ipynb
-jupyter trust computational-thinking/ct-1.ipynb
-jupyter trust computational-thinking/ct-2.ipynb
-jupyter trust cyberinfrastructure/cyberinfrastructure-1.ipynb
-jupyter trust cyberinfrastructure/cyberinfrastructure-2.ipynb
-jupyter trust geospatial-data/gd-1.ipynb
-jupyter trust geospatial-data/gd-2.ipynb
-jupyter trust interdisciplinary-communication/ic-1.ipynb
-jupyter trust interdisciplinary-communication/ic-2.ipynb
-jupyter trust parallel-computation/pc-1.ipynb
-jupyter trust parallel-computation/pc-2.ipynb
-jupyter trust spatial-modeling-analytics/sma-1.ipynb
-jupyter trust spatial-modeling-analytics/sma-2.ipynb
-jupyter trust spatial-modeling-analytics/sma-3.ipynb
-jupyter trust spatial-modeling-analytics/sma-4.ipynb
-jupyter trust spatial-modeling-analytics/sma-5.ipynb
-jupyter trust spatial-thinking/st-1.ipynb
-jupyter trust spatial-thinking/st-2.ipynb
-
-# Trust RISE notebooks that auto-run code (init cells, etc.)
-jupyter trust rise/big-data/bd-1.ipynb
-jupyter trust rise/big-data/bd-2.ipynb
-jupyter trust rise/computational-thinking/ct-1.ipynb
-jupyter trust rise/computational-thinking/ct-2.ipynb
-jupyter trust rise/cyberinfrastructure/cyberinfrastructure-1.ipynb
-jupyter trust rise/cyberinfrastructure/cyberinfrastructure-2.ipynb
-jupyter trust rise/geospatial-data/gd-1.ipynb
-jupyter trust rise/geospatial-data/gd-2.ipynb
-jupyter trust rise/interdisciplinary-communication/ic-1.ipynb
-jupyter trust rise/interdisciplinary-communication/ic-2.ipynb
-jupyter trust rise/parallel-computation/pc-1.ipynb
-jupyter trust rise/parallel-computation/pc-2.ipynb
-jupyter trust rise/spatial-modeling-analytics/sma-1.ipynb
-jupyter trust rise/spatial-modeling-analytics/sma-2.ipynb
-jupyter trust rise/spatial-modeling-analytics/sma-3.ipynb
-jupyter trust rise/spatial-modeling-analytics/sma-4.ipynb
-jupyter trust rise/spatial-modeling-analytics/sma-5.ipynb
-jupyter trust rise/spatial-thinking/st-1.ipynb
-jupyter trust rise/spatial-thinking/st-2.ipynb
+# Trust notebooks that auto-run code (init cells, etc.)
+jupyter trust notebooks/big-data/bd-1.ipynb
+jupyter trust notebooks/big-data/bd-2.ipynb
+jupyter trust notebooks/computational-thinking/ct-1.ipynb
+jupyter trust notebooks/computational-thinking/ct-2.ipynb
+jupyter trust notebooks/cyberinfrastructure/cyberinfrastructure-1.ipynb
+jupyter trust notebooks/cyberinfrastructure/cyberinfrastructure-2.ipynb
+jupyter trust notebooks/geospatial-data/gd-1.ipynb
+jupyter trust notebooks/geospatial-data/gd-2.ipynb
+jupyter trust notebooks/interdisciplinary-communication/ic-1.ipynb
+jupyter trust notebooks/interdisciplinary-communication/ic-2.ipynb
+jupyter trust notebooks/parallel-computation/pc-1.ipynb
+jupyter trust notebooks/parallel-computation/pc-2.ipynb
+jupyter trust notebooks/spatial-modeling-analytics/sma-1.ipynb
+jupyter trust notebooks/spatial-modeling-analytics/sma-2.ipynb
+jupyter trust notebooks/spatial-modeling-analytics/sma-3.ipynb
+jupyter trust notebooks/spatial-modeling-analytics/sma-4.ipynb
+jupyter trust notebooks/spatial-modeling-analytics/sma-5.ipynb
+jupyter trust notebooks/spatial-thinking/st-1.ipynb
+jupyter trust notebooks/spatial-thinking/st-2.ipynb
