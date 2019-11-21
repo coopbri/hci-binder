@@ -50,7 +50,7 @@
       var divRight = 3;
 
       patterns.append("image")
-        .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling.svg")
+        .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling.svg")
         .attr("x", 0).attr("y", 0)
         .attr("width", 100).attr("height", 100)
 
@@ -95,12 +95,12 @@
           // initial field coloring
           if (d.y < 148) {
             if (d.x < 100) {
-              return "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg";
+              return "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg";
             } else {
-              return "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-purple.svg";
+              return "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg";
             }
           } else {
-            return "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-red.svg";
+            return "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-red.svg";
           }
         })
         .attr("x", function (d) { return d.x; })
@@ -276,26 +276,26 @@
         divRight = 6 - factor;
 
         // color cells according to portions
-        above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
-        below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-red.svg");
-        left.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty-blue.svg");
-        right.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/empty-purple.svg");
+        above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg");
+        below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-red.svg");
+        left.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg");
+        right.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg");
       }
 
       // draw blue farmer
-      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/bluefarmer.svg")
+      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/bluefarmer.svg")
         .attr("id", "bluefarmer")
         .attr("width", 40)
         .attr("x", 0);
 
       // draw purple farmer
-      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/purplefarmer.svg")
+      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/purplefarmer.svg")
         .attr("id", "purplefarmer")
         .attr("width", 40)
         .attr("x", 175);
 
       // draw red farmer
-      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/farmer.svg")
+      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/farmer.svg")
         .attr("id", "redfarmer")
         .attr("width", 40)
         .attr("y", 175);
@@ -461,7 +461,7 @@
           blueinterval = setInterval(function() {
             if (divLeft != 0 && +bluefarmer.attr("y") < +d3.select("#slider").attr("y1")-50) {
               var col = d3.select("#col" + i);
-              col.select("#cell" + j).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling-blue.svg");
+              col.select("#cell" + j).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-blue.svg");
 
               // check if row is even or odd
               if (j % 2 === 0) {
@@ -509,7 +509,7 @@
           purpleinterval = setInterval(function() {
             if (divRight != 0 && +purplefarmer.attr("y") < +d3.select("#slider").attr("y1")-50) {
               var col = d3.select("#col" + m);
-              col.select("#cell" + n).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling-purple.svg");
+              col.select("#cell" + n).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-purple.svg");
 
               // check if row is even or odd
               if (n % 2 === 0) {
@@ -557,7 +557,7 @@
           redinterval = setInterval(function() {
             if (+redfarmer.attr("y") > +d3.select("#slider").attr("y1")-50) {
               var col = d3.select("#col" + k);
-              col.select("#cell" + l).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/16f84508eb7c18676218eb5583d958d3bd6c2898/parallel-computation/seedling-red.svg");
+              col.select("#cell" + l).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-red.svg");
 
               // check if row is even or odd
               if (l % 2 === 0) {
