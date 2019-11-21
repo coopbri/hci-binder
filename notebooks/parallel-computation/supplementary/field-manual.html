@@ -42,7 +42,7 @@
       var unplanted = 36;
 
       patterns.append("image")
-        .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling.svg")
+        .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling.svg")
         .attr("x", 0).attr("y", 0)
         .attr("width", 100).attr("height", 100)
 
@@ -83,7 +83,7 @@
       var column = row.selectAll(".square")
         .data(function (d) { return d; })
         .enter().append("image")
-        .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty.svg")
+        .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty.svg")
         .attr("x", function (d) { return d.x; })
         .attr("y", function (d) { return d.y; })
         .attr("width", function (d) { return d.width; })
@@ -92,7 +92,7 @@
         .on("click", function() {
           d3.select("#reset").attr("disabled", null);
           unplanted--;
-          d3.select(this).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/seedling.svg");
+          d3.select(this).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling.svg");
 
           // start timer if first seedling planted
           if (unplanted === 35) {
@@ -137,7 +137,7 @@
 
           // reset tiles and unplanted counter
           unplanted = 36;
-          d3.selectAll("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/35dc4d300f46e6d36631e9e09045db0ed5747ad2/parallel-computation/empty.svg");
+          d3.selectAll("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty.svg");
 
           console.log(unplanted)
 
