@@ -15,7 +15,7 @@
                -webkit-user-select: none;
                -ms-user-select: none;
                user-select: none; }
-      svg    { border: 2px solid gray; }
+      .main  { border: 2px solid gray; }
       button { padding: 5px; }
       text   { pointer-events: none; }
     </style>
@@ -28,7 +28,8 @@
       var body = d3.select("body");
       var svg = body.append("svg")
         .attr("width", grid_dim+170)
-        .attr("height", grid_dim);
+        .attr("height", grid_dim)
+        .classed("main", true);
       var table = body.append("img").attr("src", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/geospatial-data/supplementary/table-1.png")
         .attr("width", 330)
         .attr("height", 350)
@@ -265,28 +266,29 @@
       function success(x, y) {
         // check if all shapes are correct
         if (correct >= 8) {
-          svg.append("text").text("Well done! You figured")
+          finish.append("text").text("Congrats! You intuitively used each symbol's")
             .classed("complete", true)
-            .attr("x", 425)
-            .attr("y", 190)
+            .attr("x", 10)
+            .attr("y", 30)
             .attr("fill", "lime")
-            .attr("font-size", 16)
+            .attr("font-size", 20)
             .transition().duration(800)
               .attr("fill-opacity", 1);
-          svg.append("text").text("out all of the shape")
+          finish.append("text").text("coordinates")
             .classed("complete", true)
-            .attr("x", 435)
-            .attr("y", 215)
+            .attr("x", 410)
+            .attr("y", 30)
             .attr("fill", "lime")
-            .attr("font-size", 16)
+            .attr("font-size", 20)
+            .attr("font-weight", "bold")
             .transition().duration(800)
               .attr("fill-opacity", 1);
-          svg.append("text").text("locations.")
+          finish.append("text").text("to drop them in the right location.")
             .classed("complete", true)
-            .attr("x", 470)
-            .attr("y", 240)
+            .attr("x", 530)
+            .attr("y", 30)
             .attr("fill", "lime")
-            .attr("font-size", 16)
+            .attr("font-size", 20)
             .transition().duration(800)
               .attr("fill-opacity", 1);
         }
@@ -380,6 +382,11 @@
         .attr("x", 529)
         .attr("y", 403)
         .on("click", function() { reset(); });
+
+      body.append("br");
+      var finish = body.append("svg")
+        .attr("width", 850)
+        .attr("height", 50);
     </script>
   </body>
 </html>
