@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <title>D3 Event Test</title>
+
+    <!-- load D3 -->
+    <script src="https://rawcdn.githack.com/coopbri/hci-binder/362464110b5273593e9fdd1dc1c0ae3e4f1da224/lib/d3.min.js"></script>
+
+    <!-- load jQuery (bundled with Jupyter; only needed outside of Jupyter) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <script>
+      const RECT_WIDTH = 50;
+
+      var body = d3.select("body");
+      var svg = body.append("svg")
+        .attr("width", 250)
+        .attr("height", 80);
+
+      // draw red square
+      svg.append("rect")
+        .attr("id", "red")
+        .attr("width", RECT_WIDTH)
+        .attr("height", RECT_WIDTH)
+        .attr("x", 10)
+        .attr("fill", "red");
+
+      // draw blue square
+      svg.append("rect")
+        .attr("id", "blue")
+        .attr("width", RECT_WIDTH)
+        .attr("height", RECT_WIDTH)
+        .attr("x", 70)
+        .attr("fill", "blue");
+
+      // draw green square
+      svg.append("rect")
+        .attr("id", "green")
+        .attr("width", RECT_WIDTH)
+        .attr("height", RECT_WIDTH)
+        .attr("x", 130)
+        .attr("fill", "green");
+
+      // draw orange square
+      svg.append("rect")
+        .attr("id", "orange")
+        .attr("width", RECT_WIDTH)
+        .attr("height", RECT_WIDTH)
+        .attr("x", 190)
+        .attr("fill", "orange");
+
+      // Handle 'click', 'mousedown', and 'mouseup' events
+      $("#red, #blue, #green, #orange").on("click mousedown mouseup", function(e) {
+        console.log(e);
+      });
+    </script>
+  </body>
+</html>
