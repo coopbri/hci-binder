@@ -22,7 +22,7 @@
     <script>
       var body = d3.select("body");
       var svg = body.append("svg")
-        .attr("width", 600).attr("height", 500);
+        .attr("width", 530).attr("height", 515);
       var img = svg.append("image")
         .attr("href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/geospatial-data/supplementary/gd-image-5.png");
       var point = 0;
@@ -96,11 +96,28 @@
             .attr("stroke-width", 4);
 
           // display success message
-          svg.append("text").text("Nice job! You found the hippo trajectory.")
-            .attr("x", 22)
-            .attr("y", 475)
+          svg.append("text").text("Congrats! You intuitively used the")
+            .attr("x", 85)
+            .attr("y", 435)
             .attr("fill", "yellow")
-            .attr("font-size", 28)
+            .attr("font-size", 24)
+            .transition().duration(600)
+              .attr("stroke-opacity", 1)
+              .attr("fill-opacity", 1);
+          svg.append("text").text("Cartesian coordinate system")
+            .attr("x", 15)
+            .attr("y", 465)
+            .attr("fill", "yellow")
+            .attr("font-size", 24)
+            .attr("font-weight", "bold")
+            .transition().duration(600)
+              .attr("stroke-opacity", 1)
+              .attr("fill-opacity", 1);
+          svg.append("text").text("to draw this line.")
+            .attr("x", 350)
+            .attr("y", 465)
+            .attr("fill", "yellow")
+            .attr("font-size", 24)
             .transition().duration(600)
               .attr("stroke-opacity", 1)
               .attr("fill-opacity", 1);
