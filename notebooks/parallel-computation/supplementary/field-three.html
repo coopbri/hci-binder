@@ -123,7 +123,7 @@
         .attr("y1", yvalOne)
         .attr("x2", 215)
         .attr("y2", yvalOne)
-        .style("stroke", "black")
+        .style("stroke", "#c1272d")
         .style("stroke-width", 10);
       svg.append("line")
         .attr("id", "sliderTwo")
@@ -131,7 +131,7 @@
         .attr("y1", yvalTwo)
         .attr("x2", 215)
         .attr("y2", yvalTwo)
-        .style("stroke", "black")
+        .style("stroke", "#3399cc")
         .style("stroke-width", 10);
 
       var drag = d3.drag()
@@ -147,6 +147,21 @@
 
           var s1 = d3.select("#sliderOne").attr("y1");
           var s2 = d3.select("#sliderTwo").attr("y1");
+
+          // check for slider overlaps
+          if (+s1 >= +s2) {
+            // keep top slider above bottom slider
+            if (this.id === "sliderOne") {
+              var move = snap(+d3.select("#sliderTwo").attr("y1") - 36);
+              d3.select("#sliderOne").attr("y1", move);
+              d3.select("#sliderOne").attr("y2", move);
+            // keep bottom slider below top slider
+            } else if (this.id === "sliderTwo") {
+              var move = snap(+d3.select("#sliderOne").attr("y1") + 36);
+              d3.select("#sliderTwo").attr("y1", move);
+              d3.select("#sliderTwo").attr("y2", move);
+            }
+          }
 
           // select cells above top slider bar
           var above = d3.selectAll("image.plot").filter(function() {
@@ -176,18 +191,20 @@
       // snap dragged position
       function snap(y) {
         // beyond bounds of plot
-        if (y <  38) { return 38;  }
-        if (y > 250) { return 257; }
+        if (y <  64) { return 38;  }
+        if (y > 237) { return 257; }
 
-        // within bounds of plot
-        if (y < 180) {
-          if (y < 100) {
-            return Math.round(y/38.0) * 38;
-          } else {
-            return Math.round(y/37.0) * 37;
-          }
-        } else {
-          return Math.round(y/36.0) * 36;
+        // within bounds of plot, top to bottom
+        if (y > 64 && y < 92) {
+          return 78;
+        } else if (y > 92 && y < 130) {
+          return yvalOne;
+        } else if (y > 130 && y < 166) {
+          return 148;
+        } else if (y > 166 && y < 200) {
+          return yvalTwo;
+        } else if (y > 200 && y < 237) {
+          return 218;
         }
       }
 
