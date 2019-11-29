@@ -170,6 +170,7 @@
           below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg");
         });
 
+      // enable dragging on both slider bars
       drag(d3.selectAll("line"));
 
       // snap dragged position
@@ -194,13 +195,13 @@
       svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/farmer.svg")
         .attr("id", "redfarmer")
         .attr("width", 40)
-        .attr("x", 0);
+        .attr("y", 0);
 
       // draw blue farmer
       svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/bluefarmer.svg")
         .attr("id", "bluefarmer")
         .attr("width", 40)
-        .attr("y", 70);
+        .attr("y", 105);
 
       // draw purple farmer
       svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/purplefarmer.svg")
@@ -240,7 +241,7 @@
         });
 
       // red counter value display
-      rstats.append("p").attr("id", "bcounter")
+      rstats.append("p").attr("id", "rcounter")
         .text("Duration: " + 0 + " seconds");
 
       control.append("br");
@@ -249,11 +250,11 @@
         .style("border", "solid 3px #cc33cc")
         .style("color", "#cc33cc");
 
-      pstats.append("p").text("Patricia")
+      pstats.append("p").text("Parker and Patricia")
         .style("text-decoration", "underline")
         .style("font-weight", 600);
 
-      // purple farmer speed control buttons
+      // blue and purple farmer speed control buttons
       pstats.append("p").attr("id", "purplespeed").text("Speed: fast");
       var purplespeed = 100;
       pstats.append("button").text("Slow")
@@ -289,7 +290,7 @@
         var rstop = false;
         var pstop = false;
         rtimer.restart(function(dur) {
-          d3.select("#bcounter").text(function() {
+          d3.select("#rcounter").text(function() {
             var time = Math.floor(dur / 1000);
             if (time === 1) { return "Duration: " + time + " second" }
             else { return "Duration: " + time + " seconds" }
@@ -313,101 +314,150 @@
         d3.select("#reset").attr("disabled", null);
 
         // disable dragging
-        d3.select("line").on(".drag", null);
+        d3.selectAll("line").on(".drag", null);
 
         var redfarmer = d3.select("#redfarmer");
-          redinterval = setInterval(function() {
-            if (+redfarmer.attr("y") < +d3.select("#sliderOne").attr("y1")-50) {
-              var col = d3.select("#col" + i);
-              col.select("#cell" + j).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-red.svg");
+        redinterval = setInterval(function() {
+          if (+redfarmer.attr("y") < +d3.select("#sliderOne").attr("y1")-50) {
+            var col = d3.select("#col" + i);
+            col.select("#cell" + j).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-red.svg");
 
-              // check if row is even or odd
-              if (j % 2 === 0) {
-                i++;
-                if (i !== 6) {
-                  redfarmer.attr("x", function() {
-                    return +d3.select(this).attr("x") + dist;
-                  });
-                }
-              } else {
-                i--;
-                if (i !== -1) {
-                  redfarmer.attr("x", function() {
-                    return +d3.select(this).attr("x") - dist;
-                  });
-                }
+            // check if row is even or odd
+            if (j % 2 === 0) {
+              i++;
+              if (i !== 6) {
+                redfarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") + dist;
+                });
               }
-
-              // jump to next row upon reaching right end
-              if (i === 6) {
-                  i = 5;
-                  j++;
-                  redfarmer.attr("y", function() {
-                    return +d3.select(this).attr("y") + dist;
-                  });
+            } else {
+              i--;
+              if (i !== -1) {
+                redfarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") - dist;
+                });
               }
+            }
 
-              // jump to next row upon reaching left end
-              if (i === -1) {
-                i = 0;
+            // jump to next row upon reaching right end
+            if (i === 6) {
+                i = 5;
                 j++;
                 redfarmer.attr("y", function() {
                   return +d3.select(this).attr("y") + dist;
                 });
+            }
+
+            // jump to next row upon reaching left end
+            if (i === -1) {
+              i = 0;
+              j++;
+              redfarmer.attr("y", function() {
+                return +d3.select(this).attr("y") + dist;
+              });
+            }
+          } else {
+            rstop = true;
+            clearInterval(redinterval);
+          }
+        }, redspeed);
+
+        m = 0;
+        n = 5;
+        var bluefarmer = d3.select("#bluefarmer");
+        blueinterval = setInterval(function() {
+          if (+bluefarmer.attr("y") > +d3.select("#sliderOne").attr("y1")-50
+           && +bluefarmer.attr("y") < +d3.select("#sliderTwo").attr("y1")-50) {
+            var col = d3.select("#col" + m);
+            col.select("#cell" + n).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-blue.svg");
+
+            // check if row is even or odd
+            if (n % 2 === 0) {
+              m--;
+              if (m !== 6 && m !== -1) {
+                bluefarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") - dist;
+                });
               }
             } else {
-              rstop = true;
-              clearInterval(redinterval);
+              m++;
+              if (m !== -1 && m !== 6) {
+                bluefarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") + dist;
+                });
+              }
             }
-          }, redspeed);
+
+            // jump to next row upon reaching left end
+            if (m === -1) {
+              m = 0;
+              n--;
+              bluefarmer.attr("y", function() {
+                return +d3.select(this).attr("y") - dist;
+              });
+            }
+
+            // jump to next row upon reaching right end
+            if (m === 6) {
+                m = 5;
+                n--;
+                bluefarmer.attr("y", function() {
+                  return +d3.select(this).attr("y") - dist;
+                });
+            }
+          } else {
+            bstop = true;
+            clearInterval(blueinterval);
+          }
+        }, purplespeed);
 
         k = 0;
         l = 5;
         var purplefarmer = d3.select("#purplefarmer");
-          purpleinterval = setInterval(function() {
-            if (+purplefarmer.attr("y") > +d3.select("#sliderOne").attr("y1")-50) {
-              var col = d3.select("#col" + k);
-              col.select("#cell" + l).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-purple.svg");
+        purpleinterval = setInterval(function() {
+          if (+purplefarmer.attr("y") > +d3.select("#sliderTwo").attr("y1")-50) {
+            var col = d3.select("#col" + k);
+            col.select("#cell" + l).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-purple.svg");
 
-              // check if row is even or odd
-              if (l % 2 === 0) {
-                k--;
-                if (k !== 6 && k !== -1) {
-                  purplefarmer.attr("x", function() {
-                    return +d3.select(this).attr("x") - dist;
-                  });
-                }
-              } else {
-                k++;
-                if (k !== -1 && k !== 6) {
-                  purplefarmer.attr("x", function() {
-                    return +d3.select(this).attr("x") + dist;
-                  });
-                }
+            // check if row is even or odd
+            if (l % 2 === 0) {
+              k--;
+              if (k !== 6 && k !== -1) {
+                purplefarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") - dist;
+                });
               }
+            } else {
+              k++;
+              if (k !== -1 && k !== 6) {
+                purplefarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") + dist;
+                });
+              }
+            }
 
-              // jump to next row upon reaching left end
-              if (k === -1) {
-                k = 0;
+            // jump to next row upon reaching left end
+            if (k === -1) {
+              k = 0;
+              l--;
+              purplefarmer.attr("y", function() {
+                return +d3.select(this).attr("y") - dist;
+              });
+            }
+
+            // jump to next row upon reaching right end
+            if (k === 6) {
+                k = 5;
                 l--;
                 purplefarmer.attr("y", function() {
                   return +d3.select(this).attr("y") - dist;
                 });
-              }
-
-              // jump to next row upon reaching right end
-              if (k === 6) {
-                  k = 5;
-                  l--;
-                  purplefarmer.attr("y", function() {
-                    return +d3.select(this).attr("y") - dist;
-                  });
-              }
-            } else {
-              pstop = true;
-              clearInterval(purpleinterval);
             }
-          }, purplespeed);
+          } else {
+            pstop = true;
+            clearInterval(purpleinterval);
+          }
+        }, purplespeed);
       });
 
       // reset simulation
@@ -417,7 +467,7 @@
           // stop timers and reset duration
           rtimer.stop();
           ptimer.stop();
-          d3.select("#bcounter").text("Duration: " + 0 + " seconds");
+          d3.select("#rcounter").text("Duration: " + 0 + " seconds");
           d3.select("#pcounter").text("Duration: " + 0 + " seconds");
 
           // clear farmer runtime code
@@ -428,7 +478,7 @@
           d3.select("#start").attr("disabled", null);
 
           // enable dragging
-          d3.select("line").call(drag);
+          d3.selectAll("line").call(drag);
 
           // reset tile counters
           i = 0;
@@ -436,24 +486,32 @@
           k = 0;
           l = 0;
 
-          var s = d3.select("#sliderOne").attr("y1");
+          var s1 = d3.select("#sliderOne").attr("y1");
+          var s2 = d3.select("#sliderTwo").attr("y1");
 
-          // select cells above slider bar
+          // select cells above top slider bar
           var above = d3.selectAll("image.plot").filter(function() {
             var y = d3.select(this).attr("y");
-              return (+y < +s);
+              return (+y < +s1);
           });
-          // select cells below slider bar
+          // select cells inbetween slider bars
+          var middle = d3.selectAll("image.plot").filter(function() {
+            var y = d3.select(this).attr("y");
+            return (+y >= +s1 && +y < +s2);
+          });
+          // select cells below bottom slider bar
           var below = d3.selectAll("image.plot").filter(function() {
             var y = d3.select(this).attr("y");
-            return (+y >= +s);
+            return (+y >= +s2);
           });
 
           // color cells according to portions
           above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-red.svg");
+          middle.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg");
           below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg");
 
           d3.select("#redfarmer").attr("x", 0).attr("y", 0);
+          d3.select("#bluefarmer").attr("x", 0).attr("y", 105);
           d3.select("#purplefarmer").attr("x", 0).attr("y", 175);
           d3.select(this).attr("disabled", true);
       });
