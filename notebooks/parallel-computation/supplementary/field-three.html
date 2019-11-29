@@ -39,20 +39,35 @@
       var svg = body.append("svg")
         .attr("width", 230)
         .attr("height", 300);
-
-      // y-values of slider bars
-      var yvalOne = 112;
-      var yvalTwo = 182;
-
-      var patterns = svg.append("defs").append("pattern")
+      var defs = svg.append("defs");
+      var patterns = defs.append("pattern")
         .attr("id", "seedling")
         .attr("patternUnits", "userSpaceOnUse")
         .attr("width", 100).attr("height", 100)
-
       patterns.append("image")
         .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling.svg")
         .attr("x", 0).attr("y", 0)
         .attr("width", 100).attr("height", 100)
+
+      var gradient = defs.append("linearGradient")
+        .attr("id", "gradient")
+        .attr("gradientUnits", "userSpaceOnUse")
+        .attr("x1", "0%")
+        .attr("y1", "0%")
+        .attr("x2", "100%")
+        .attr("y2", "0%");
+      gradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", "#3399cc")
+        .attr("stop-opacity", 1);
+      gradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", "#cc33cc")
+        .attr("stop-opacity", 1);
+
+      // y-values of slider bars
+      var yvalOne = 112;
+      var yvalTwo = 182;
 
       // generate grid of nodes (field cells)
       function grid() {
@@ -130,7 +145,7 @@
         .attr("y1", yvalTwo)
         .attr("x2", 215)
         .attr("y2", yvalTwo)
-        .style("stroke", "#3399cc")
+        .style("stroke", "url(#gradient)")
         .style("stroke-width", 10);
 
       var drag = d3.drag()
@@ -279,15 +294,24 @@
       control.append("br");
 
       var pstats = control.append("div")
-        .style("border", "solid 3px #cc33cc")
-        .style("color", "#cc33cc");
+        .style("border", "solid 3px")
+        .style("color", "#cc33cc")
+        .style("border-image-source", "linear-gradient(90deg, #cc33cc, #3399cc)")
+        .style("border-image-slice", 1);
 
       pstats.append("p").text("Parker and Patricia")
         .style("text-decoration", "underline")
-        .style("font-weight", 600);
+        .style("text-decoration-color", "#3399cc")
+        .style("font-weight", 600)
+        .style("background", "-webkit-linear-gradient(45deg, #cc33cc, #3399cc)")
+        .style("-webkit-background-clip", "text")
+        .style("-webkit-text-fill-color", "transparent");
 
       // blue and purple farmer speed control buttons
-      pstats.append("p").attr("id", "purplespeed").text("Speed: fast");
+      pstats.append("p").attr("id", "purplespeed").text("Speed: fast")
+        .style("background", "-webkit-linear-gradient(45deg, #cc33cc, #3399cc)")
+        .style("-webkit-background-clip", "text")
+        .style("-webkit-text-fill-color", "transparent");
       var purplespeed = 100;
       pstats.append("button").text("Slow")
         .on("click", function() {
@@ -307,7 +331,10 @@
 
       // purple counter value display
       pstats.append("p").attr("id", "pcounter")
-        .text("Duration: " + 0 + " seconds");
+        .text("Duration: " + 0 + " seconds")
+        .style("background", "-webkit-linear-gradient(45deg, #cc33cc, #3399cc)")
+        .style("-webkit-background-clip", "text")
+        .style("-webkit-text-fill-color", "transparent");
 
       body.append("br");
       body.append("br");
