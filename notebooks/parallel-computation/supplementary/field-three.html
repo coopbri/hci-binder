@@ -384,48 +384,102 @@
         }, redspeed);
 
         m = 0;
-        n = 3;
         var bluefarmer = d3.select("#bluefarmer");
+        var bluestart = +bluefarmer.attr("y");
+        var nstart = 0;
+        n = 0;
+        if (bluestart === 35) {
+          n = 1;
+          nstart = 1;
+        } else if (bluestart === 71) {
+          n = 2;
+        } else if (bluestart === 105) {
+          n = 3;
+          nstart = 1;
+        } else if (bluestart === 141) {
+          n = 4;
+        } else if (bluestart === 180) {
+          n = 5;
+          nstart = 1;
+        }
         blueinterval = setInterval(function() {
           if (+bluefarmer.attr("y") > +d3.select("#sliderOne").attr("y1")-50
            && +bluefarmer.attr("y") < +d3.select("#sliderTwo").attr("y1")-50) {
             var col = d3.select("#col" + m);
             col.select("#cell" + n).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-blue.svg");
-            col.select()
 
-            // check if row is even or odd
-            if (n % 2 === 0) {
-              m--;
-              if (m !== 6 && m !== -1) {
-                bluefarmer.attr("x", function() {
-                  return +d3.select(this).attr("x") - dist;
-                });
+            // starting on odd row
+            if (nstart === 1) {
+              // check if row is even or odd
+              if (n % 2 === 0) {
+                m--;
+                if (m !== 6 && m !== -1) {
+                  bluefarmer.attr("x", function() {
+                    return +d3.select(this).attr("x") - dist;
+                  });
+                }
+              } else {
+                m++;
+                if (m !== -1 && m !== 6) {
+                  bluefarmer.attr("x", function() {
+                    return +d3.select(this).attr("x") + dist;
+                  });
+                }
               }
-            } else {
-              m++;
-              if (m !== -1 && m !== 6) {
-                bluefarmer.attr("x", function() {
-                  return +d3.select(this).attr("x") + dist;
-                });
-              }
-            }
 
-            // jump to next row upon reaching left end
-            if (m === -1) {
-              m = 0;
-              n--;
-              bluefarmer.attr("y", function() {
-                return +d3.select(this).attr("y") - dist;
-              });
-            }
-
-            // jump to next row upon reaching right end
-            if (m === 6) {
-                m = 5;
+              // jump to next row upon reaching left end
+              if (m === -1) {
+                m = 0;
                 n--;
                 bluefarmer.attr("y", function() {
                   return +d3.select(this).attr("y") - dist;
                 });
+              }
+
+              // jump to next row upon reaching right end
+              if (m === 6) {
+                  m = 5;
+                  n--;
+                  bluefarmer.attr("y", function() {
+                    return +d3.select(this).attr("y") - dist;
+                  });
+              }
+            // starting on even row
+            } else {
+              // check if row is even or odd
+              if (n % 2 === 0) {
+                m++;
+                if (m !== 6 && m !== -1) {
+                  bluefarmer.attr("x", function() {
+                    return +d3.select(this).attr("x") + dist;
+                  });
+                }
+              } else {
+                m--;
+                if (m !== -1 && m !== 6) {
+                  bluefarmer.attr("x", function() {
+                    return +d3.select(this).attr("x") - dist;
+                  });
+                }
+              }
+
+              // jump to next row upon reaching left end
+              if (m === -1) {
+                m = 0;
+                n--;
+                bluefarmer.attr("y", function() {
+                  return +d3.select(this).attr("y") - dist;
+                });
+              }
+
+              // jump to next row upon reaching right end
+              if (m === 6) {
+                  m = 5;
+                  n--;
+                  bluefarmer.attr("y", function() {
+                    return +d3.select(this).attr("y") - dist;
+                  });
+              }
             }
           } else {
             bstop = true;
