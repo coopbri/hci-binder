@@ -34,7 +34,6 @@
   <body>
     <script>
       var rtimer = d3.timer(function() { rtimer.stop(); });
-      var btimer = d3.timer(function() { btimer.stop(); });
       var ptimer = d3.timer(function() { ptimer.stop(); });
       var body = d3.select("body");
       var svg = body.append("svg")
@@ -321,6 +320,7 @@
       control.append("button").text("Start").attr("id", "start").on("click", function() {
         // start timers
         var rstop = false;
+        var bstop = false;
         var pstop = false;
         rtimer.restart(function(dur) {
           d3.select("#rcounter").text(function() {
@@ -338,7 +338,7 @@
             if (time === 1) { return "Duration: " + time + " second" }
             else { return "Duration: " + time + " seconds" }
           });
-          if (pstop) {
+          if (pstop && bstop) {
             ptimer.stop();
           }
         });
@@ -554,7 +554,6 @@
         .on("click", function() {
           // stop timers and reset duration
           rtimer.stop();
-          btimer.stop();
           ptimer.stop();
           d3.select("#rcounter").text("Duration: " + 0 + " seconds");
           d3.select("#pcounter").text("Duration: " + 0 + " seconds");
