@@ -139,6 +139,10 @@
           d3.select(this)
             .attr("y1", d3.event.y)
             .attr("y2", d3.event.y);
+
+            // move blue farmer position based on slider
+            var yblue = d3.select("#sliderTwo").attr("y1");
+            d3.select("#bluefarmer").attr("y", yblue - 77);
         })
         .on("end", function() {
           d3.select(this)
@@ -542,12 +546,14 @@
         .on("click", function() {
           // stop timers and reset duration
           rtimer.stop();
+          btimer.stop();
           ptimer.stop();
           d3.select("#rcounter").text("Duration: " + 0 + " seconds");
           d3.select("#pcounter").text("Duration: " + 0 + " seconds");
 
           // clear farmer runtime code
           clearInterval(redinterval);
+          clearInterval(blueinterval);
           clearInterval(purpleinterval);
 
           // enable start button
