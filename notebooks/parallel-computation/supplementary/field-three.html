@@ -30,7 +30,7 @@
 
   <body>
     <script>
-      var btimer = d3.timer(function() { btimer.stop(); });
+      var rtimer = d3.timer(function() { rtimer.stop(); });
       var ptimer = d3.timer(function() { ptimer.stop(); });
       var body = d3.select("body");
       var svg = body.append("svg")
@@ -181,35 +181,35 @@
 
       var control = body.append("div").attr("id", "control");
 
-      var bstats = control.append("div")
+      var rstats = control.append("div")
         .style("border", "solid 3px #c1272d")
         .style("color", "#c1272d");
 
-      bstats.append("p").text("Sam")
+      rstats.append("p").text("Sam")
         .style("text-decoration", "underline")
         .style("font-weight", 600);
 
       // red farmer speed control buttons
-      bstats.append("p").attr("id", "redspeed").text("Speed: fast");
+      rstats.append("p").attr("id", "redspeed").text("Speed: fast");
       var redspeed = 100;
-      bstats.append("button").text("Slow")
+      rstats.append("button").text("Slow")
         .on("click", function() {
           redspeed = 750;
           d3.select("#redspeed").text("Speed: slow");
         });
-      bstats.append("button").text("Medium")
+      rstats.append("button").text("Medium")
         .on("click", function() {
           redspeed = 500;
           d3.select("#redspeed").text("Speed: medium");
         });
-      bstats.append("button").text("Fast")
+      rstats.append("button").text("Fast")
         .on("click", function() {
           redspeed = 100;
           d3.select("#redspeed").text("Speed: fast");
         });
 
       // red counter value display
-      bstats.append("p").attr("id", "bcounter")
+      rstats.append("p").attr("id", "bcounter")
         .text("Duration: " + 0 + " seconds");
 
       control.append("br");
@@ -255,16 +255,16 @@
       var j = 0;
       control.append("button").text("Start").attr("id", "start").on("click", function() {
         // start timers
-        var bstop = false;
+        var rstop = false;
         var pstop = false;
-        btimer.restart(function(dur) {
+        rtimer.restart(function(dur) {
           d3.select("#bcounter").text(function() {
             var time = Math.floor(dur / 1000);
             if (time === 1) { return "Duration: " + time + " second" }
             else { return "Duration: " + time + " seconds" }
           });
-          if (bstop) {
-            btimer.stop();
+          if (rstop) {
+            rtimer.stop();
           }
         });
         ptimer.restart(function(dur) {
@@ -325,7 +325,7 @@
                 });
               }
             } else {
-              bstop = true;
+              rstop = true;
               clearInterval(redinterval);
             }
           }, redspeed);
@@ -384,7 +384,7 @@
         .attr("disabled", true)
         .on("click", function() {
           // stop timers and reset duration
-          btimer.stop();
+          rtimer.stop();
           ptimer.stop();
           d3.select("#bcounter").text("Duration: " + 0 + " seconds");
           d3.select("#pcounter").text("Duration: " + 0 + " seconds");
