@@ -166,35 +166,43 @@
               d3.select("#sliderTwo").attr("y2", move);
             }
           }
-
-          // select cells above top slider bar
-          var above = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-              return (+y < +s1);
-          });
-          // select cells inbetween slider bars
-          var middle = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-            return (+y >= +s1 && +y < +s2);
-          });
-          // select cells below bottom slider bar
-          var below = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-            return (+y >= +s2);
-          });
-
-          // move blue farmer position based on slider
-          var yblue = d3.select("#sliderTwo").attr("y1");
-          d3.select("#bluefarmer").attr("y", yblue - 77);
-
-          // color cells according to portions
-          above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-red.svg");
-          middle.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg");
-          below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg");
+          // update cell colors
+          color();
         });
 
       // enable dragging on both slider bars
       drag(d3.selectAll("line"));
+
+      // color-code cells based on farmer partition
+      function color() {
+        var s1 = d3.select("#sliderOne").attr("y1");
+        var s2 = d3.select("#sliderTwo").attr("y1");
+
+        // select cells above top slider bar
+        var above = d3.selectAll("image.plot").filter(function() {
+          var y = d3.select(this).attr("y");
+            return (+y < +s1);
+        });
+        // select cells inbetween slider bars
+        var middle = d3.selectAll("image.plot").filter(function() {
+          var y = d3.select(this).attr("y");
+          return (+y >= +s1 && +y < +s2);
+        });
+        // select cells below bottom slider bar
+        var below = d3.selectAll("image.plot").filter(function() {
+          var y = d3.select(this).attr("y");
+          return (+y >= +s2);
+        });
+
+        // move blue farmer position based on slider
+        var yblue = d3.select("#sliderTwo").attr("y1");
+        d3.select("#bluefarmer").attr("y", yblue - 77);
+
+        // color cells according to portions
+        above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-red.svg");
+        middle.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg");
+        below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg");
+      }
 
       // snap dragged position
       function snap(y) {
@@ -570,29 +578,8 @@
           k = 0;
           l = 0;
 
-          var s1 = d3.select("#sliderOne").attr("y1");
-          var s2 = d3.select("#sliderTwo").attr("y1");
-
-          // select cells above top slider bar
-          var above = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-              return (+y < +s1);
-          });
-          // select cells inbetween slider bars
-          var middle = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-            return (+y >= +s1 && +y < +s2);
-          });
-          // select cells below bottom slider bar
-          var below = d3.selectAll("image.plot").filter(function() {
-            var y = d3.select(this).attr("y");
-            return (+y >= +s2);
-          });
-
-          // color cells according to portions
-          above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-red.svg");
-          middle.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg");
-          below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg");
+          // update cell colors
+          color();
 
           d3.select("#redfarmer").attr("x", 0).attr("y", 0);
           d3.select("#bluefarmer").attr("x", 0).attr("y", function() {
