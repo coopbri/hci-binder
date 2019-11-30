@@ -17,7 +17,7 @@
                       user-select: none; }
       svg           { float:left;
                       margin-right: 80px; }
-      #control      { width: 510px;
+      #control      { width: 240px;
                       text-align: center;
                       margin-top: 10px;
                       position: absolute;
@@ -33,26 +33,41 @@
 
   <body>
     <script>
-      var btimer = d3.timer(function() { btimer.stop(); });
-      var ptimer = d3.timer(function() { ptimer.stop(); });
       var rtimer = d3.timer(function() { rtimer.stop(); });
+      var ptimer = d3.timer(function() { ptimer.stop(); });
       var body = d3.select("body");
       var svg = body.append("svg")
         .attr("width", 230)
         .attr("height", 300);
-      var patterns = svg.append("defs").append("pattern")
+      var defs = svg.append("defs");
+      var patterns = defs.append("pattern")
         .attr("id", "seedling")
         .attr("patternUnits", "userSpaceOnUse")
-        .attr("width", 100).attr("height", 100);
-
-      // extent (left/right) of squares divided among parallel farmers
-      var divLeft = 3;
-      var divRight = 3;
-
+        .attr("width", 100).attr("height", 100)
       patterns.append("image")
         .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling.svg")
         .attr("x", 0).attr("y", 0)
         .attr("width", 100).attr("height", 100)
+
+      var gradient = defs.append("linearGradient")
+        .attr("id", "gradient")
+        .attr("gradientUnits", "userSpaceOnUse")
+        .attr("x1", "0%")
+        .attr("y1", "0%")
+        .attr("x2", "100%")
+        .attr("y2", "0%");
+      gradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", "#3399cc")
+        .attr("stop-opacity", 1);
+      gradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", "#cc33cc")
+        .attr("stop-opacity", 1);
+
+      // y-values of slider bars
+      var yvalOne = 112;
+      var yvalTwo = 182;
 
       // generate grid of nodes (field cells)
       function grid() {
@@ -92,15 +107,12 @@
         .data(function (d) { return d; })
         .enter().append("image")
         .attr("xlink:href", function(d) {
-          // initial field coloring
-          if (d.y < 148) {
-            if (d.x < 100) {
-              return "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg";
-            } else {
-              return "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg";
-            }
-          } else {
+           if (d.y < yvalOne) {
             return "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-red.svg";
+          } else if (d.y > yvalOne && d.y < yvalTwo) {
+            return "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg";
+          } else {
+            return "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg";
           }
         })
         .attr("x", function (d) { return d.x; })
@@ -118,15 +130,22 @@
         });
         extra.remove();
 
-      // draggable line to portion field, y is constant
-      var yval = 148;
+      // draggable lines to portion field, y is constant
       svg.append("line")
-        .attr("id", "slider")
+        .attr("id", "sliderOne")
         .attr("x1", 10)
-        .attr("y1", yval)
+        .attr("y1", yvalOne)
         .attr("x2", 215)
-        .attr("y2", yval)
-        .style("stroke", "black")
+        .attr("y2", yvalOne)
+        .style("stroke", "#c1272d")
+        .style("stroke-width", 10);
+      svg.append("line")
+        .attr("id", "sliderTwo")
+        .attr("x1", 10)
+        .attr("y1", yvalTwo)
+        .attr("x2", 215)
+        .attr("y2", yvalTwo)
+        .style("stroke", "url(#gradient)")
         .style("stroke-width", 10);
 
       var drag = d3.drag()
@@ -135,168 +154,105 @@
             .attr("y1", d3.event.y)
             .attr("y2", d3.event.y);
 
-          // resize parallel divider depending on slider position
-          d3.select("#divider").attr("y2", d3.select("#slider").attr("y1"));
+            // move blue farmer position based on slider
+            var yblue = d3.select("#sliderTwo").attr("y1");
+            d3.select("#bluefarmer").attr("y", yblue - 77);
         })
         .on("end", function() {
           d3.select(this)
-            .attr("y1", snapY(d3.event.y))
-            .attr("y2", snapY(d3.event.y));
+            .attr("y1", snap(d3.event.y))
+            .attr("y2", snap(d3.event.y));
 
-          // resize parallel divider depending on slider position
-          d3.select("#divider").attr("y2", d3.select("#slider").attr("y1"));
+          var s1 = d3.select("#sliderOne").attr("y1");
+          var s2 = d3.select("#sliderTwo").attr("y1");
 
-          // redraw field portions
-          updateField();
-        });
-
-      // enable slider dragging
-      drag(d3.selectAll("#slider"));
-
-      // draggable line to divide field among parallel farmers, x is constant
-      var xval = 112;
-      svg.append("line")
-        .attr("id", "divider")
-        .attr("x1", xval)
-        .attr("y1", 45)
-        .attr("x2", xval)
-        .attr("y2", d3.select("#slider").attr("y1"))
-        .style("stroke", "black")
-        .style("stroke-width", 10);
-
-      var divide = d3.drag()
-        .on("drag", function() {
-          d3.select(this)
-            .attr("x1", d3.event.x)
-            .attr("x2", d3.event.x);
-
-          // resize parallel divider depending on slider position
-          d3.select("#divider").attr("y2", d3.select("#slider").attr("y1"));
-        })
-        .on("end", function() {
-          d3.select(this)
-            .attr("x1", snapX(d3.event.x))
-            .attr("x2", snapX(d3.event.x));
-
-          // redraw field portions
-          updateField();
-        });
-
-        // enable divider dragging
-        divide(d3.selectAll("#divider"));
-
-      // snap dragged position (horizontal line)
-      function snapY(y) {
-        // beyond bounds of plot
-        if (y <  38) { return 38;  }
-        if (y > 250) { return 257; }
-
-        // within bounds of plot
-        if (y < 180) {
-          if (y < 100) {
-            return Math.round(y/38.0) * 38;
-          } else {
-            return Math.round(y/37.0) * 37;
-          }
-        } else {
-          return Math.round(y/36.0) * 36;
-        }
-      }
-
-      // snap dragged position (vertical line)
-      function snapX(x) {
-        // beyond bounds of plot
-        if (x <  20) { return 10;  }
-        if (x > 215) { return 215; }
-
-        // within bounds of plot
-        if (x < 180) {
-          if (x < 100) {
-            if (x < 47) {
-              return Math.round(x/42.0) * 42;
-            } else {
-              return Math.round(x/39.0) * 39;
+          // check for slider overlaps
+          if (+s1 >= +s2) {
+            // keep top slider above bottom slider
+            if (this.id === "sliderOne") {
+              var move = snap(+d3.select("#sliderTwo").attr("y1") - 36);
+              d3.select("#sliderOne").attr("y1", move);
+              d3.select("#sliderOne").attr("y2", move);
+            // keep bottom slider below top slider
+            } else if (this.id === "sliderTwo") {
+              var move = snap(+d3.select("#sliderOne").attr("y1") + 36);
+              d3.select("#sliderTwo").attr("y1", move);
+              d3.select("#sliderTwo").attr("y2", move);
             }
-          } else {
-            return Math.round(x/37.0) * 37;
           }
-        } else {
-          return Math.round(x/36.3) * 36.3;
-        }
-      }
+          // update cell colors
+          color();
+        });
 
-      function updateField() {
-        var s = d3.select("#slider").attr("y1");
-        var d = d3.select("#divider").attr("x1");
+      // enable dragging on both slider bars
+      drag(d3.selectAll("line"));
 
-        // select cells above slider bar
+      // color-code cells based on farmer partition
+      function color() {
+        var s1 = d3.select("#sliderOne").attr("y1");
+        var s2 = d3.select("#sliderTwo").attr("y1");
+
+        // select cells above top slider bar
         var above = d3.selectAll("image.plot").filter(function() {
           var y = d3.select(this).attr("y");
-            return (+y < +s);
+            return (+y < +s1);
         });
-        // select cells below slider bar
+        // select cells inbetween slider bars
+        var middle = d3.selectAll("image.plot").filter(function() {
+          var y = d3.select(this).attr("y");
+          return (+y >= +s1 && +y < +s2);
+        });
+        // select cells below bottom slider bar
         var below = d3.selectAll("image.plot").filter(function() {
           var y = d3.select(this).attr("y");
-          return (+y >= +s);
-        });
-        // select cells to left of divider bar
-        var left = d3.selectAll("image.plot").filter(function() {
-          var x = d3.select(this).attr("x");
-          var y = d3.select(this).attr("y");
-          return (+x < +d && +y < +s);
-        });
-        // select cells to right of divider bar
-        var right = d3.selectAll("image.plot").filter(function() {
-          var x = d3.select(this).attr("x");
-          var y = d3.select(this).attr("y");
-          return (+x >= +d && +y < +s);
+          return (+y >= +s2);
         });
 
-        // field division factor
-        var factor = 0;
-        var div = d3.select("#divider").attr("x1");
-        if (div < 11) {
-          factor = 0;
-        } else if (div > 38 && div < 46) {
-          factor = 1;
-        } else if (div > 76 && div < 84) {
-          factor = 2;
-        } else if (div > 109 && div < 114) {
-          factor = 3;
-        } else if (div > 140 && div < 152) {
-          factor = 4;
-        } else if (div > 176 && div < 188) {
-          factor = 5;
-        } else if (div >= 210) {
-          factor = 6;
-        }
-
-        // set number of squares to left and right for farmers
-        divLeft = factor;
-        divRight = 6 - factor;
+        // move blue farmer position based on slider
+        var yblue = d3.select("#sliderTwo").attr("y1");
+        d3.select("#bluefarmer").attr("y", yblue - 77);
 
         // color cells according to portions
-        above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg");
-        below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-red.svg");
-        left.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg");
-        right.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg");
+        above.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-red.svg");
+        middle.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-blue.svg");
+        below.attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/empty-purple.svg");
       }
+
+      // snap dragged position
+      function snap(y) {
+        // beyond bounds of plot
+        if (y <  64) { return 38;  }
+        if (y > 237) { return 257; }
+
+        // within bounds of plot, top to bottom
+        if (y > 64 && y < 92) {
+          return 78;
+        } else if (y > 92 && y < 130) {
+          return yvalOne;
+        } else if (y > 130 && y < 166) {
+          return 148;
+        } else if (y > 166 && y < 200) {
+          return yvalTwo;
+        } else if (y > 200 && y < 237) {
+          return 218;
+        }
+      }
+
+      // draw red farmer
+      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/farmer.svg")
+        .attr("id", "redfarmer")
+        .attr("width", 40)
+        .attr("y", 0);
 
       // draw blue farmer
       svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/bluefarmer.svg")
         .attr("id", "bluefarmer")
         .attr("width", 40)
-        .attr("x", 0);
+        .attr("y", 105);
 
       // draw purple farmer
       svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/purplefarmer.svg")
         .attr("id", "purplefarmer")
-        .attr("width", 40)
-        .attr("x", 175);
-
-      // draw red farmer
-      svg.append("image").attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/farmer.svg")
-        .attr("id", "redfarmer")
         .attr("width", 40)
         .attr("y", 175);
 
@@ -304,79 +260,7 @@
 
       var control = body.append("div").attr("id", "control");
 
-      var bstats = control.append("div")
-        .style("width", "240px")
-        .style("border", "solid 3px #3399cc")
-        .style("color", "#3399cc");
-
-      bstats.append("p").text("Parker")
-        .style("text-decoration", "underline")
-        .style("font-weight", 600);
-
-      // blue farmer speed control buttons
-      bstats.append("p").attr("id", "bluespeed").text("Speed: fast");
-      var bluespeed = 100;
-      bstats.append("button").text("Slow")
-        .on("click", function() {
-          bluespeed = 750;
-          d3.select("#bluespeed").text("Speed: slow");
-        });
-      bstats.append("button").text("Medium")
-        .on("click", function() {
-          bluespeed = 500;
-          d3.select("#bluespeed").text("Speed: medium");
-        });
-      bstats.append("button").text("Fast")
-        .on("click", function() {
-          bluespeed = 100;
-          d3.select("#bluespeed").text("Speed: fast");
-        });
-
-      // blue counter value display
-      bstats.append("p").attr("id", "bcounter")
-        .text("Duration: " + 0 + " seconds");
-
-      control.append("br");
-
-      var pstats = control.append("div")
-        .style("margin-top", "-186px")
-        .style("float", "right")
-        .style("width", "240px")
-        .style("border", "solid 3px #cc33cc")
-        .style("color", "#cc33cc");
-
-      pstats.append("p").text("Patricia")
-        .style("text-decoration", "underline")
-        .style("font-weight", 600);
-
-      // purple farmer speed control buttons
-      pstats.append("p").attr("id", "purplespeed").text("Speed: fast");
-      var purplespeed = 100;
-      pstats.append("button").text("Slow")
-        .on("click", function() {
-          purplespeed = 750;
-          d3.select("#purplespeed").text("Speed: slow");
-        });
-      pstats.append("button").text("Medium")
-        .on("click", function() {
-          purplespeed = 500;
-          d3.select("#purplespeed").text("Speed: medium");
-        });
-      pstats.append("button").text("Fast")
-        .on("click", function() {
-          purplespeed = 100;
-          d3.select("#purplespeed").text("Speed: fast");
-        });
-
-      // purple counter value display
-      pstats.append("p").attr("id", "pcounter")
-        .text("Duration: " + 0 + " seconds");
-
-      control.append("br");
-
       var rstats = control.append("div")
-        .style("width", "503px")
-        .style("margin-top", "-20px")
         .style("border", "solid 3px #c1272d")
         .style("color", "#c1272d");
 
@@ -407,6 +291,51 @@
       rstats.append("p").attr("id", "rcounter")
         .text("Duration: " + 0 + " seconds");
 
+      control.append("br");
+
+      var pstats = control.append("div")
+        .style("border", "solid 3px")
+        .style("color", "#cc33cc")
+        .style("border-image-source", "linear-gradient(90deg, #cc33cc, #3399cc)")
+        .style("border-image-slice", 1);
+
+      pstats.append("p").text("Parker and Patricia")
+        .style("text-decoration", "underline")
+        .style("text-decoration-color", "#3399cc")
+        .style("font-weight", 600)
+        .style("background", "-webkit-linear-gradient(45deg, #cc33cc, #3399cc)")
+        .style("-webkit-background-clip", "text")
+        .style("-webkit-text-fill-color", "transparent");
+
+      // blue and purple farmer speed control buttons
+      pstats.append("p").attr("id", "purplespeed").text("Speed: fast")
+        .style("background", "-webkit-linear-gradient(45deg, #cc33cc, #3399cc)")
+        .style("-webkit-background-clip", "text")
+        .style("-webkit-text-fill-color", "transparent");
+      var purplespeed = 100;
+      pstats.append("button").text("Slow")
+        .on("click", function() {
+          purplespeed = 750;
+          d3.select("#purplespeed").text("Speed: slow");
+        });
+      pstats.append("button").text("Medium")
+        .on("click", function() {
+          purplespeed = 500;
+          d3.select("#purplespeed").text("Speed: medium");
+        });
+      pstats.append("button").text("Fast")
+        .on("click", function() {
+          purplespeed = 100;
+          d3.select("#purplespeed").text("Speed: fast");
+        });
+
+      // purple counter value display
+      pstats.append("p").attr("id", "pcounter")
+        .text("Duration: " + 0 + " seconds")
+        .style("background", "-webkit-linear-gradient(45deg, #cc33cc, #3399cc)")
+        .style("-webkit-background-clip", "text")
+        .style("-webkit-text-fill-color", "transparent");
+
       body.append("br");
       body.append("br");
       body.append("br");
@@ -417,29 +346,9 @@
       var j = 0;
       control.append("button").text("Start").attr("id", "start").on("click", function() {
         // start timers
+        var rstop = false;
         var bstop = false;
         var pstop = false;
-        var rstop = false;
-        btimer.restart(function(dur) {
-          d3.select("#bcounter").text(function() {
-            var time = Math.floor(dur / 1000);
-            if (time === 1) { return "Duration: " + time + " second" }
-            else { return "Duration: " + time + " seconds" }
-          });
-          if (bstop) {
-            btimer.stop();
-          }
-        });
-        ptimer.restart(function(dur) {
-          d3.select("#pcounter").text(function() {
-            var time = Math.floor(dur / 1000);
-            if (time === 1) { return "Duration: " + time + " second" }
-            else { return "Duration: " + time + " seconds" }
-          });
-          if (pstop) {
-            ptimer.stop();
-          }
-        });
         rtimer.restart(function(dur) {
           d3.select("#rcounter").text(function() {
             var time = Math.floor(dur / 1000);
@@ -450,6 +359,16 @@
             rtimer.stop();
           }
         });
+        ptimer.restart(function(dur) {
+          d3.select("#pcounter").text(function() {
+            var time = Math.floor(dur / 1000);
+            if (time === 1) { return "Duration: " + time + " second" }
+            else { return "Duration: " + time + " seconds" }
+          });
+          if (pstop && bstop) {
+            ptimer.stop();
+          }
+        });
 
         d3.select(this).attr("disabled", true);
         d3.select("#reset").attr("disabled", null);
@@ -457,147 +376,203 @@
         // disable dragging
         d3.selectAll("line").on(".drag", null);
 
-        var bluefarmer = d3.select("#bluefarmer");
-          blueinterval = setInterval(function() {
-            if (divLeft != 0 && +bluefarmer.attr("y") < +d3.select("#slider").attr("y1")-50) {
-              var col = d3.select("#col" + i);
-              col.select("#cell" + j).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-blue.svg");
+        var redfarmer = d3.select("#redfarmer");
+        redinterval = setInterval(function() {
+          if (+redfarmer.attr("y") < +d3.select("#sliderOne").attr("y1")-50) {
+            var col = d3.select("#col" + i);
+            col.select("#cell" + j).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-red.svg");
 
-              // check if row is even or odd
-              if (j % 2 === 0) {
-                i++;
-                if (i !== divLeft) {
-                  bluefarmer.attr("x", function() {
-                    return +d3.select(this).attr("x") + dist;
-                  });
-                }
-              } else {
-                i--;
-                if (i !== -1) {
-                  bluefarmer.attr("x", function() {
-                    return +d3.select(this).attr("x") - dist;
-                  });
-                }
-              }
-
-              // jump to next row upon reaching right end
-              if (i === divLeft) {
-                i = divLeft-1;
-                j++;
-                bluefarmer.attr("y", function() {
-                  return +d3.select(this).attr("y") + dist;
-                });
-              }
-
-              // jump to next row upon reaching left end
-              if (i === -1) {
-                i = 0;
-                j++;
-                bluefarmer.attr("y", function() {
-                  return +d3.select(this).attr("y") + dist;
+            // check if row is even or odd
+            if (j % 2 === 0) {
+              i++;
+              if (i !== 6) {
+                redfarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") + dist;
                 });
               }
             } else {
-              bstop = true;
-              clearInterval(blueinterval);
+              i--;
+              if (i !== -1) {
+                redfarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") - dist;
+                });
+              }
             }
-          }, bluespeed);
 
-        var m = 5;
-        var n = 0;
-        var purplefarmer = d3.select("#purplefarmer");
-          purpleinterval = setInterval(function() {
-            if (divRight != 0 && +purplefarmer.attr("y") < +d3.select("#slider").attr("y1")-50) {
-              var col = d3.select("#col" + m);
-              col.select("#cell" + n).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-purple.svg");
+            // jump to next row upon reaching right end
+            if (i === 6) {
+                i = 5;
+                j++;
+                redfarmer.attr("y", function() {
+                  return +d3.select(this).attr("y") + dist;
+                });
+            }
 
+            // jump to next row upon reaching left end
+            if (i === -1) {
+              i = 0;
+              j++;
+              redfarmer.attr("y", function() {
+                return +d3.select(this).attr("y") + dist;
+              });
+            }
+          } else {
+            rstop = true;
+            clearInterval(redinterval);
+          }
+        }, redspeed);
+
+        m = 0;
+        var bluefarmer = d3.select("#bluefarmer");
+        var bluestart = +bluefarmer.attr("y");
+        var nstart = 0;
+        n = 0;
+        if (bluestart === 35) {
+          n = 1;
+          nstart = 1;
+        } else if (bluestart === 71) {
+          n = 2;
+        } else if (bluestart === 105) {
+          n = 3;
+          nstart = 1;
+        } else if (bluestart === 141) {
+          n = 4;
+        } else if (bluestart === 180) {
+          n = 5;
+          nstart = 1;
+        }
+        blueinterval = setInterval(function() {
+          if (+bluefarmer.attr("y") > +d3.select("#sliderOne").attr("y1")-50
+           && +bluefarmer.attr("y") < +d3.select("#sliderTwo").attr("y1")-50) {
+            var col = d3.select("#col" + m);
+            col.select("#cell" + n).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-blue.svg");
+
+            // starting on odd row
+            if (nstart === 1) {
               // check if row is even or odd
               if (n % 2 === 0) {
                 m--;
-                if (m !== divLeft-1) {
-                  purplefarmer.attr("x", function() {
+                if (m !== 6 && m !== -1) {
+                  bluefarmer.attr("x", function() {
                     return +d3.select(this).attr("x") - dist;
                   });
                 }
               } else {
                 m++;
-                if (m !== 6) {
-                  purplefarmer.attr("x", function() {
+                if (m !== -1 && m !== 6) {
+                  bluefarmer.attr("x", function() {
                     return +d3.select(this).attr("x") + dist;
                   });
                 }
               }
 
               // jump to next row upon reaching left end
-              if (m === divLeft-1) {
-                m = divLeft;
-                n++;
-                purplefarmer.attr("y", function() {
-                  return +d3.select(this).attr("y") + dist;
-                });
-              }
-
-              // jump to next row upon reaching right end
-              if (m === 6) {
-                m = 5;
-                n++;
-                purplefarmer.attr("y", function() {
-                  return +d3.select(this).attr("y") + dist;
-                });
-              }
-            } else {
-              pstop = true;
-              clearInterval(purpleinterval);
-            }
-          }, purplespeed);
-
-        k = 0;
-        l = 5;
-        var redfarmer = d3.select("#redfarmer");
-          redinterval = setInterval(function() {
-            if (+redfarmer.attr("y") > +d3.select("#slider").attr("y1")-50) {
-              var col = d3.select("#col" + k);
-              col.select("#cell" + l).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-red.svg");
-
-              // check if row is even or odd
-              if (l % 2 === 0) {
-                k--;
-                if (k !== 6 && k !== -1) {
-                  redfarmer.attr("x", function() {
-                    return +d3.select(this).attr("x") - dist;
-                  });
-                }
-              } else {
-                k++;
-                if (k !== -1 && k !== 6) {
-                  redfarmer.attr("x", function() {
-                    return +d3.select(this).attr("x") + dist;
-                  });
-                }
-              }
-
-              // jump to next row upon reaching left end
-              if (k === -1) {
-                k = 0;
-                l--;
-                redfarmer.attr("y", function() {
+              if (m === -1) {
+                m = 0;
+                n--;
+                bluefarmer.attr("y", function() {
                   return +d3.select(this).attr("y") - dist;
                 });
               }
 
               // jump to next row upon reaching right end
-              if (k === 6) {
-                  k = 5;
-                  l--;
-                  redfarmer.attr("y", function() {
+              if (m === 6) {
+                  m = 5;
+                  n--;
+                  bluefarmer.attr("y", function() {
                     return +d3.select(this).attr("y") - dist;
                   });
               }
+            // starting on even row
             } else {
-              rstop = true;
-              clearInterval(redinterval);
+              // check if row is even or odd
+              if (n % 2 === 0) {
+                m++;
+                if (m !== 6 && m !== -1) {
+                  bluefarmer.attr("x", function() {
+                    return +d3.select(this).attr("x") + dist;
+                  });
+                }
+              } else {
+                m--;
+                if (m !== -1 && m !== 6) {
+                  bluefarmer.attr("x", function() {
+                    return +d3.select(this).attr("x") - dist;
+                  });
+                }
+              }
+
+              // jump to next row upon reaching left end
+              if (m === -1) {
+                m = 0;
+                n--;
+                bluefarmer.attr("y", function() {
+                  return +d3.select(this).attr("y") - dist;
+                });
+              }
+
+              // jump to next row upon reaching right end
+              if (m === 6) {
+                  m = 5;
+                  n--;
+                  bluefarmer.attr("y", function() {
+                    return +d3.select(this).attr("y") - dist;
+                  });
+              }
             }
-          }, redspeed);
+          } else {
+            bstop = true;
+            clearInterval(blueinterval);
+          }
+        }, purplespeed);
+
+        k = 0;
+        l = 5;
+        var purplefarmer = d3.select("#purplefarmer");
+        purpleinterval = setInterval(function() {
+          if (+purplefarmer.attr("y") > +d3.select("#sliderTwo").attr("y1")-50) {
+            var col = d3.select("#col" + k);
+            col.select("#cell" + l).attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling-purple.svg");
+
+            // check if row is even or odd
+            if (l % 2 === 0) {
+              k--;
+              if (k !== 6 && k !== -1) {
+                purplefarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") - dist;
+                });
+              }
+            } else {
+              k++;
+              if (k !== -1 && k !== 6) {
+                purplefarmer.attr("x", function() {
+                  return +d3.select(this).attr("x") + dist;
+                });
+              }
+            }
+
+            // jump to next row upon reaching left end
+            if (k === -1) {
+              k = 0;
+              l--;
+              purplefarmer.attr("y", function() {
+                return +d3.select(this).attr("y") - dist;
+              });
+            }
+
+            // jump to next row upon reaching right end
+            if (k === 6) {
+                k = 5;
+                l--;
+                purplefarmer.attr("y", function() {
+                  return +d3.select(this).attr("y") - dist;
+                });
+            }
+          } else {
+            pstop = true;
+            clearInterval(purpleinterval);
+          }
+        }, purplespeed);
       });
 
       // reset simulation
@@ -605,39 +580,39 @@
         .attr("disabled", true)
         .on("click", function() {
           // stop timers and reset duration
-          btimer.stop();
-          ptimer.stop();
           rtimer.stop();
-          d3.select("#bcounter").text("Duration: " + 0 + " seconds");
-          d3.select("#pcounter").text("Duration: " + 0 + " seconds");
+          ptimer.stop();
           d3.select("#rcounter").text("Duration: " + 0 + " seconds");
+          d3.select("#pcounter").text("Duration: " + 0 + " seconds");
 
           // clear farmer runtime code
+          clearInterval(redinterval);
           clearInterval(blueinterval);
           clearInterval(purpleinterval);
-          clearInterval(redinterval);
 
           // enable start button
           d3.select("#start").attr("disabled", null);
 
           // enable dragging
-          d3.select("#slider").call(drag);
-          d3.select("#divider").call(divide);
+          d3.selectAll("line").call(drag);
 
           // reset tile counters
           i = 0;
           j = 0;
-          k = 0;
-          l = 0;
           m = 0;
           n = 0;
+          k = 0;
+          l = 0;
 
-          // update (reset) field portions
-          updateField();
+          // update cell colors
+          color();
 
-          d3.select("#bluefarmer").attr("x", 0).attr("y", 0);
-          d3.select("#purplefarmer").attr("x", 175).attr("y", 0);
-          d3.select("#redfarmer").attr("x", 0).attr("y", 175);
+          d3.select("#redfarmer").attr("x", 0).attr("y", 0);
+          d3.select("#bluefarmer").attr("x", 0).attr("y", function() {
+            var yblue = d3.select("#sliderTwo").attr("y1");
+            return yblue - 77;
+          });
+          d3.select("#purplefarmer").attr("x", 0).attr("y", 175);
           d3.select(this).attr("disabled", true);
       });
     </script>
