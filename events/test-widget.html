@@ -22,7 +22,7 @@
         .attr("height", 80);
 
       // draw red square
-      svg.append("rect")
+      var red = svg.append("rect")
         .attr("id", "red")
         .attr("width", RECT_WIDTH)
         .attr("height", RECT_WIDTH)
@@ -30,7 +30,7 @@
         .attr("fill", "red");
 
       // draw blue square
-      svg.append("rect")
+      var blue = svg.append("rect")
         .attr("id", "blue")
         .attr("width", RECT_WIDTH)
         .attr("height", RECT_WIDTH)
@@ -38,7 +38,7 @@
         .attr("fill", "blue");
 
       // draw green square
-      svg.append("rect")
+      var green = svg.append("rect")
         .attr("id", "green")
         .attr("width", RECT_WIDTH)
         .attr("height", RECT_WIDTH)
@@ -46,16 +46,26 @@
         .attr("fill", "green");
 
       // draw orange square
-      svg.append("rect")
+      var orange = svg.append("rect")
         .attr("id", "orange")
         .attr("width", RECT_WIDTH)
         .attr("height", RECT_WIDTH)
         .attr("x", 190)
         .attr("fill", "orange");
 
+      var shapes = [red, blue, green, orange];
+      var count = 0;
+
       // Handle 'click', 'mousedown', and 'mouseup' events
-      $("#red, #blue, #green, #orange").on("click mousedown mouseup", function(e) {
-        console.log(e);
+      // $("#red, #blue, #green, #orange").on("click mousedown mouseup", function(e) {
+        // console.log(e);
+      // });
+
+      // Handle 'click' event
+      $("#red, #blue, #green, #orange").on("click", function(e) {
+        // send data to parent (notebook)
+        count++;
+        parent.postMessage(count, "*");
       });
     </script>
   </body>
