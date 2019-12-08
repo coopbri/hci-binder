@@ -22,7 +22,7 @@
                       margin-top: 10px;
                       position: absolute;
                       display: inline-block; }
-      button        { margin: 0 5px 10px 5px;
+      button        { margin: 0 5px;
                       padding: 3px; }
       #start        { margin-top: 20px; }
       #redfarmer    { pointer-events: none; }
@@ -33,15 +33,8 @@
 
   <body>
     <script>
-      // timer and parallel farmer timing intervals
-      var timer = d3.timer(function() { timer.stop(); });
-      var blueinterval;
-      var purpleinterval;
-
-      // parallel farmer stop booleans
-      var bstop = false;
-      var pstop = false;
-
+      var rtimer = d3.timer(function() { rtimer.stop(); });
+      var ptimer = d3.timer(function() { ptimer.stop(); });
       var body = d3.select("body");
       var svg = body.append("svg")
         .attr("width", 230)
@@ -54,7 +47,7 @@
       patterns.append("image")
         .attr("xlink:href", "https://rawcdn.githack.com/coopbri/hci-binder/0a0f8e02e3a3e7429f881b69634200d671c0f560/notebooks/parallel-computation/supplementary/seedling.svg")
         .attr("x", 0).attr("y", 0)
-        .attr("width", 100).attr("height", 100);
+        .attr("width", 100).attr("height", 100)
 
       var gradient = defs.append("linearGradient")
         .attr("id", "gradient")
@@ -294,6 +287,10 @@
           d3.select("#redspeed").text("Speed: fast");
         });
 
+      // red counter value display
+      rstats.append("p").attr("id", "rcounter")
+        .text("Duration: " + 0 + " seconds");
+
       control.append("br");
 
       var pstats = control.append("div")
@@ -332,26 +329,44 @@
           d3.select("#purplespeed").text("Speed: fast");
         });
 
-      // total duration timer
-      control.append("p").attr("id", "counter")
+      // purple counter value display
+      pstats.append("p").attr("id", "pcounter")
         .text("Duration: " + 0 + " seconds")
-        .style("font-size", "20px");
+        .style("background", "-webkit-linear-gradient(45deg, #cc33cc, #3399cc)")
+        .style("-webkit-background-clip", "text")
+        .style("-webkit-text-fill-color", "transparent");
+
+      body.append("br");
+      body.append("br");
+      body.append("br");
 
       // start automatic planting
       var dist = 36;
       var i = 0;
       var j = 0;
       control.append("button").text("Start").attr("id", "start").on("click", function() {
-        // start timer
+        // start timers
         var rstop = false;
-        timer.restart(function(dur) {
-          d3.select("#counter").text(function() {
+        var bstop = false;
+        var pstop = false;
+        rtimer.restart(function(dur) {
+          d3.select("#rcounter").text(function() {
             var time = Math.floor(dur / 1000);
             if (time === 1) { return "Duration: " + time + " second" }
             else { return "Duration: " + time + " seconds" }
           });
-          if (rstop && bstop && pstop) {
-            timer.stop();
+          if (rstop) {
+            rtimer.stop();
+          }
+        });
+        ptimer.restart(function(dur) {
+          d3.select("#pcounter").text(function() {
+            var time = Math.floor(dur / 1000);
+            if (time === 1) { return "Duration: " + time + " second" }
+            else { return "Duration: " + time + " seconds" }
+          });
+          if (pstop && bstop) {
+            ptimer.stop();
           }
         });
 
@@ -404,15 +419,9 @@
           } else {
             rstop = true;
             clearInterval(redinterval);
-
-            // start parallel farmers
-            parallel();
           }
         }, redspeed);
-      });
 
-      // start parallel farmer motion
-      function parallel() {
         m = 0;
         var bluefarmer = d3.select("#bluefarmer");
         var bluestart = +bluefarmer.attr("y");
@@ -564,15 +573,17 @@
             clearInterval(purpleinterval);
           }
         }, purplespeed);
-      }
+      });
 
       // reset simulation
       control.append("button").text("Reset").attr("id", "reset")
         .attr("disabled", true)
         .on("click", function() {
-          // stop timer and reset duration
-          timer.stop();
-          d3.select("#counter").text("Duration: " + 0 + " seconds");
+          // stop timers and reset duration
+          rtimer.stop();
+          ptimer.stop();
+          d3.select("#rcounter").text("Duration: " + 0 + " seconds");
+          d3.select("#pcounter").text("Duration: " + 0 + " seconds");
 
           // clear farmer runtime code
           clearInterval(redinterval);
