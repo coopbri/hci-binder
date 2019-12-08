@@ -295,8 +295,8 @@
         });
 
       // counter value display
-      rstats.append("p").attr("id", "counter")
-        .text("Duration: " + 0 + " seconds");
+      // rstats.append("p").attr("id", "counter")
+      //   .text("Duration: " + 0 + " seconds");
 
       control.append("br");
 
@@ -339,6 +339,11 @@
       body.append("br");
       body.append("br");
       body.append("br");
+
+      // total duration timer
+      control.append("p").attr("id", "counter")
+        .text("Duration: " + 0 + " seconds")
+        .style("font-size", "20px");
 
       // start automatic planting
       var dist = 36;
