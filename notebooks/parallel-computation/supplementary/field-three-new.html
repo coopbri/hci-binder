@@ -22,7 +22,7 @@
                       margin-top: 10px;
                       position: absolute;
                       display: inline-block; }
-      button        { margin: 0 5px;
+      button        { margin: 0 5px 10px 5px;
                       padding: 3px; }
       #start        { margin-top: 20px; }
       #redfarmer    { pointer-events: none; }
@@ -294,10 +294,6 @@
           d3.select("#redspeed").text("Speed: fast");
         });
 
-      // counter value display
-      // rstats.append("p").attr("id", "counter")
-      //   .text("Duration: " + 0 + " seconds");
-
       control.append("br");
 
       var pstats = control.append("div")
@@ -335,10 +331,6 @@
           purplespeed = 100;
           d3.select("#purplespeed").text("Speed: fast");
         });
-
-      body.append("br");
-      body.append("br");
-      body.append("br");
 
       // total duration timer
       control.append("p").attr("id", "counter")
