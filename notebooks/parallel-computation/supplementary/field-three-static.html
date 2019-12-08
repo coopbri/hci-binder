@@ -267,40 +267,13 @@
 
       var control = body.append("div").attr("id", "control");
 
-      var rstats = control.append("div")
-        .style("border", "solid 3px #c1272d")
-        .style("color", "#c1272d");
-
-      rstats.append("p").text("Sam")
-        .style("text-decoration", "underline")
-        .style("font-weight", 600);
-
       // red farmer speed control buttons
-      rstats.append("p").attr("id", "redspeed").text("Speed: fast");
       var redspeed = 100;
+      var purplespeed = 100;
 
       control.append("br");
-
-      var pstats = control.append("div")
-        .style("border", "solid 3px")
-        .style("color", "#cc33cc")
-        .style("border-image-source", "linear-gradient(90deg, #cc33cc, #3399cc)")
-        .style("border-image-slice", 1);
-
-      pstats.append("p").text("Parker and Patricia")
-        .style("text-decoration", "underline")
-        .style("text-decoration-color", "#3399cc")
-        .style("font-weight", 600)
-        .style("background", "-webkit-linear-gradient(45deg, #cc33cc, #3399cc)")
-        .style("-webkit-background-clip", "text")
-        .style("-webkit-text-fill-color", "transparent");
-
-      // blue and purple farmer speed control buttons
-      pstats.append("p").attr("id", "purplespeed").text("Speed: fast")
-        .style("background", "-webkit-linear-gradient(45deg, #cc33cc, #3399cc)")
-        .style("-webkit-background-clip", "text")
-        .style("-webkit-text-fill-color", "transparent");
-      var purplespeed = 100;
+      control.append("br");
+      control.append("br");
 
       // total duration timer
       control.append("p").attr("id", "counter")
