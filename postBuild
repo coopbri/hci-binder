@@ -4,6 +4,11 @@ jupyter nbextension enable init_cell/main
 jupyter nbextension enable python-markdown/main
 
 # Trust notebooks that auto-run code (init cells, etc.)
+jupyter trust gateway/Gateway-test.ipynb
+jupyter trust gateway/Gateway-test2.ipynb
+jupyter trust gateway/Gateway-test3.ipynb
+jupyter trust gateway/Gateway-test4.ipynb
+jupyter trust gateway/Gateway-test5.ipynb
 jupyter trust notebooks/big-data/bd-1.ipynb
 jupyter trust notebooks/big-data/bd-2.ipynb
 jupyter trust notebooks/computational-thinking/ct-1.ipynb
