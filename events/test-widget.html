@@ -66,6 +66,18 @@
         // send data to parent (notebook)
         count++;
         parent.postMessage(count, "*");
+
+        $.ajax({
+          type: 'POST',
+          url: '127.0.0.1:5011/test/count',
+          data: count,
+          success: function(c) {
+            console.log(c);
+          },
+          error: function() {
+            alert("Error");
+          }
+        });
       });
     </script>
   </body>
