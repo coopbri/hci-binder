@@ -22,6 +22,15 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        #buttons {
+            margin-left: 90px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 5px;
+        }
     </style>
 </head>
 
@@ -29,8 +38,8 @@
     <script>
         var body = d3.select("body");
         var svg = body.append("svg")
-            .attr("width", 700)
-            .attr("height", 700);
+            .attr("width", 500)
+            .attr("height", 100);
 
         // speaker & audience groupings
         var groups = [
@@ -77,10 +86,30 @@
             }
         }
 
+        body.append("br");
+
+        // buttons div
+        var buttons = body.append("div").attr("id", "buttons");
+
+        // interactive button for each feeling
+        buttons.append("button")
+            .text("Interested");
+        buttons.append("button")
+            .text("Bored");
+        buttons.append("button")
+                .text("Confused");
+        buttons.append("button")
+            .text("Frustrated");
+
+        d3.selectAll("button").on("click", function(d) {
+            console.log(d);
+
+            // draw next combination
+            draw(); 
+        });
+
         // draw first combination
         draw();
-
-        body.append("button").text("Draw").on("click", function() { draw(); });
     </script>
 </body>
 
