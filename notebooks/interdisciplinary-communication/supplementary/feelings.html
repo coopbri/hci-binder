@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>D3 Feelings</title>
+
+    <!-- load D3 -->
+    <script
+        src="https://rawcdn.githack.com/coopbri/hci-binder/362464110b5273593e9fdd1dc1c0ae3e4f1da224/lib/d3.min.js"></script>
+
+    <!-- global styles -->
+    <style>
+        body {
+            font-family: Helvetica;
+        }
+
+        svg {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var body = d3.select("body");
+        var svg = body.append("svg")
+            .attr("width", 700)
+            .attr("height", 700);
+
+        // speaker & audience groupings
+        var groups = [
+            ["Expert with Jargon", "Advanced Classroom"],
+            ["Expert with Jargon", "Expert Symposium"],
+            ["Expert with Jargon", "Introductory Classroom"],
+            ["Expert with Jargon", "General Interest Crowd"],
+            ["Expert without Jargon", "Introductory Classroom"],
+            ["Expert without Jargon", "Advanced Classroom"],
+            ["Expert without Jargon", "Expert Symposium"],
+            ["Expert without Jargon", "General Interest Crowd"],
+            ["Novice with Jargon", "Introductory Classroom"],
+            ["Novice with Jargon", "Advanced Classroom"],
+            ["Novice with Jargon", "Expert Symposium"],
+            ["Novice with Jargon", "General Interest Crowd"],
+            ["Novice without Jargon", "Introductory Classroom"],
+            ["Novice without Jargon", "Advanced Classroom"],
+            ["Novice without Jargon", "Expert Symposium"],
+            ["Novice without Jargon", "General Interest Crowd"]
+        ]
+
+        // randomly selected speaker-audience combination
+        var select = groups[Math.floor(Math.random() * groups.length)];
+
+        // speaker from selection
+        svg.append("text")
+            .text(select[0])
+            .attr("x", 50)
+            .attr("y", 50);
+
+        // audience from selection
+        svg.append("text")
+            .text(select[1])
+            .attr("x", 300)
+            .attr("y", 50);
+    </script>
+</body>
+
+</html>
