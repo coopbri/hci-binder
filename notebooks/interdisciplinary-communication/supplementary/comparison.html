@@ -73,6 +73,10 @@
       var drag = d3.drag()
         .on("start", function () {
           var cur = d3.select(this);
+          
+          // bring active element to top
+          this.parentNode.appendChild(this);
+
           dy = cur.attr("y") - d3.event.y;
         })
         .on("drag", function() {
