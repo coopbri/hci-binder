@@ -63,8 +63,7 @@
         .attr("dy", "22px");
 
       // response message
-      var msg = body.append("p").text("This is a work in progress! There are still a handful of bugs.")
-        .style("color", "red");
+      var msg = body.append("p").text("Drag the black box to one of the four boxes below it.");
 
       var drag = d3.drag()
         .on("start", function () {
@@ -161,14 +160,14 @@
           .attr("x", 5)
           .attr("y", 420)
           .attr("fill", "none")
-          .attr("stroke", "yellow")
+          .attr("stroke", "purple")
           .attr("stroke-width", "4px");
         // bin title
         svg.append("text")
           .text("Casual Conversation")
           .attr("x", 50)
           .attr("y", 540)
-          .attr("fill", "yellow")
+          .attr("fill", "purple")
           .attr("font-size", 26);
 
         // bottom right bin: Experts in a Different Field
