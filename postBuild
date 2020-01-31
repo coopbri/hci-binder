@@ -19,6 +19,7 @@ jupyter trust notebooks/geospatial-data/gd-1.ipynb
 jupyter trust notebooks/geospatial-data/gd-2.ipynb
 jupyter trust notebooks/interdisciplinary-communication/ic-1.ipynb
 jupyter trust notebooks/interdisciplinary-communication/ic-2.ipynb
+jupyter trust notebooks/interdisciplinary-communication/ic-3.ipynb
 jupyter trust notebooks/parallel-computation/pc-1.ipynb
 jupyter trust notebooks/parallel-computation/pc-2.ipynb
 jupyter trust notebooks/spatial-modeling-analytics/sma-1.ipynb
