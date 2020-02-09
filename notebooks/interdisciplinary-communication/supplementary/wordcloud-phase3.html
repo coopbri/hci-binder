@@ -33,7 +33,7 @@
     <svg width="960" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="glow" x="-10%" y="-10%">
-          <feGaussianBlur stdDeviation="10 10" result="glow"/>
+          <feGaussianBlur stdDeviation="0.35 0.35" result="glow"/>
           <feMerge>
             <feMergeNode in="glow"/>
             <feMergeNode in="glow"/>
@@ -72,19 +72,32 @@
         <text class="new" text-anchor="middle" transform="translate(13,-43)rotate(7.499999999999999)" style="font-size: 20px; font-family: Impact; fill: rgb(231, 203, 148);">interpolated</text>
         <text class="new" text-anchor="middle" transform="translate(-122,101)rotate(7.499999999999999)" style="font-size: 20px; font-family: Impact; fill: rgb(132, 60, 57);">artificial intelligence</text>
         <text class="new" text-anchor="middle" transform="translate(118,-33)rotate(-14.999999999999998)"  style="font-size: 20px; font-family: Impact; fill: rgb(173, 73, 74);">bias</text>
+        <text text-anchor="middle" transform="translate(155,30)rotate(0)" style="font-size: 20px; font-family: Impact; fill: rgb(156, 158, 222);">reproducibility</text>
+        <text text-anchor="middle" transform="translate(225,117)rotate(-14.999999999999998)" style="font-size: 20px; font-family: Impact; fill: rgb(99, 121, 57);">throughput</text>
+        <text text-anchor="middle" transform="translate(-35,17)rotate(-7.499999999999998)" style="font-size: 20px; font-family: Impact; fill: rgb(140, 162, 82);">big iron</text>
+        <text text-anchor="middle" transform="translate(-16,102)rotate(14.999999999999998)" style="font-size: 20px; font-family: Impact; fill: rgb(181, 207, 107);">positionality</text>
+        <text text-anchor="middle" transform="translate(-146,-35)rotate(7.499999999999999)" style="font-size: 20px; font-family: Impact; fill: rgb(206, 219, 156);">transdisciplinary</text>
+        <text text-anchor="middle" transform="translate(-150,69)rotate(14.999999999999996)" style="font-size: 20px; font-family: Impact; fill: rgb(140, 109, 49);">space time cube</text>
+        <text text-anchor="middle" transform="translate(-54,-76)rotate(-14.999999999999998)" style="font-size: 20px; font-family: Impact; fill: rgb(189, 158, 57);">spatially heterogeneous</text>
+        <text text-anchor="middle" transform="translate(42,-60)rotate(14.999999999999998)" style="font-size: 20px; font-family: Impact; fill: rgb(231, 186, 82);">markov chain</text>
+        <text text-anchor="middle" transform="translate(13,-43)rotate(7.499999999999999)" style="font-size: 20px; font-family: Impact; fill: rgb(231, 203, 148);">interpolated</text>
+        <text text-anchor="middle" transform="translate(-122,101)rotate(7.499999999999999)" style="font-size: 20px; font-family: Impact; fill: rgb(132, 60, 57);">artificial intelligence</text>
+        <text text-anchor="middle" transform="translate(118,-33)rotate(-14.999999999999998)"  style="font-size: 20px; font-family: Impact; fill: rgb(173, 73, 74);">bias</text>
       </g>
     </svg>
 
     <script>
       var body = d3.select("body");
 
-      // draw attention to new jargon
+      // draw attention to new jargon (fade glow in and out)
       d3.selectAll(".new")
       .style("filter", "url(#glow)")
         .transition().on("start", function cycle() {
             d3.active(this)
               .transition().duration(2000)
+                .style("opacity", 0)
               .transition().duration(1000)
+                .style("opacity", 1)
                 .on("start", cycle);
         });
 
