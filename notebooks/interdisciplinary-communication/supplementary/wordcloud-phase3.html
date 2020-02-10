@@ -93,12 +93,12 @@
       d3.selectAll(".new")
         .style("filter", "url(#glow)")
           .transition().on("start", function cycle() {
-              d3.active(this)
-                .transition().duration(2000)
-                  .style("opacity", 0.1)
-                .transition().duration(1000)
-                  .style("opacity", 0.7)
-                  .on("start", cycle);
+            d3.active(this)
+              .transition().duration(2000)
+                .style("opacity", 0.1)
+              .transition().duration(1000)
+                .style("opacity", 0.7)
+              .on("start", cycle);
           });
 
       // display copyright notice
