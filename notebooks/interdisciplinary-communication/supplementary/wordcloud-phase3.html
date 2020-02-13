@@ -89,6 +89,10 @@
     <script>
       var body = d3.select("body");
 
+      function define(word) {
+        console.log(word);
+      }
+
       // draw attention to new jargon (fade glow in and out)
       d3.selectAll(".new")
         .style("filter", "url(#glow)")
@@ -96,10 +100,26 @@
             d3.active(this)
               .transition().duration(2000)
                 .style("opacity", 0.1)
+                .style("fill", "gold")
+                .style("stroke", "gold")
+                .style("stroke-opacity", 0.4)
               .transition().duration(1000)
                 .style("opacity", 0.7)
               .on("start", cycle);
           });
+
+      d3.selectAll("text").on("click", function() {
+        var cur = this.innerHTML;
+
+        // clear any previous selection
+        d3.selectAll("text").style("stroke", null).style("opacity", 1);
+
+        // highliht selection
+        d3.select(this).style("stroke", "red").style("opacity", 0.4);
+
+        // render definition under cloud
+        define(cur);
+      });
 
       // display copyright notice
       body.append("br");
