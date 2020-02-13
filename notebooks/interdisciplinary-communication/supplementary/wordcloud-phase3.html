@@ -20,6 +20,7 @@
       p, a {
         font-family: helvetica, sans-serif;
         padding: 0 2px;
+        display: inline;
       }
       #copyright p,a {
         display: inline;
@@ -89,8 +90,43 @@
     <script>
       var body = d3.select("body");
 
-      function define(word) {
-        console.log(word);
+      var defs = {
+        "spatial": "of, relating to, or involved in the perception of relationships in space",
+        "https": "hyper-text transfer protocol",
+        "geospatial": "relating to or denoting data that is associated with a particular location",
+        "parallel computing": "a type of computation in which many calculations or execution of processes are carried out simultaneously",
+        "gis": "geographic information science",
+        "geography": "a field of science devoted to the study of the lands, features, inhabitants, and phenomena of the Earth",
+        "cyberinfrastructure": "the network of computer systems used to share discoveries and research across the internet",
+        "cybergis": "a multidisciplinary field with a focus on computational and data-intensive geospatial problem-solving",
+        "interdisciplinary": "relating to more than one branch of knowledge",
+        "curriculum": "a set of courses constituting an area of specialization",
+        "communication": "a process by which information is exchanged between individuals through a common system of symbols, signs, or behavior",
+        "programming": "the process of developing and implementing various sets of instructions to enable a computer to do a certain task",
+        "abstraction": "the process of removing physical, spatial, or temporal details or attributes in the study of objects or systems in order to focus attention on details of higher importance",
+        "cyberliteracy": "the ability to understand and use established and emerging technologies to transform all forms and magnitudes of geospatial data into information for interdisciplinary problem solving",
+        "cognition": "the mental action or process of acquiring knowledge and understanding through thought, experience, and the senses",
+        "spatiotemporal": "belonging to both space and time, or time-space",
+        "interoperability": "the ability of computer systems or software to exchange and make use of information",
+        "geocomputing": "the process of applying computing technology to geographical problems",
+        "geovisualization": "the process of interactively visualizing geographic information in any of the steps in spatial analyses",
+        "reproducibility": "the extent to which consistent results are obtained when an experiment is repeated",
+        "throughput": "rate of successful message delivery over a communication channel",
+        "big iron": "slang for supercomputing infrastructure",
+        "positionality": "the social and political context which creates and influences your understanding of the world",
+        "transdisciplinary": "a research strategy that crosses many disciplinary boundaries",
+        "space time cube": "a data structure that represents spatial and temporal relationships",
+        "spatially heterogeneous": "the uneven distribution of components of the environment",
+        "markov chain": "a representation of process wherein systems change between states based on the current state, and the probability of changing to other states",
+        "interpolated": "a method of constructing new data points based on a known range of data points",
+        "artificial intelligence": "the theory and development of computer systems able to perform tasks that require human cognition",
+        "bias": "prejudice in favor or against something"
+      };
+
+      // update definition on screen
+      function define(w) {
+        word.text(w + ":");
+        definition.text(defs[w]);
       }
 
       // draw attention to new jargon (fade glow in and out)
@@ -129,6 +165,17 @@
         .text("https://github.com/jasondavies/d3-cloud");
       copyright.append("br");
       copyright.append("p").text("Copyright (c) 2013, Jason Davies. All rights reserved.");
+
+      body.append("br");
+
+      var word = body.append("p")
+        .style("color", "green")
+        .style("font-weight", "bold")
+        .text("");
+
+      var definition = body.append("p")
+        .style("color", "green")
+        .text("");
     </script>
   </body>
 </html>
