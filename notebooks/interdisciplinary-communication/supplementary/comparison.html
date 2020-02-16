@@ -20,12 +20,21 @@
            }
       p    {
              font-family: helvetica, sans-serif;
-             font-size: 12px;
+             font-size: 12.5px;
            }
       div  {
              padding-top: 3px;
              width: 950px;
            }
+      button {
+        padding: 8px;
+        margin-left: 40px;
+      }
+      #message {
+        padding-left: 20px;
+        font-size: 14px;
+        color: green;
+      }
     </style>
   </head>
 
@@ -73,7 +82,7 @@
       var drag = d3.drag()
         .on("start", function () {
           var cur = d3.select(this);
-          
+
           // bring active element to top
           this.parentNode.appendChild(this);
 
@@ -129,20 +138,35 @@
         descriptors = descriptors.filter(function(item) { return item !== r; });
         return r;
       }
+
+      d3.select("button").on("click", function() {
+        console.log("test");
+      });
     </script>
     <div>
-      <p style="padding-top:4px;">
+      <p style="padding-top: 0;">
         Geographic information science (GIS) is the scientific discipline that studies data structures and computational techniques to capture, represent, process, and analyze geographic information.
       </p>
-      <p style="padding-top:14px;">
+      <p style="padding-top: 13px;">
         Geographic information science (GIS) intersects with computer science, analytical cartography, remote sensing, and imagery science. Some of the most important work is in developing and documenting useful datasets for science, and interoperating between these datasets and various approaches. Paramount here are effective and open analysis, modeling, and replicability and reproducibility of approaches.
       </p>
-      <p style="padding-top:14px;">
+      <p style="padding-top: 10px;">
         Geographic information science (GIS) consists of many different forms of knowledge and understanding. It considers fundamental questions raised by the use of systems and technologies, and is the science needed to keep technology progressing.
       </p>
-      <p style="padding-top:26px;">
+      <p style="padding-top: 26px;">
         Geographic information science includes many fields of knowledge that help to understand spatial information.
       </p>
     </div>
+    <script>
+      body.append("br");
+      body.append("br");
+      
+      // display message only once
+      body.append("button").text("Submit").on("click", function() {
+        if (!document.getElementById("message")) {
+          body.append("p").attr("id", "message").text("Submitted!").style("display", "inline");
+        }
+      });
+    </script>
   </body>
 </html>

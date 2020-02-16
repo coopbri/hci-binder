@@ -32,7 +32,8 @@
       </g>
     </svg>
 
-    <p style="color: white">
+    <p style="opacity: 0">
+
       <b>Jargon (noun):</b> language and terminology related to a specialized discipline or a group.
     </p>
 
@@ -42,7 +43,7 @@
       d3.select("text").on("click", function() {
         d3.select(this).style("stroke", "red").style("opacity", 0.4);
 
-        d3.select("p").transition().style("color", "black").duration(2000);
+        d3.select("p").transition().style("opacity", "1").duration(2000);
       });
     </script>
   </body>
