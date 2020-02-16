@@ -15,18 +15,15 @@
         body {
             font-family: Helvetica;
         }
-
         svg {
             -moz-user-select: none;
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
-
         #buttons {
             margin-left: 90px;
         }
-
         button {
             margin: 5px;
             padding: 5px;
@@ -77,13 +74,13 @@
             // draw while combinations are still left in array
             if (groups && groups.length) {
                 select = groups[Math.floor(Math.random() * groups.length)];
-                speaker.text(select[0]);
-                audience.text(select[1]);
+                speaker.text(select[0]).style("opacity", 0)
+                  .transition().style("opacity", "1").duration(300);
+                audience.text(select[1]).style("opacity", 0)
+                  .transition().style("opacity", "1").duration(300);
 
                 // remove selected grouping from array
                 groups = groups.filter(function (item) { return item !== select; });
-            } else {
-                console.log("All done!");
             }
         }
 
@@ -95,121 +92,121 @@
             if (speaker === "Expert with Jargon") {
                 if (audience === "Introductory Classroom") {
                     if (feeling === "Bored" || feeling === "Confused" || feeling == "Frustrated") {
-                        message.text("Yes, this feeling is likely given the disconnect between speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the disconnect between speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might not be the most likely given the context.");
+                        message.style("color", "red").text("That feeling might not be the most likely given the context.");
                     }
                 } else if (audience === "Advanced Classroom") {
                     if (feeling === "Interested") {
-                        message.text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might not be the most likely given the context.");
+                        message.style("color", "red").text("That feeling might not be the most likely given the context.");
                     }
                 } else if (audience === "Expert Symposium") {
                     if (feeling === "Interested") {
-                        message.text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might not be the most likely given the context.");
+                        message.style("color", "red").text("That feeling might not be the most likely given the context.");
                     }
                 } else if (audience === "General Interest Crowd") {
                     if (feeling === "Bored" || feeling === "Confused" || feeling == "Frustrated") {
-                        message.text("Yes, this feeling is likely given the disconnect between speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the disconnect between speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might not be the most likely given the context.");
+                        message.style("color", "red").text("That feeling might not be the most likely given the context.");
                     }
                 }
             } else if (speaker === "Expert without Jargon") {
                 if (audience === "Introductory Classroom") {
                     if (feeling === "Interested") {
-                        message.text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might not be the most likely given the context.");
+                        message.style("color", "red").text("That feeling might not be the most likely given the context.");
                     }
                 } else if (audience === "Advanced Classroom") {
                     if (feeling === "Bored") {
-                        message.text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might not be the most likely given the context.");
+                        message.style("color", "red").text("That feeling might not be the most likely given the context.");
                     }
                 } else if (audience === "Expert Symposium") {
                     if (feeling === "Bored") {
-                        message.text("Yes, this feeling is likely given the disconnect between speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the disconnect between speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might not be the most likely given the context.");
+                        message.style("color", "red").text("That feeling might not be the most likely given the context.");
                     }
                 } else if (audience === "General Interest Crowd") {
                     if (feeling === "Interested") {
-                        message.text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might not be the most likely given the context.");
+                        message.style("color", "red").text("That feeling might not be the most likely given the context.");
                     }
                 }
             } else if (speaker === "Novice with Jargon") {
                 if (audience === "Introductory Classroom") {
                     if (feeling === "Confused" || feeling === "Frustrated") {
-                        message.text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
+                        message.style("color", "green").text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
                         draw();
                     } else {
-                        message.text("That feeling might be possible, but not the most likely, given the context.");
+                        message.style("color", "red").text("That feeling might be possible, but not the most likely, given the context.");
                     }
                 } else if (audience === "Advanced Classroom") {
                     if (feeling === "Confused" || feeling === "Frustrated") {
-                        message.text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
+                        message.style("color", "green").text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
                         draw();
                     } else {
-                        message.text("That feeling might be possible, but not the most likely, given the context.");
+                        message.style("color", "red").text("That feeling might be possible, but not the most likely, given the context.");
                     }
                 } else if (audience === "Expert Symposium") {
                     if (feeling === "Confused" || feeling === "Frustrated") {
-                        message.text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
+                        message.style("color", "green").text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
                         draw();
                     } else {
-                        message.text("That feeling might be possible, but not the most likely, given the context.");
+                        message.style("color", "red").text("That feeling might be possible, but not the most likely, given the context.");
                     }
                 } else if (audience === "General Interest Crowd") {
                     if (feeling === "Confused" || feeling === "Frustrated") {
-                        message.text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
+                        message.style("color", "green").text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
                         draw();
                     } else {
-                        message.text("That feeling might be possible, but not the most likely, given the context.");
+                        message.style("color", "red").text("That feeling might be possible, but not the most likely, given the context.");
                     }
                 }
             } else if (speaker === "Novice without Jargon") {
                 if (audience === "Introductory Classroom") {
                     if (feeling === "Interested") {
-                        message.text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might be possible, but not the most likely, given the context.");
+                        message.style("color", "red").text("That feeling might be possible, but not the most likely, given the context.");
                     }
                 } else if (audience === "Advanced Classroom") {
                     if (feeling === "Bored" || feeling === "Confused" || feeling == "Frustrated") {
-                        message.text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
+                        message.style("color", "green").text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
                         draw();
                     } else {
-                        message.text("That feeling might be possible, but not the most likely, given the context.");
+                        message.style("color", "red").text("That feeling might be possible, but not the most likely, given the context.");
                     }
                 } else if (audience === "Expert Symposium") {
                     if (feeling === "Bored" || feeling === "Confused" || feeling == "Frustrated") {
-                        message.text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
+                        message.style("color", "green").text("Yes, this feeling is likely give the disconnect between speaker, audience, and content familiarity.");
                         draw();
                     } else {
-                        message.text("That feeling might be possible, but not the most likely, given the context.");
+                        message.style("color", "red").text("That feeling might be possible, but not the most likely, given the context.");
                     }
                 } else if (audience === "General Interest Crowd") {
                     if (feeling === "Interested") {
-                        message.text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
+                        message.style("color", "green").text("Yes, this feeling is likely given the similar perspective of speaker and audience.");
                         draw();
                     } else {
-                        message.text("That feeling might be possible, but not the most likely, given the context.");
+                        message.style("color", "red").text("That feeling might be possible, but not the most likely, given the context.");
                     }
                 }
             }
@@ -231,7 +228,7 @@
             .text("Frustrated");
 
         var message = body.append("p");
-            
+
 
         d3.selectAll("button").on("click", function() {
             var feeling = this.innerHTML;
