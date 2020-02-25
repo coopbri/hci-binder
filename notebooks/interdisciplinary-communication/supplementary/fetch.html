@@ -63,11 +63,27 @@
 
             // next button
             svg.append("rect")
-                .attr("fill", "orange")
-                .attr("width", 80)
-                .attr("height", 40)
+                .attr("fill", "skyblue")
+                .attr("id", "nextbg")
+                .style("stroke", "black")
+                .style("stroke-width", "1.5px")
+                .attr("rx", 8)
+                .attr("ry", 8)
+                .attr("width", 60)
+                .attr("height", 25)
+                .attr("x", 520)
+                .attr("y", 385)
                 .on("click", function() {
                     if (!p2) {
+                        phaseTwo();
+                }
+            });
+            svg.append("text").text("Next")
+                .style("font-size", 16)
+                .attr("id", "next")
+                .attr("x", 533)
+                .attr("y", 403)
+                .on("click", function () {                                         if (!p2) {
                         phaseTwo();
                 }
             });
@@ -77,6 +93,10 @@
         function phaseTwo() {
             // set phase two to activated
             p2 = true;
+
+            // gray out next button
+            d3.select("#nextbg").attr("fill", "gray").attr("opacity", 0);
+            d3.select("#next").attr("fill", "lightgray").attr("opacity", 0);
 
             // draw stick figure
             svg.append("rect")
@@ -91,13 +111,13 @@
             svg.append("text")
                 .append("tspan").text("Uh, stop trying to make fetch happen")
                 .attr("x", 300)
-                .attr("y", 205)
+                .attr("y", 205);
         }
             
         // activate phase one on start
         phaseOne();
 
-        body.append("p").text("Rectangles are placeholders for stick figures.")
+        body.append("p").text("Rectangles are placeholders for stick figures.");
     </script>
 </body>
 
